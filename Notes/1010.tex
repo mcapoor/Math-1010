@@ -1,0 +1,1076 @@
+\documentclass[12pt]{report} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\renewcommand{\hat}[1]{\widehat{#1}}
+\renewcommand{\bar}[1]{\overline{#1}}
+
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\mfX}{\mathfrak{X}}
+
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\norm}[1]{\left\vert \left\vert #1 \right\vert \right\vert}
+\newcommand{\st}{\text{ s.t. }} 
+
+\newcommand{\ep}{\varepsilon}
+\DeclareMathOperator{\gcf}{GCF}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010: One-Variable Analysis}
+\author{Milan Capoor}
+\date{Spring 2024}
+
+\renewcommand*{\thesection}{Lecture \arabic{section} - \hspace*{-1em}}
+\renewcommand*{\thesubsection}{\arabic{section}}
+
+\begin{document}
+\maketitle
+\chapter{The Real Numbers}
+\section{Jan 24:} 
+    \subsection*{Preliminaries}
+        \begin{enumerate}
+            \item Sets
+            
+            \textbf{Definition:} A \emph{set} is a collection of objects.
+
+            \textbf{De Morgan's Laws:}
+            \begin{align*}
+                (A \cap B)^c  = A^c \cup B^c\\
+                (A \cup B)^c = A^c \cap B^c
+            \end{align*}
+
+            \emph{Proof:} HW
+
+            \item Functions
+            
+            \textbf{Definition:} Given two sets $A, B$, a \emph{function} $f: A \to B$ is a rule that assigns to each $a \in A$ a unique element $f(a) \in B$.
+
+            The \emph{domain} of $f$ is $A$. The \emph{range} of $f$ is a subset of $B$.
+
+            Examples:
+            \begin{enumerate}
+                \item Dirichlet Function:
+                \[g(x) = \begin{cases}
+                    1 \quad x \in \Q\\
+                    0 \quad x \notin \Q
+                \end{cases}\]
+                (Its domain is $\R$ and its range is $\{0, 1\}$)
+
+                \item Absolute value function:
+                \[\abs{x} = \begin{cases}
+                    x \quad &x \geq 0\\
+                    -x \quad &x < 0
+                \end{cases}\]
+
+                Properties:
+                \begin{align*}
+                    \abs{ab} &= \abs{a} \cdot \abs{b}\\ 
+                    \abs{a + b} &\leq \abs{a} + \abs{b} \qquad (\text{Triangle Inequality})
+                \end{align*}
+            \end{enumerate}
+
+            \item Proofs 
+            
+            Types of Proofs:
+            \begin{itemize}
+                \item \emph{Direct Proof} - Start with a valid statement (usually the hypothesis) and proceed by logical steps 
+                
+                \item \emph{Indirect Proof (Proof by Contradiction)} - Begin by negating the conclusion and proceed by logical steps to a contradiction.
+            \end{itemize}
+            
+            \begin{tbox}{\textbf{Theorem:} Let $a, b \in \R$. Then $a = b \iff \forall \varepsilon > 0, \abs{a - b} < \varepsilon$}
+                \emph{Proof:} We have two statements:
+                \begin{itemize}
+                    \item If $a = b \implies \forall \varepsilon > 0, \abs{a - b} < \varepsilon$
+                    \item If $\forall \varepsilon > 0, \abs{a - b} < \varepsilon \implies a = b$
+                \end{itemize}
+
+                \emph{Proof of first statement:} Suppose $a = b$. Then $\abs{a - b} = 0$. Thus, $\forall \varepsilon > 0,\; \abs{a - b} < \varepsilon$.
+
+                \emph{Proof of second statement:} Assume $a \neq b$. Then $\exists\, \varepsilon_0 > 0$ s.t. $\abs{a - b} = \varepsilon_0$ But this is contradiction by hypothesis. $\qed$
+            \end{tbox}
+
+            \emph{Proof by induction:}
+
+            \begin{tbox}{Example: Let $x_1 = 2$ and $\forall n \in \N$, define $x_{n+1} = \frac{x_n + 5}{3}$, $n \geq 1$. Prove that $x_n$ is increasing.}
+                \emph{Proof:} 
+                \begin{enumerate}
+                    \item Base Case:
+                    \[x_1 = 2 < x_2 = \frac{7}{3} \quad \checkmark\]
+                    \item Inductive Step: Assume $x_n \leq x_{n+1}$. Then 
+                    \[\underbrace{\frac{x_n + 5}{3}}_{x_{n+1}} \leq \underbrace{\frac{x_{n+1} + 5}{3}}_{x_{n+2}} \implies x_{n+1} \leq x_{n+2} \qed\]
+                \end{enumerate}
+            \end{tbox}
+        \end{enumerate}
+    
+    \subsection*{Axioms for the real numbers}
+        \begin{itemize}
+            \item \textbf{Field Axioms:} $\forall a, b, c \in \R$
+            \begin{enumerate}
+                \item $(a + b) + c = a + (b + c)$ (Additive Associativity)
+                \item $\exists\, 0 \in \R$ s.t. $a + 0 = a$ (Additive Identity)
+                \item $\exists\, -a \in \R$ s.t. $a + (-a) = 0$ (Additive Inverse)
+                \item $a \cdot b = b \cdot a$ (Commutativity)
+                \item $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ (Multiplicative Associativity)
+                \item $\exists\, 1 \in \R$ s.t. $a \cdot 1 = a$ (Multiplicative Identity)
+                \item $\exists\, a^{-1} \in \R$ s.t. $a \cdot a^{-1} = 1$ (Multiplicative Inverse)
+                \item $a \cdot (b + c) = a \cdot b + a \cdot c$ (Distributivity)
+            \end{enumerate}
+
+            \item \textbf{Order Axioms:} there exists a subset of positive numbers $P$ such that 
+            \begin{enumerate}
+                \setcounter{enumi}{9}
+                \item exclusively either $a \in P$ or $-a \in P$ or $a = 0$ (Trichotomy) 
+                \item $a, b \in P \implies a + b \in P$ (Closure under addition)
+                \item $a, b \in P \implies a \cdot b \in P$ (Closure under multiplication)
+            \end{enumerate}
+
+            \item \textbf{Completeness Axiom:} a least upper bound of a set $A$ is a number $x$ such that $x \geq y$ for all $y \in A$, and such that if $z$ is also an upper bound of $A$, then $z \geq x$. 
+            \begin{enumerate}
+                \setcounter{enumi}{12}
+                \item Every nonempty set $A$ which is bounded above has a least upper bound. 
+            \end{enumerate}
+        \end{itemize}
+
+        We will call Properties 1-12, and anything that follows from them, \emph{elementary arithmetic}. These alone imply that $\Q$ is a subfield of $\R$ and basic properties of inequalities under addition and multiplication. 
+
+        Adding Property 13 uniquely determines the real numbers. The standard proof is to identify each $x \in \R$ with the subset of rationals $\{y \in \Q: y < x\}$, \emph{the Dedekind cut}. This can also construct the reals from the rationals. 
+
+\section{Jan 30:}
+    \subsection*{Axiom of Completeness} 
+        \begin{enumerate}
+            \item $\R$ is an ordered field. 
+            \item There is a least upper bound and a greatest lower bound 
+        \end{enumerate}
+
+        \emph{Note:} the axiom of completeness is only true for $\R$
+
+        \textbf{Definition:} Let $A \subseteq \R$ be a set. Then: 
+        \begin{enumerate}
+            \item $A$ is \emph{bounded above} if $\exists\, b \in \R$ s.t. $a \leq b$ for all $a \in A$. Conversely, then $b$ is an \emph{upper bound} of $A$. 
+            \item $A$ is \emph{bounded below} if $\exists\, l \in \R$ s.t. $a \geq l$ for all $a \in A$. Conversely, then $l$ is a \emph{lower bound} of $A$.
+        \end{enumerate}
+
+        \textbf{Definition:} $s \in \R$ is \emph{least upper bound} of $A \subseteq \R$ if
+        \begin{enumerate}
+            \item $s$ is an upper bound of $A$
+            \item if $b$ is any upper bound for $A$, then $s \leq b$
+        \end{enumerate} 
+
+        $s$ is called \emph{the supremum of $A$} and is denoted $s := \sup A$. Further, it is unique. 
+
+        Similarly, $\inf A$ (the \emph{infimum}) is the greatest lower bound of $A$.
+
+        \emph{Example:} $A = \{\frac{1}{n}: n \in \N\} = \{1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \dots\}$. Then $\sup A = 1$.
+
+        \emph{Proof:} 
+        \begin{enumerate}
+            \item $1 \geq \frac{1}{n}$ for all $n \in \N$ $\checkmark$ 
+            \item Assume $b$ is another upper bound. Since $1 \in A$, $1 \leq b$ $\qed$
+        \end{enumerate}
+
+        \textbf{Remark:} $\sup A$ and $\inf A$ do not have to be elements of $A$. 
+        \begin{itemize}
+            \item When $\sup A \in A$, we call it the \emph{maximum}
+            \item When $\inf A \in A$, we call it the \emph{minimum}
+        \end{itemize}
+
+        \emph{Example:} In the example above, $\inf A = 0 \notin A$.
+
+        \emph{Example:}
+        \begin{align*}
+            (0, 2) &= \{x \in \R: \underbrace{0}_{\inf} < x < \underbrace{2}_{\sup}\}\\ 
+            [0, 2] &= \{x \in \R: \underbrace{0}_{\min} \leq x \leq \underbrace{2}_{\max}\}
+        \end{align*}
+        
+        \begin{tbox}{\textbf{Theorem:} There is no rational number whose square is 2}
+            \emph{Proof:} Suppose $\exists, p, q \in \Z \st (\frac{p}{q})^2 = 2$. We further assume that $q \neq 0$ and $\gcf(p, q) = 1$. 
+
+            Then 
+            \[(\frac{p}{q})^2 = 2 \implies \frac{p^2}{q^2} = 2 \implies p^2 = 2q^2\]
+            Thus, $p^2$ is even so $p$ is even (because the product of two odd numbers is odd). 
+
+            Thus, we can write $p = 2r, \; r \in \Z$. Substituting, 
+
+            \[(2r)^2 = 2q^2 \implies 4r^2 = 2q^2 \implies 2r^2 = q^2\]
+            
+            By similar logic, $q$ is even. But this contradicts our assumption that $\gcf(p, q) = 1$. $\qed$
+        \end{tbox}
+
+        This allows us to show that $\Q$ has gaps (it is incomplete). Consider: 
+        \[S = \{r \in \Q: r^2 < 2\}\] 
+        A sensible upper bound is $\sqrt 2 \approx 1.4142\dots$. Since $\sqrt 2 \notin \Q$, we need to approximate it with rational numbers. We can get infinitely close, 
+        \[\frac{3}{2}, \frac{142}{100}, \frac{1415}{1000}, \dots\] 
+        but because we need infinitely many terms, we do not have a least upper bound (the next term will always be closer). 
+
+        \begin{tbox}{\textbf{Lemma:} Let $s \in \R$ be an upper bound for a set $A \subseteq \R$. Then $s = \sup A$ iff $\forall \varepsilon > 0\; \exists a \in A \st s - \varepsilon < a$}
+            \emph{Proof:} 
+            \begin{enumerate}
+                \item Suppose $s = \sup A$. Consider any $s - \varepsilon$ with $\varepsilon > 0$. From the definition of supremum, $s - \varepsilon$ is not an upper bound for $A$ (because $s - \varepsilon < \sup A$). Thus, $\exists a \in A \st s - \varepsilon < a$ 
+
+                \item Suppose $\forall \varepsilon > 0\; \exists\, a \in A \st s - \varepsilon < a$. 
+                
+                Since $s - \varepsilon < a$, it cannot be an upper bound by definition. Thus, for any $b < s$, $b$ is not an upper bound. Therefore, any upper bound $b'$ must satisfy $s \leq b'$. This is precisely the definition of $\sup A$. $\qed$
+            \end{enumerate}
+        \end{tbox}
+
+\section{Feb 1:}
+    \subsection*{Recall}
+        \begin{itemize}
+            \item $\R$ is an ordered field satisfying the Axiom of Completeness 
+            \item $\Q$ is an ordered field but does not satisfy the Axiom of Completeness
+            \item $\Z$ satisfies the AOC but is not a field (so we ignore it in analysis)
+            \item $s = \sup A \implies a \leq b$ for any other upper bound $b$ 
+        \end{itemize}
+
+    \subsection*{Consequences of Completeness}
+        \begin{tbox}{\textbf{Theorem (Nested interval property):} For each $n \in \N$, assume we are given a closed interval $I_n = [a_n, b_n] = \{x \in \R: a_n \leq x \leq b_n\}$. Assume also that $I_n$ contains $I_{n+1}$. Then the resulting nested sequence $I_1 \supseteq I_2 \supseteq I_3 \supseteq \dots$ has a nonempty intersection $\bigcap_{n=1}^{\infty} I_n \neq \emptyset$}
+            \emph{Proof:} 
+
+            Let $A = \{a_n: n \in \N\}$ be the set of all left endpoints of the intervals $I_n$. Then $A$ is nonempty and bounded above by the $b$ (right) endpoints. 
+
+            Consider $x = \sup A$. We know $a_n \leq x \leq b_n$ for all $n \in \N$ by the fact that $x$ is an upper bound for $A$ and that it is the \emph{least} upper bound for $A$.  
+
+            And indeed, this is exactly the intersection of the intervals. $\qed$
+        \end{tbox}
+
+        Note that the theorem does not hold for $\Q$! Imagine the series of intervals centered at $\frac{1}{\sqrt{2}}$ -- all are non-empty but their intersection is empty (because there are rational numbers infinitely close to $\frac{1}{\sqrt{2}}$ but that final interval would be empty).
+
+        \begin{tbox}{\textbf{Theorem (Archimedian Property):} Given any number $x \in \R$, $\exists n \in \N$ satisfying $n > x$. (i.e. $\N$ is \emph{not} bounded above)}
+            \emph{Proof by contradiction:} 
+
+            Suppose $\N$ is bounded above. By the axiom of completeness, $\N$ has a least upper bound $\alpha = \sup \N$. By definition of supremum, $\alpha - 1 < n \implies \alpha < n + 1$. But $n + 1 \in \N$, so $\alpha$ is not an upper bound. $\qed$
+        \end{tbox}
+
+        \textbf{Consequence:} Given any real number $y > 0$, $\exists n \in \N$ satisfying $\frac{1}{n} < y$.
+
+        \emph{Proof:} Let $x = \frac{1}{y}$. By the Archimedean Property, $\exists n \in \N$ satisfying $n > x$. Then $n > \frac{1}{y} \implies y < \frac{1}{n}$
+
+        \begin{tbox}{\textbf{Theorem (Density of $\Q$ in $\R$):} For every two real numbers $a$ and $b$ with $a < b$, $\exists r \in \Q$ s.t. $a < r < b$}
+            \emph{Proof:} 
+
+            We want to show that $\exists m \in \Z, n \in \N: a < \frac{m}{n} < b$. 
+
+            First note that we can choose $m \in \Z, n \in \N$ to bound $a$. We choose $n$ such that 
+            \[\frac{m-1}{n} < a < \frac{m}{n}\]
+            and $m$ to be the smallest integer greater than $na$: 
+            \[m - 1 \leq na < m\] 
+            The RHS inequality gives $a < \frac{m}{n}$. 
+
+            By Archimedean property, we can pick $n \in \N$ such that $\frac{1}{n} < b - a$. Equivalently, $a < b - \frac{1}{n}$.
+
+            The LHS gives 
+            \[m \leq na + 1 < n(b - \frac{1}{n}) + 1 = nb \implies m < nb \implies \frac{m}{n} < b\]
+
+            Thus, 
+            \[a < \frac{m}{n} < b \qed\]
+        \end{tbox}
+
+        \textbf{Corollary:} Density of Irrationals ($\mathbb{I}$) in $\R$ 
+
+    \subsection*{Cardinality}
+        \textbf{Definition:} \emph{Cardinality} is the size of a set 
+
+        \textbf{Definition:} 
+        \begin{itemize}
+            \item A function $f: A \to B$ is \emph{injective} (or \emph{one-to-one}) if $a_1 \neq a_2$ in $A$ implies $f(a_1) \neq f(a_2)$. 
+            \item A function $f: A \to B$ is \emph{surjective} (\emph{onto}) if, given any $b \in B$, it is possible to find an element $a \in A$ for which $f(a)= b$ (all elements in $B$ have a pre-image in $A$)
+            \item A function $f: A \to B$ is \emph{bijective} (has a ``1-to-1 correspondence'') if it is both injective and surjective
+        \end{itemize}
+
+        \textbf{Definition:} The set $A$ has the same cardinality as the set $B$ if there exists a bijection $f: A \to B$.
+        
+        \emph{Example:} $E = \{2, 4, 6, 8, \dots\}$. We create an equivalence relation $\N \sim E$ induced by $f: \N \to E$ given by $f(n) = 2n$. Thus $\N$ and $E$ have the same cardinality.
+
+        \emph{Example:} $\N \sim \Z$. Consider
+        \[f(n) = \begin{cases}
+            \frac{n-1}{2} &n \text{ is odd}\\
+            -\frac{n}{2} &n \text{ is even}
+        \end{cases}\]
+        Proof of bijection is left as an exercise.
+
+        \emph{Example:} $(a, b) \sim \R$ 
+
+\section{Feb 6:}
+    \subsection*{Countable Sets}
+        \textbf{Definition:} A set $A$ is \emph{countable} if $A \sim \N$ (it has the same cardinality as $\N$)
+
+        \begin{tbox}{\textbf{Theorem:} $\Q$ is countable}
+            \emph{Proof:} 
+                It suffices to construct a bijection $\phi: \N \to \Q$. 
+
+                Consider $A_1 =\{0\}$ and for each $n \geq 2$,
+                \[A_n = \{\pm \frac{p}{q}: p, q \in \N \quad \text{ with p/q in lowest term with } p + q = n\}\]
+                i.e., $A_2 = \{1, -1\}, \; A_3 = \{\frac{1}{2}, -\frac{1}{2}, 2, -2\}, \; A_4 = \{\pm \frac{1}{3}, \pm 3\}$
+
+                We know that each $A_n$ is finite. Further, every rational number appears \emph{exactly} once in these sets. 
+
+                We can then define $\phi: \N \to \Q$ by the one-to-one correspondence between the natural numbers and each element of the $A_n$'s
+                \[\begin{array}{ccccccccc}
+                    \N: & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \dots\\ 
+                    \Q: & 0 & 1 & -1 & \frac{1}{2} & -\frac{1}{2} & 2 & -2 & \dots\\[-4pt]
+                        & \multicolumn{1}{c}{\underbrace{\rule{0.25cm}{0pt}}_{A_1}} & \multicolumn{2}{c}{\underbrace{\rule{1cm}{0pt}}_{A_2}} & \multicolumn{4}{c}{\underbrace{\rule{2.5cm}{0pt}}_{A_3}} &            
+                \end{array}\]
+                The correspondence is onto: every rational will appear. (e.g. $\frac{22}{7}\in A_{29}$) 
+
+                The correspondence is 1-1: each rational appears exactly once. $\qed$
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem:} $\R$ is uncountable}
+            \emph{Proof:} Assume $\R$ is countable. Then $\R = \{x_1, x_2, \dots\}$
+
+            Let $I_1$ be a closed interval which does not contain $x_1$. Then $I_2 \subseteq I_1$ and does not contain $x_2$. By induction, $I_{n+1} \subseteq I_n,\; x_n \notin I_n$ 
+
+            Consider $\bigcap_{n=1}^{\infty} I_n$. If $x_{n_0}$ is in the list, $\exists\, I_{n_0} \st x_{n_0} \notin I_{n_0}$. But then 
+            \[\bigcap_{n=1}^{\infty} I_n = \emptyset\]
+
+            However, by the nested interval property, $\bigcap_{n=1}^{\infty} I_n \neq \emptyset$.
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem:} If $A \subseteq B$ and $B$ is countable, then $A$ is countable or finite}
+            \emph{Proof:} HW
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem:} 
+            \color{white}
+            \begin{enumerate}
+                \item If $A_1, A_2, \dots, A_m$ are countable, then $\bigcup_{n=1}^{m} A_n$ is countable
+                \item If $A_1, A_2, \dots$ are countable, then $\bigcup_{n=1}^{\infty} A_n$ is countable
+            \end{enumerate} }
+            \emph{Proof:} HW
+        \end{tbox}
+
+\chapter{Sequences and Series}
+\section{Feb 6 (Continued):} 
+    \subsection*{The Limit of a Sequence}
+        \textbf{Definition:} A \emph{sequence} is a function whose domain is $\N$
+
+        \emph{Examples:}
+        \begin{itemize}
+            \item $(1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \dots) = (\frac{1}{n})_{n \in \N}$ 
+            \item $(\frac{1+n}{n})^{\infty}_{n=1} = (2, \frac{3}{2}, \frac{4}{3}, \frac{5}{4}, \dots)$
+            \item $x_1 = 2, \; x_{n+1} = \frac{x_n + 1}{2}$
+        \end{itemize}
+
+        \textbf{Definition (convergence of a sequence):} A sequence $(a_n)$ \emph{converges} to a real number $a$ if, for every positive number $\varepsilon$, there exists a $N \in \N$ such that $n \geq N$ implies $\abs{a_n - a} < \varepsilon$:
+        \begin{align*}
+            \lim_{n\to \infty} a_n = a &\iff a_n \to a \\ 
+                &\iff \forall \varepsilon > 0, \; \exists\, N \in \N \st n \geq N \implies \abs{a_n - a} < \varepsilon
+        \end{align*}
+
+        \textbf{Definition ($\varepsilon$-neighborhood):} The \emph{$\varepsilon$-neighborhood} of $a \in \R$ (given $\varepsilon > 0$) is the set $V_{\varepsilon}(a) = \{x \in \R: \abs{x - a} < \varepsilon\}$
+
+        Here, $\varepsilon$ is the radius about the center $a$. 
+
+        \textbf{Definition:} A sequence $(a_n)$ converges to $a$ if, given any $\varepsilon$-neighborhood $V_{\varepsilon}(a)$ if $a$, there exists a point in the sequence after which all the terms are in $V_{\varepsilon}(a)$
+
+\section{Feb 08:}
+    \subsection*{Convergence}
+        \textbf{Example:} Let $a_n = \frac{1}{\sqrt n}$. Show $\lim_{n\to \infty} a_n = 0$. 
+
+        First we try a few values of epsilon:
+        \begin{itemize}
+            \item $\varepsilon = \frac{1}{10}$: $(0 - \frac{1}{10}, 0 + \frac{1}{10}) = (-\frac{1}{10}, \frac{1}{10})$
+            
+            When $n = 100 \implies a_{100} = \frac{1}{10}$. So the first element in the interval is $a_{101}$. 
+
+            \item $\varepsilon = \frac{1}{50}$: $(-\frac{1}{50}, \frac{1}{50})$ 
+            
+            Here, the first element in the interval is $a_{2501}$.
+        \end{itemize}
+
+        Now for the rigorous version: Let $\varepsilon > 0$. Choose $N \in \N$ such that $N > \frac{1}{\varepsilon^2} \implies \frac{1}{\sqrt{N}} < \varepsilon$. 
+
+        Let $n \geq N$. Then 
+        \[n > \frac{1}{\varepsilon^2} \implies \frac{1}{\sqrt{N}} < \varepsilon \implies \abs{\frac{1}{\sqrt{n} - 0}} < \varepsilon\]
+
+        \textbf{A template for convergence proofs:}
+            \begin{enumerate}
+                \item Let $\varepsilon > 0$
+                \item Demonstrate a choice for $N \in \N$
+                \item Verify $N$
+                \item With $N$ well chosen, it should be possible to get $\abs{x_n- x} < \varepsilon$ 
+            \end{enumerate}
+
+        \textbf{Example:} Prove that $\lim \frac{n+1}{n} = 1$ 
+
+        We want $\abs{\frac{n+1}{n} - 1} < \varepsilon$. This is equivalent to $\abs{\frac{1}{n}} < \varepsilon$. So we choose $N \in \N > \frac{1}{\varepsilon}$. 
+
+        The actual proof then reads: Let $\varepsilon > 0$. Choose $N \in \N \st N \frac{1}{\varepsilon}$. Let $n \geq N$. 
+        \[n > \frac{1}{\varepsilon} \implies \frac{1}{n} < \varepsilon \implies \abs{\frac{n+1}{n} - 1} < \varepsilon\]
+
+        \begin{tbox}{\textbf{Theorem (Uniqueness of limits):} The limit of a sequence, when it exists, is unique}
+            \emph{Proof:} HW         
+        \end{tbox}
+
+    \subsection*{The algebraic and order limit theorems}
+        \textbf{Definition:} A sequence $(x_n)$ is bounded if there exists a number $M > 0$, such that $\abs{x_n} \leq M$ for all $n \in \N$. 
+
+        \begin{tbox}{\textbf{Theorem:} Every convergent sequence is bounded}
+            \emph{Proof:} Assume $(x_n)$ converges to $l$. 
+
+            Given $\varepsilon > 0$, 
+            \[\exists\, N \in \N \st x_n \in (l - \varepsilon, l + \varepsilon) \; \forall n \geq N\]
+
+            Since we do not know if $l$ is positive or negative, we can only say 
+            \[\abs{x_n} < \abs{l} + \varepsilon\] 
+
+            From this we know $x$ is bounded for $n \geq N$. Now we check the case $n < N$. Luckily, this is a finite number of cases. 
+
+            By construction, $M = \max\{\abs{x_1}, \abs{x_2}, \dots, \abs{x_{N-1}}, \abs{l} + 1\}$. Then $\abs{x_n} \leq M$ for all $n \in \N$. $\qed$   
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem (Algebraic Limit Theorems):} Let $\lim a_n = a$, $\lim b_n = b$
+            \begin{enumerate}
+                \item $\lim (ca_n) = ca, \quad \forall c \in \R$
+                \item $\lim (a_n + b_n) = a + b$
+                \item $\lim (a_n \cdot b_n) = a \cdot b$
+                \item $\lim \frac{a_n}{b_n} = \frac{a}{b}$, provided $b \neq 0$
+            \end{enumerate}}
+
+            \emph{Proof:} 
+            \begin{enumerate}
+                \item Let $\varepsilon > 0$. We want to show $\abs{ca_n - ca} < \varepsilon$. Notice 
+                \[\abs{ca_n - ca} = \abs{c} \cdot \abs{a_n - a}\]
+                Since $a_n$ is convergent, we can make $\abs{a_n - a}$ arbitrarily small.
+
+                We choose $N \in \N \st \abs{a_n - a} < \frac{\varepsilon}{\abs{c}}$ so $\forall n > N$, 
+                \[\abs{ca_n - ca} < \abs{c} \frac{\varepsilon}{\abs{c}} = \varepsilon \quad \checkmark\]
+
+                \item Let $\varepsilon > 0$. We want to show $\abs{a_n + b_n - (a + b)} < \varepsilon$. We can say $\abs{a_n - a + b_n - b} \leq \abs{a_n - a} + \abs{b_n - b}$ by the Triangle inequality. Then since $a_n$ and $b_n$ are convergent, we note that 
+                \begin{align*}
+                    \exists &N_1 \in \N, \st \forall n \geq N_1: \quad \abs{a_n - a} < \frac{\varepsilon}{2}\\ 
+                    \exists &N_2 \in \N, \st \forall n \geq N_2: \quad \abs{b_n - b} < \frac{\varepsilon}{2}
+                \end{align*} 
+                Choose $N = \max\{N_1, N_2\}$ so 
+                \[\forall n \geq N: \quad \abs{(a_n + b_n) - (a + b)} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \quad \checkmark\]
+                
+                \item Let $\varepsilon > 0$. We want to show that $\abs{a_n \cdot b_n - a \cdot b} < \varepsilon$. We can say
+                \begin{align*}
+                    \abs{a_nb_n - ab_n + ab_n - ab} &\leq \abs{a_nb_n - ab_n} + \abs{ab_n - ab}\\ 
+                        &= \abs{b_n} \cdot \abs{a_n - a} + \abs{a} \cdot \abs{b_n - b}
+                \end{align*}
+
+                Since $a_n$ and $b_n$ are convergent, $\exists N_1 \in \N, \st \forall n \geq N_1: \quad \abs{b_n - b} < \frac{\varepsilon}{2\abs{a}}$. Note then that $b_n$ is convergent so bounded: $\abs{b_n} \leq M$. Then $\exists N_2, \st \forall n \geq N_2: \quad \abs{a_n - a} < \frac{\varepsilon}{2M}$ 
+
+                So with $N= \max{N_1, N_2}$, $\forall n \geq N$, we have
+                \[\abs{a_nb_n - ab} \leq M \cdot \frac{\ep}{2M} + \abs{a} \cdot \frac{\ep}{2\abs{a}} = \ep\]
+
+                \item Let $\varepsilon > 0$. We want to show that $\abs{\frac{a_n}{b_n} - \frac{a}{b}} < \varepsilon$. This is the same as showing $a_n \cdot \frac{1}{b_n} \to a\cdot\frac{1}{b}$ so it suffices to show that $\frac{1}{b_n} \to \frac{1}{b}$ and apply the multiplicative limit theorem. 
+                
+                Observe:
+                \[\abs{\frac{1}{b_n} - \frac{1}{b}} = \abs{\frac{b - b_n}{b_n \cdot b}} = \frac{\abs{b - b_n}}{\abs{b_n} \cdot \abs{b}}\]
+            
+                Intuitively, finding a lower bound for $b_n$ gives an upper bound for $1/b_n$. \emph{Trick:} Choose a large $n$ such that $\abs{b_n - b} > \abs{b_n - 0} \implies \abs{b_n} > \frac{\abs{b}}{2}$. By convergence of $(b_n)$, $\exists N_1 \in \N \st \forall n \geq N: \abs{b_n - b} < \frac{\abs{b}}{2}$. Then $\abs{b_n} > \frac{\abs{b}}{2}$. 
+
+                Now bound $\abs{b_n - b} < \frac{\ep \abs{b}^2}{2}$ by convergence at $N_2 \in \N$. 
+                
+                Finally, let $N = \max\{N_1, N_2\}$ then for $n > N$, 
+                \[\abs{\frac{1}{b_n} - \frac{1}{b}} = \frac{\abs{b - b_n}}{\abs{b_n} \cdot \abs{b}} < \frac{\ep \abs{b}^2}{2} \cdot \frac{2}{\abs{b}} \cdot \frac{1}{\abs{b}} = \ep \qed\]
+            \end{enumerate}
+        \end{tbox}
+
+\section{Feb 15:}
+    \begin{tbox}{\textbf{Theorem (Order Limit Theorem):} Assume $(a_n) \to a$, $(b_n) \to b$. 
+        \begin{enumerate}
+            \item If $a_n \geq 0 \quad \forall n \in \N$, then $a \geq 0$
+            \item If $a_n \leq b_n \quad \forall n \in \N$, then $a \leq b$
+            \item If $\exists c \in \R \st c \leq b_n \quad \forall n \in \N$, then $c \leq b$
+        \end{enumerate}}
+
+        \emph{Proof:} 
+            \begin{enumerate}
+                \item Suppose $a < 0$. Consider $\ep = \abs{a}$ so $\exists N \in \N \st \forall n \geq N: \abs{a_n - a} < \abs{a}$. However, since $a <0$, this tells us 
+                \[a < a_n - a < -a \implies a_n < 0\]
+                But this contradicts the fact that $a_n \geq 0$.
+
+                \item By the Algebraic limit theorem, $(b_n - a_n) \to b - a$. Since $a_n \leq b_n$ for all $n \in \N$, $b_n - a_n \geq 0$, by part 1, $b - a \geq 0 \implies b \geq a$
+                
+                \item Take $a_n = c \quad \forall n \in \N$. Then $(a_n) \to c$. The result follows from part 2. $\qed$
+            \end{enumerate}
+    \end{tbox}
+
+    \subsection*{Monotone Convergence Theorem}
+        \textbf{Definition:} A sequence $(a_n)$ is \emph{increasing} if $a_n \leq a_{n+1}$ for all $n \in \N$. It is \emph{decreasing} if $a_n \geq a_{n+1} \quad \forall n \in \N$. 
+
+        A sequence is \emph{monotone} if it is either increasing or decreasing for all $n \in \N$.
+        
+        \begin{tbox}{\textbf{Theorem (Monotone Convergence Theorem):} If a sequence is monotone and bounded, then it is convergent} 
+            \emph{Proof:} Let $(a_n)$ be monotone and bounded. Assume WLOG that $(a_n)$ is increasing. Consider the set $A = \{a_n: n \in \N\}$. SInce $(a_n)$ is bounded, $sup A$ exists. 
+
+            We claim $\lim_{n\to \infty} a_n = \sup A$. Let $\ep > 0$. Since $\sup A$ is the least upper bound, $\sup A - \ep$ is not an upper bound. Thus, $\exists N \in \N \st a_N > \sup A - \ep$. Since $a_n$ is monotone, $a_n > \sup A - \ep \quad \forall n \geq N$. Further, $a_n \leq \sup A + \ep$ so 
+            \[\abs{a_n - \sup A} < \ep\]
+        \end{tbox}
+
+    \subsection*{Series Introduction} 
+        \textbf{Definition (Convergence of Series):} Let $(b_n)$ be a sequence. A \emph{infinite series} is an expression of the form 
+        \[\sum_{n=1}^{\infty} b_n = b_1 + b_2 + \dots\]
+
+        The series \emph{converges} to $S$ if the sequence of \emph{partial sums} $(S_n)$ given by 
+        \[S_m = \sum_{n=1}^m b_n = b_1 + \dots + b_m\]
+        converges to $S$.
+
+        \textbf{Example:} Consider $\sum_{n=1}^{\infty} \frac{1}{n^2}$. 
+        \[S_m = 1 + \frac{1}{4} + \frac{1}{9} + \dots + \frac{1}{m^2}\]
+        
+        We seek an upper bound for $(S_m)$. Notice 
+        \begin{align*}
+            S_m &= \frac{1}{2 \cdot 2} + \frac{1}{3 \cdot 3} + \frac{1}{4 \cdot 4} + \dots + \frac{1}{m \cdot m}\\ 
+                &< \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \dots + \frac{1}{(m-1) \cdot m}\\ 
+                &= 1 + (1 - \frac{1}{2}) + (\frac{1}{2} - \frac{1}{3}) + (\frac{1}{3} - \frac{1}{4}) + \dots + (\frac{1}{m-1} - \frac{1}{m})\\
+                &= 2 - \frac{1}{m} < 2
+        \end{align*}
+
+        Since $(S_m)$ has an upper bound and is increasing, it is convergent to some limit $s$. 
+
+        \textbf{Example (Harmonic Series):} Consider $\sum_{n=1}^{\infty} \frac{1}{n}$. Taking partial sums, 
+        \[S_m = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{m}\] 
+
+        Is $S_m$ bounded? No! 
+        \[S_4 = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} = 2\] 
+        But 
+        \[S_8 > 2 + \frac{1}{2}\]
+        and 
+        \[S_{2^k} > 1 + k(\frac{1}{2})\]
+        and this is unbounded! 
+
+\section{Feb 22:}
+    \begin{tbox}{\textbf{Theorem (Cauchy Condensation Test):} Suppose $(b_n)$ is decreasing and $b_n \geq 0 \quad \forall n \in \N$. Then $\sum_{n=1}^{\infty} b_n$ converges iff $\sum_{n=1}^{\infty} 2^n b_{2^n} = b_1 + 2b_2 + 4b_4 + 8b_8 + \dots$ converges }
+        \emph{Proof:} Omitted. 
+
+        \textbf{Remark:} This is a mostly useless theorem used only for showing the harmonic series diverges. 
+    \end{tbox}
+
+    \textbf{Corollary:} The series $\sum_{n=1}^{\infty} \frac{1}{n^p}$ converges iff $p > 1$.
+
+    \subsection*{Subsequences}
+        \textbf{Definition:} Let $(a_n)$ be a sequence and let $n_1 < n_2 < n_3 < \dots$ be an increasing sequence of natural numbers. Then the sequence $(a_{n_1}, a_{n_2}, a_{n_3}, \dots)$ is a \emph{subsequence} of $(a_n)$ and is denoted by $(a_{n_k})$ where $k \in \N$ is the index.
+
+        \textbf{Example:} 
+        \[\begin{array}{c|ccccccccc}
+            a_1 & a_2 & a_3 & a_4 & a_5 & a_6 & a_7 & \dots\\
+            \hline
+            1 & 5 & -3 & 10 & 0 & -8 & 12 & \dots
+        \end{array}\]
+        If we choose $n_1 = 3, n_2 = 4, n_3 = 6, \dots$ then $(a_{n_k}) = (-3, 10, -8, \dots)$
+
+        \textbf{Note:} The order of the terms in the subseq is the same as in the original sequence. Further, no repetitions are allowed. 
+
+        \textbf{Examples:} $(a_n) = (1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \frac{1}{5}, \dots)$
+        \begin{itemize}
+            \item $(\frac{1}{2}, \frac{1}{4}, \frac{1}{6}, \frac{1}{8})$ is a subsequence
+            \item $(\frac{1}{10}, \frac{1}{100}, \frac{1}{1000}, \frac{1}{10000}, \dots)$ is a subsequence 
+            \item $(\frac{1}{10}, \frac{1}{5}, \frac{1}{100}, \frac{1}{5}, \dots)$ is \emph{not} a subsequence
+            \item $(1, 1, \frac{1}{3}, \frac{1}{3}, \frac{1}{5}, \frac{1}{5}, \dots)$ is \emph{not} a subsequence
+        \end{itemize}
+
+        \begin{tbox}{\textbf{Theorem:} A subsequence of a convergent sequence converges to the same limit as the original sequence}
+            \emph{Proof:} Assume $(a_n) \to a$. Let $(a_{n_k})$ be a subsequence. Given $\ep > 0$, $\exists N \in \N \st \forall n \geq N: \abs{a_n - a} < \ep$. Since $n_k \geq k \quad \forall k$, the same $N$ will suffice for the subsequence. Then, 
+            \[\abs{a_{n_k} - a} < \ep \quad \forall k \geq N\qed\]
+        \end{tbox}
+
+        \textbf{Example:} Let $0 < b < 1$. Then $b > b^2 > b^3 > \dots > 0$. Therefore, $(b^n)$ is decreasing and bounded below. By the Monotone Convergence Theorem, $(b^n) \to l$. $(b^{2n})$ is a subsequence so by the Theorem above, $(b^{2n}) \to l$. However, 
+        \[b^{2n} = b^n \cdot b^n \to l \cdot l \implies l^2 = l \implies l = 0\]
+        Therefore, $(b_n) \to 0$. 
+
+        \textbf{Example:} Consider the sequence $(1 , -\frac{1}{2}, \frac{1}{3}, -\frac{1}{4}, \frac{1}{5}, -\frac{1}{5}, \frac{1}{5}, -\frac{1}{5}, \dots)$. Does it converge? 
+
+        Consider: 
+        \begin{itemize}
+            \item $(\frac{1}{5}, \frac{1}{5}, \frac{1}{5}, \frac{1}{5}, \dots) \to \frac{1}{5}$
+            \item $(-\frac{1}{5}, -\frac{1}{5}, -\frac{1}{5}, -\frac{1}{5}, \dots) \to -\frac{1}{5}$
+        \end{itemize}
+        Since the subsequences do not converge to the same limit, the original sequence does not converge.
+
+        \begin{tbox}{\textbf{Theorem (Bolzano-Weierstrass):} Every bounded sequence contains a convergent subsequence}
+            \emph{Proof:} Let $(a_n)$ be a bounded subsequence. $\exists M > 0 \st \abs{a_n} \leq M \quad \forall n \in \N$.
+
+            Split $[-M, M]$ into equal intervals $[-M, 0]$ and $[0, M]$. At least one these intervals must contain infinitely many terms of $(a_n)$. Call this interval $I_1$. WLOG, suppose $I_1 = [-M, 0]$. 
+
+            Let $(a_{n_1})$ to be some term of $(a_n)$ which lies in $I_1$. Now we repeat: $I_1 = [-M, \frac{M}{2}] \cup [-\frac{M}{2}, 0]$. Label the interval with infinite terms $I_2$ and pick $(a_{n_2})$ from $I_2$ with $n_2 > n_1$. 
+
+            In general, construct the closed $I_k$ by taking the half of $I_{k-1}$ containing infinitely many terms of $(a_n)$. Select $n_{k} > n_{k-1} > n_{k-2} > \dots > n_1$ such that $a_{n_k} \in I_k$. 
+
+            Notice that the sets $I_1 \supseteq I_2 \supseteq I_3 \supseteq \dots$ are nested and closed. By the Nested Interval Property, $\exists x \in \R$ which lies in every $I_k$. Intuitively, this is a good limit candidate. 
+
+            Now we seek to show that $(a_{n_k}) \to x$. Let $\ep > 0$. By construction, each $I_k$ has length $M(\frac{1}{2})^{k-1} \to 0$. $\exists N \in \N \st \forall k \geq N$, the length of $I_k$ is less than $\ep$. Since $x \in I_k$ and $a_{n_k} \in I_k$, $\abs{a_{n_k} - x} <\ep$. 
+
+            Therefore, $(a_{n_k})$ is a convergent subsequence of the bounded sequence $(a_n)$. $\qed$
+        \end{tbox}
+
+\section{Feb 27:}
+    \textbf{Recall:}
+    \begin{itemize}
+        \item A \emph{subsequence} of $(a_n)$ is a sequence $(a_{n_k})$ where $n_1 < n_2 < n_3 < \dots$
+        \item Any subsequence of a convergent sequence converges to the same limit as the original sequence
+        \item If two convergent subsequences converge to different limits, the original sequence diverges 
+        \item \emph{Bolzano-Weierstrass Theorem:} Every bounded sequence contains a convergent subsequence
+    \end{itemize}
+
+    \subsection*{The Cauchy Criterion}
+        \textbf{Definition:} A sequence $(a_n)$ is called a Cauchy sequence if $\forall \ep > 0$, 
+        \[\exists N \in \N \st \abs{a_n - a_m} < \ep \quad \forall n, m \geq N\]
+
+        \begin{tbox}{\textbf{Theorem:} Every convergent sequence is a Cauchy sequence}
+            \emph{Proof:} Assume $(x_n)$ converges to $x$. To prove $(x_n)$ is a Cauchy sequence, we need to find a point in the sequence after which $\abs{x_n - x_m} < \ep$. 
+            
+            Since $(x_n) \to x$, $\forall \ep> 0$, $\exists N \in \N$ such that $\abs{x_n - x} < \frac{\ep}{2}$. 
+            \[\abs{x_n - x_m} = \abs{(x_n - x) + (x - x_m)} \leq \abs{x_n - x} + \abs{x_m - x} < \ep\]
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Lemma:} Cauchy sequences are bounded}
+            \emph{Proof:} Set $\ep = 1$. Then $\exists N \in \N$ such that $\forall m, n \geq N$,
+            \[\abs{x_n - x_m} < 1 \implies \abs{x_n} < \abs{x_N} + 1 \quad \forall n \geq N\]
+
+            Then 
+            \[M = \max\{\abs{x_1}, \abs{x_2}, \dots, \abs{x_{N-1}}, \abs{x_N} + 1\}\]
+            is a bound for the sequence. $\qed$
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem (Cauchy Criternion):}  A sequence converges iff it is a Cauchy sequence}
+            \emph{Proof:} The first direction follows from the fact that every convergent sequence is Cauchy. 
+
+            For the other direction, assume $(x_n)$ is a Cauchy sequence. Then $(x_n)$ is bounded by the Lemma. By the Bolzano-Weierstrass Theorem, $(x_n)$ contains a convergent subsequence $(x_{n_k}) \to x$. 
+
+            Since $(x_n)$ is Cauchy, $\forall \ep > 0$, $\exists N \in \N \st \abs{x_n - x_m} < \frac{\ep}{2} \quad \forall n, m \geq N$. 
+
+            Since $(x_{n_k}) \to x$, choose $x_{n_k}$ with $n_k \geq N$. Then, 
+            \[\abs{x_{n_k} - x} > \frac{\ep}{2}\]
+
+            Now 
+            \[\abs{x_n - x} \leq \abs{x_n - x_{n_k}} + \abs{x_{n_k} - x} < \frac{\ep}{2} + \frac{\ep}{2} = \ep \qed\]
+        \end{tbox}
+
+    \subsection*{Properties of Infinite Series}
+        \textbf{Recall:}
+        \begin{itemize}
+            \item For a sequence $(a_1, a_2, a_3, \dots)$, the sequence of partial sums is given by 
+            \[(S_m) = (S_1, S_2, S_3, \dots,) = (a_1, a_1 + a_2, a_1 + a_2 + a_3, \dots)\]
+
+            \item A series $\sum_{n=1}^{\infty} a_n$ converges to $A$ if $\lim (S_m) = A$ 
+        \end{itemize}
+
+        \begin{tbox}{\textbf{Theorem (Algebraic Limit Theory for Series):} If $\sum_{k=1}^{\infty} = A$ and $\sum_{k=1}^{\infty} b_k = B$, then 
+            \begin{enumerate}
+                \item $\sum_{k=1}^{\infty} ca_k = cA, \quad \forall c\in \R$ 
+                \item $\sum_{k=1}^{\infty} (a_k + b_k) = A + B$
+            \end{enumerate}}
+            
+            \emph{Proof:} 
+            \begin{enumerate}
+                \item Since $\sum_{k=1}^{\infty}a_k = A$, $(S_m) = \sum_{k=1}^{m} a_k \to A$. Then $\lim(cS_m) = c\lim S_m = cA$ by the Algebraic Limit Theorem for Sequences (ALT). Then, by definition, $\sum_{k=1}^{\infty} ca_k = cA$
+                
+                \item Let $S_m = \sum_{k=1}^m a_k$ and $T_m = \sum_{k=1}^m b_k$. Then $S_m + T_m = \sum_{k=1}^m (a_k + b_k)$. Since $(S_m) \to A$ and $(T_m) \to B$, $(S_m + T_m) \to A + B$ by the ALT. Then $\sum_{k=1}^{\infty} (a_k + b_k) = A + B$ $\qed$
+            \end{enumerate}
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem (Cauchy Criterion for Series):} The series $\sum_{k=1}^{\infty} a_k$ converges iff $\forall \ep > 0$, $\exists N \in \N \st \forall m \geq n \geq N$ we have 
+            \[\abs{\sum_{k=m+1}^n a_k} = \abs{a_{m+1} + a_{m+2} + \dots + a_n} < \ep\]
+        }
+            \emph{Proof:} Define $S_n = a_1 + a_2 + \dots + a_n$. Observe that 
+            \[\sum_{k=1}^{\infty} a_k \text{ converges } \iff (S_n) \text{ converges } \overset{*}{\iff} (S_n) \text{ Cauchy seq} \]
+            where $\overset{*}{\iff}$ follows from the Cauchy Criterion for sequences.
+        
+            Further, if and only if $(S_n)$ is Cauchy, $\forall \ep > 0$, $\exists N \in \N \st \forall n > m \geq N$,
+            \[\abs{S_n - S_m} = \abs{a_{m+1} + a_{m+2} + \dots + a_n} < \ep \qed\]
+        \end{tbox}
+
+\section{Feb 29:}
+    \begin{tbox}{\textbf{Theorem:} If the series $\sum_{k=1}^{\infty} a_k$ converges, then $(a_k) \to 0$.}
+        \emph{Proof:} Pick $n = m+1$ in previous theorem: for $m > N$, 
+        \[\abs{a_{m+1}} < \ep\]
+    \end{tbox}
+
+    \textbf{Remark:} The converse is \emph{not} true! Consider the harmonic series: $a_n = \frac{1}{n} \to 0$ but $\sum_{n=1}^{\infty} a_n = \infty$ 
+
+    \begin{tbox}{\textbf{Theorem (Comparison Test):} Assume $(a_k)$ and $(b_k)$ are sequences satisfying $0 \leq a_k \leq b_k$ for all $k \in \N$. Then 
+        \begin{enumerate}
+            \item If $\sum_{k=1}^{\infty} b_k$ converges, then $\sum_{k=1}^{\infty} a_k$ converges. 
+            \item If $\sum_{k=1}^{\infty} a_k$ diverges, then $\sum_{k=1}^{\infty} b_k$ diverges.
+        \end{enumerate}    
+    }
+        \emph{Proof:} Apply Cauchy Criterion for series and observe that 
+        \[\abs{a_{m+1} + a_{m+2} + \dots + a_n} \leq \abs{b_{m+1} + \dots + b_n}\]
+    \end{tbox}
+
+    \textbf{Example (Geometric Series):} A series is called a \emph{geometric series} if it is of the form
+    \[\sum_{k=0}^{\infty} ar^k = a + ar + ar^2 + ar^3 + \dots\] 
+
+    If $r \geq 1$ and $a \neq 0$, then the series diverges. If $r \neq 1$, we use the identity 
+    \[(1 - r)(1 + r + r^2 + r^3 + \dots + r^{m-1}) = 1 - r^m\]
+
+    Then for partial sums  
+    \[S_m = a + ar + ar^2 + \dots + ar^{m-1} = a(1 + r + r^2 + \dots + r^{m-1}) = a\frac{1 - r^m}{1 - r}\]
+
+    If $\abs{r} < 1$, $a \frac{1 - r^m}{1 - r} \to \frac{a}{1 - r}$. Therefore, for $\abs{r} < 1$, 
+    \[\sum_{k=0}^{\infty} ar^k = \frac{a}{1-r}\]
+
+    \begin{tbox}{\textbf{Theorem (Absolute Convergence Test):} If the series $\sum_{n=1}^{\infty} \abs{a_n}$ converges, then $\sum_{n=1}^{\infty} a_n$ converges.}
+        \emph{Proof:} Since $\sum_{n=1}^{\infty} \abs{a_n}$ converges, by Cauchy Criterion, given $\ep > 0$, $\exists N \in \N$ such that for all $n > m \geq N$,
+        \[\abs{a_{m+1}} + \abs{a_{m+1}} + \dots + \abs{a_n} < \ep\]
+
+        By triangle inequality, 
+        \[\abs{a_{m+1} + a_{m+2} + \dots + a_n} \leq \abs{a_{m+1}} + \abs{a_{m+2}} + \dots + \abs{a_n} < \ep\]
+    \end{tbox}
+
+    \textbf{Remark:} The converse is not true! Consider the alternating harmonic series: 
+    \[\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \text{ converges}, \quad \sum_{n=1}^{\infty} \abs{\frac{(-1)^{n+1}}{n}} = \sum_{n=1}^{\infty} \frac{1}{n} \text{ diverges}\]
+
+    \begin{tbox}{\textbf{Theorem (Alternating Series Test):} Let $(a_n)$ be a sequence satisfying
+        \begin{enumerate}[label=(\alph*)]
+            \item $a_1 \geq a_2 \geq \dots \geq a_n \geq a_{n+1} \geq \dots$ (Decreasing)
+            \item $(a_n) \to 0$ (Converges to 0)
+        \end{enumerate}
+        Then the alternating series $\sum_{n=1}^{\infty} (-1)^{n+1}a_n$ converges.}
+
+        \emph{Proof:} From conditions (i) and (ii), we have that $a_n \geq 0$. We want to show that the sequence of partial sums $(S_n)$ converges by showing that $(S_n)$ is Cauchy. Let $\ep > 0$ be arbitrary. We need to find an $N$ such that $n > m \geq N$ implies $\abs{S_n - S_m} < \ep$. 
+        \[\abs{S_n - S_m} = \abs{a_{m+1} - a_{m+2} + a_{m+3} - \dots \pm a_n}\] 
+
+        Since $(a_n)$ is decreasing and all the terms are positive, we can use an induction argument to show $\abs{S_n - S_m} \leq \abs{a_{m+1}}$ for all $n > m$. 
+        
+        Sketch: 
+        \[\abs{a_{m+3}} \leq \abs{a_{m+2}} \leq \abs{a_{m+1}} \implies a_{m+1} - a_{m+2} + a_{m+3} \leq a_{m+1}\]
+
+        Since $(a_n) \to 0$, we can choose $N$ such that $m \geq N$ implies $\abs{a_m} < \ep$. Then 
+        \[\abs{S_n - S_m} \leq \abs{a_{m+1}} < \ep\]
+        Therefore, $(S_n)$ is Cauchy so it converges $\qed$
+    \end{tbox}
+
+    \textbf{Definition:} 
+    \begin{itemize}
+        \item If $\sum_{n=1}^{\infty} \abs{a_n}$ converges, then $\sum_{n=1}^{\infty} a_n$ \emph{converges absolutely}
+        \item If $\sum_{n=1}^{\infty} a_n$ converges but $\sum_{n=1}^{\infty} \abs{a_n}$ diverges, then $\sum_{n=1}^{\infty} a_n$ \emph{converges conditionally}
+    \end{itemize}
+
+    \textbf{Definition:} Let $\sum_{n=1}^{\infty} a_n$ be a series. A series $\sum_{n=1}^{\infty} b_n$ is called a rearrangement of the original series if there exists $f:\begin{tikzcd}
+        \N \arrow[hook, two heads]{r} &[-10pt] \N
+    \end{tikzcd}$ such that $b_{f(n)} = a_n$ for all $n \in \N$. 
+
+    \emph{Note:} the bijectivity means that every term eventually appears and there are no repetitions.
+
+    \begin{tbox}{\textbf{Theorem:} If $\sum_{n=1}^{\infty} a_n$ converges absolutely, then every rearrangement of the series converges to the same limit.}
+        \emph{Proof:} Omitted
+    \end{tbox}
+
+\chapter{Basic Topology on $\R$}
+\section*{March 05:}
+    \textbf{Recall:} an \emph{$\ep$-neighborhood} of a point $x \in \R$ is the set
+    \[V_{\ep}(a) = \{x \in \R: \abs{x - a} < \ep\}\]
+
+    \textbf{Definition:} A set $O \subseteq \R$ is \emph{open} if for all points $a \in O$, there exists an $\ep$-neighborhood of $a$ such that $V_{\ep}(a) \subseteq O$.
+
+    \textbf{Examples:}
+    \begin{itemize}
+        \item $\R$ is open
+        \item $\emptyset$ is open
+        \item $(c, d) = \{x \in \R: c < x < d\}$ is open (\emph{Proof:} Let $x \in (c, d)$. Then $V_{\min\{x-c, d-x\}}(x) \subseteq (c, d)$)
+    \end{itemize}
+
+    \begin{tbox}{\textbf{Theorem:} 
+        \begin{enumerate}
+            \item The union of an arbitrary collection of open sets is open
+            \item The intersection of a finite collection of open sets is open
+        \end{enumerate}}
+        \emph{Proof:} 
+        \begin{enumerate}
+            \item Let $\{O_{\lambda}: \lambda \in \Lambda\}$ be a collection of open sets. 
+            
+            Let $O = \bigcup_{\lambda \in \Lambda} O_{\lambda}$. We need an $\ep$-neighborhood of an arbitrary $a \in O$ to be completely contained in $O$. 
+
+            Notice that $a \in O \implies a \in O_{\lambda'}$ for some $\lambda' \in \Lambda$. Since $O_{\lambda'}$ is open, $\exists \ep > 0$ such that $V_{\ep}(a) \subseteq O_{\lambda'} \subseteq O$. 
+
+            \item Let $\{O_1, O_2, \dots, O_n\}$ be a finite collection of open sets. Denote $O = \bigcap_{k=1}^n O_k$. We need to show that $O$ is open.
+            
+            Let $a \in O$. Then $a \in O_k$ for all $k = 1, 2, \dots, n$. Since $O_k$ is open, $\exists \ep_k > 0$ such that $V_{\ep_k}(a) \subseteq O_k$ for all $k$. 
+
+            Now, we have different $\ep$-neighborhoods in each $O_k$. We want an $\ep$-neighborhood which is contained in \emph{every} $O_k$. 
+
+            Let $\ep = \min\{\ep_1, \dots, \ep_n\}$. Then $V_{\ep}(a) \subseteq O_k$ for all $k = 1, 2, \dots, n$. Therefore, $V_{\ep}(a) \subseteq \bigcap_{k=1}^n O_k$. $\qed$
+        \end{enumerate}
+    \end{tbox}
+
+    \textbf{Definition:} A point $x$ is a \emph{limit point} (cluster point/accumulation point) of a set $A$ if every $\ep$-neighborhood of $x$ intersects $A$ at some point other than $x$. 
+
+    \begin{tbox}{\textbf{Theorem:} A point $x$ is a limit point of a set $A$ iff there exists a sequence $(a_n)$ in $A$ such that $(a_n) \to x$ and $a_n \neq x$ for all $n \in \N$}
+        \emph{Proof:} 
+        
+        Assume $x$ is a limit point of $A$. We need a sequence $(a_n)$ in $A$ such that $(a_n) \to x$. By definition, every $\ep$-neighborhood of $x$ intersects $A$ at some point other than $x$. Pick $\ep = \frac{1}{n}$. Then for all $n \in \N$, pick 
+        \[a_n \in V_{1/n}(x) \cap A, \quad a_n \neq x\]
+
+        Now we want $(a_n) \to x$. Given $\ep > 0$ choose $N$ such that $\frac{1}{N} < \ep$ so $\abs{a_n  - x} < \ep$ for all $n \in N$
+
+        Now, suppose there exists a sequence $(a_n)$ in $A$ such that $(a_n) \to x$ and $a_n \neq x$ for all $n \in \N$. We need to show that $x$ is a limit point of $A$.
+
+        Let $V_{\ep}(x)$ be an arbitrary $\ep$-neighborhood. By definition of convergence, $\exists N \in \N$ such that for all $n \geq N$, $\abs{a_n - x} < \ep$. Then $a_n \in V_{\ep}(x)$ for all $n \geq N$. $\qed$
+    \end{tbox}
+
+    \textbf{Definition:} A point $a \in A$ is an isolated point of $A$ if it is \emph{not} a limit point of $A$ 
+
+    \textbf{Note:} An isolated point is \emph{always} a point in the set. A limit point does not necessarily belong to the set. 
+
+    \textbf{Definition:} a set $F \subseteq \R$ is closed if it contains its limit points.
+
+    \begin{tbox}{\textbf{Theorem:} A set $F \subseteq \R$ is closed iff every Cauchy sequence contained in $F$ has a limit in $F$}
+        \emph{Proof:} HW
+    \end{tbox}
+
+    \textbf{Example:} Let $A = \{\frac{1}{n}: n \in \N\}$. Show each point in $A$ is isolated. 
+    
+    Given $\frac{1}{n} \in A$, choose $\ep = \frac{1}{n} - \frac{1}{n+1}$. Therefore, $V_{\ep}(\frac{1}{n}) \cap A = \{\frac{1}{n}\}$ so $\frac{1}{n}$ is an isolated point and not a limit point. 
+
+    Further, the limit of $A$ is $0$. Therefore, $\forall \ep > 0$, $V_{\ep}(0)$ contains points in $A$. Since $0 \notin A$, $A$ is not closed. 
+
+    However, we can create a closed set $F = A \cup \{0\}$. This is the \emph{closure} of $A$. 
+
+    \textbf{Example:} Show $[c, d] = \{x \in \R: c \leq x \leq d\}$ is closed. 
+    
+    If $x$ is a limit point, then $\exists (x_n) \in [c, d]$ with $(x_n) \to x$. We want to show that $x \in [c, d]$. Since $c\leq x_n \leq d$, by the Order Limit Theorem, 
+    \[c \leq \lim x_n \leq d \implies \lim x_n \in [c, d] \implies x \in [c, d]\]
+    so the set is closed. 
+
+    \textbf{Example:} $\Q \subseteq \R$. The set of all limit point in $\Q$ is $\R$. 
+
+    \emph{Proof:} Let $y \in \R$. Consider any neighborhood $V_{\ep}(y) = (y - \ep, y + \ep)$. From the density of $\Q$ in $\R$, $\exists r \neq y$ such that $y - \ep < r < y + \ep$. Therefore, $r \in V_{\ep}(y)$ so $y$ is a limit point of $\Q$. 
+
+\section{March 7:} 
+    \textbf{Definition:} given a set $A \subseteq \R$, let $L$ be the set of all limit points of $A$. The \emph{closure} of $A$ is the set $\overline{A} = A \cup L$.
+
+    \textbf{Example:}
+    \begin{itemize}
+        \item  $\overline{\Q} = \R$
+        \item $A = (a, b) \implies \overline A = [a, b]$ 
+        \item If $A$ is closed, $\overline A = A$ 
+    \end{itemize}
+
+    \begin{tbox}{\textbf{Theorem:} For any $A \subseteq \R$, the closure $\bar A$ is a closed set and it is the smallest closed set containing $A$}
+        \emph{Proof:} Let $L$ be the set of limit points of $A$. Then $\bar A = A \cup L$ is closed (it contains all its limit points, obviously). Any closed set containing $A$ must contain $L$. Therefore $\bar A$ is the smallest closed set containing $A$. $\qed$
+    \end{tbox}
+
+    \textbf{Complement:} Recall that $A^c = \{x \in \R: x \notin A\}$ 
+
+    \begin{tbox}{\textbf{Theorem:} 
+        \begin{enumerate}
+            \item A set $O$ is open $\iff O^c$ is closed
+            \item A set $F$ is closed $\iff F^c$ is open
+        \end{enumerate}}
+        \emph{Proof:} 
+        \begin{enumerate}
+            \item Let $O \subseteq \R$ be open. We want to show $O^c$ is closed. By definition, if $x$ is a limit point of $O^c$, then every $\ep$-neighborhood of $x$ contains some point of $O^c$. Thus, any $\ep$-neighborhood of $x$ cannot be a subset of $O$ so $x \notin O$. Since $x \in O^c$, $O^c$ is closed.
+            
+            Now assume $O^c$ is closed. We want to show that $O$ is open, i.e. for any $x \in O$, $\exists V_{\ep}(x) \subseteq O$. By definition, $O^c$ is closed so $x$ is not a limit point of $O^c$. Therefore, $\exists V_{\ep}(x)$ which does not intersect $O^c$. Then $V_{\ep}(x) \subseteq O$.
+
+            \item $(E^c)^c = E$. The rest of the proof follows from 1). 
+        \end{enumerate}
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem:} 
+        \begin{enumerate}
+            \item The union of a finite collection of closed sets is closed
+            \item The intersection of an arbitary collection of closed sets is closed
+        \end{enumerate}}
+        \emph{Proof:} Follows from previous theorem and de Morgan's laws: 
+        \[\left(\bigcup_{\lambda \in \Lambda} E_{\lambda}\right)^c = \bigcap_{\lambda \in \Lambda} E_{\lambda}^c, \quad \left(\bigcap_{\lambda \in \Lambda} E_{\lambda}\right)^c = \bigcup_{\lambda \in \Lambda} E_{\lambda}^c\]
+    \end{tbox}
+
+\subsection*{Compact Sets}
+    \textbf{Motivation:} Bring ``finite'' quality to infinite arguments. 
+
+    \textbf{Definition:} A set $K \subseteq \R$ is \emph{compact} if every sequence in $K$ has a convergent subsequence whose limit is in $K$.
+
+    \textbf{Example:} $[c, d]$ is compact. \emph{Proof:} if $(a_n) \in [c, d]$, then it is bounded so by Bolzano-Weierstrass, $\exists (a_{n_k})$ which converges to $a$. Further $a \in [c, d]$ since $[c, d]$ is closed.
+
+    \textbf{Definition:} A set $A \subseteq \R$ is bounded if $\exists M > 0$ such that $\abs{a} < M$ for all $a \in A$. 
+
+    \begin{tbox}{\textbf{Theorem (Characterization of compactness in $\R$):} A set $K \subseteq \R$ is compact iff it is closed and bounded}
+        \emph{Proof:} Assume $K$ is compact. Suppose $K$ is not bounded. Since $K$ is not bounded: 
+        \[\forall n \in \N: \quad \exists x_n \in K, \st \abs{x_n} > n\]
+
+        Since $K$ is compact, $(x_n)$ should have a convergent subsequence. However, $(x_n)$ is unbounded so $(x_{n_k})$ is unbounded. Therefore, there is no convergent subsequence in $(x_n)$. This is a contradiction of compactness so $K$ is bounded.
+
+        Now we want to show $K$ is closed. Let $x = \lim x_n$ with $(x_n) \in K$. It suffices to show $x \in K$. By definition, $K$ is compact so $(x_n)$ has a convergent subsequence $(x_{n_k})$ which converges to $x$ and lies in $K$. $(x_{n_k}) \to x \implies x \in K \implies$ K is closed. 
+
+        It remains to prove that $K$ is compact if it is closed and bounded. This is left for HW. 
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem (Nested Compact Set Property):} If $K_1 \supseteq K_2 \supseteq K_3 \supseteq \dots$ is a nested sequence of nonempty compact sets, then $\bigcap_{n=1}^{\infty} K_n \neq \emptyset$}
+        \emph{Proof:} Use compactness of $K_n$ to produce a sequence that belongs to each set. $\forall n \in \N$, pick $x_n \in K_n$. Therefore, $(x_n) \in K_1 \implies \exists (x_{n_k}) \in K_1$ with $\lim x_{n_k} = x \in K_1$. 
+
+        Given an $n_0 \in \N$, the terms of $(x_n)$ are contained in $K_{n_0}$ as long as $n > n_0$. We now ignore the finite number of terms for which $n_k < n_0$. Therefore, $(x_{n_k}) \in K_{n_0}$ so $\lim x_{n_k} = x \in K_{n_0}$. Since $n_0$ was arbitrary, 
+        \[x \in \bigcap_{n=1}^{\infty} K_n\]
+    \end{tbox}
+
+\section*{March 12:}
+    \textbf{Definition:} Let $A \subseteq \R$. An \emph{open cover} of $A$ is a (possibly infinite) collection of open sets $\{O_{\lambda}: \lambda \in \Lambda\}$ such that 
+    \[A \subseteq \bigcup_{\lambda \in \Lambda} O_{\lambda}\]
+
+    Given an open cover for $A$, a \emph{finite subcover} is a finite collection of open sets from the original open cover, whose union still contains $A$
+
+    \textbf{Example:} Find an open cover for $(0, 1)$. 
+
+    $\forall x \in (0, 1)$, let $O_x$ be the open interval $(\frac{x}{2}, 1)$ so we have the infinite collection 
+    \[\{O_x: x \in (0, 1) \text{ covering } (0, 1)\}\]
+
+    However, it is impossible to find a finite subcover for $(0, 1)$ using this open cover: Construct $\{O_{x_1}, O_{x_2}, \dots, O_{x_n}\}$ and set $x' = \min\{x_1, \dots, x_n\}$. But then any $y \in \R$ with $0 < y \leq \frac{x'}{2}$ is not in $\bigcup_{i=1}^{n} O_{x_i}$ 
+
+    \textbf{Example:} Find an open cover for $[0, 1]$. 
+
+    Naturally, we can use the same open cover as $(0, 1)$. However, this does not include the endpoints. Now let $\ep > 0$ and define $O_0 = \{-\ep, \ep\}, O_1 = (1 - \ep, 1 + \ep)$. Then
+    \[\{O_0, O_1, O_x: x \in (0, 1)\}\] 
+    is an open cover if $[0, 1]$. 
+
+    To find a finite subcover, choose $x'$ such that $\frac{x'}{2} < \ep$:  
+    \[\{O_0, O_1, O_{x'}\}\]
+
+    \begin{tbox}{\textbf{Theorem (Heine-Borel):} For $K \subseteq \R$, then the following are equivalent: 
+        \begin{enumerate}[label=(\roman*)]
+            \item $K$ is compact
+            \item $K$ is closed and bounded 
+            \item Every open cover of $K$ has a finite subcover
+        \end{enumerate} }
+        \emph{Proof:} (i) $\iff$ (ii) follows from the Characterization of compactness in $\R$. 
+
+        It suffices to show (ii) $\iff$ (iii): 
+
+        Assume that every open cover of $K$ has a finite subcover. We want to show that $K$ is closed and bounded. Let $O_x = \{\abs{x - a} < 1: a \in \R\} = V_1(x)$. Since $\{O_x: x\in K\}$ must have finite subcover, $\exists x_1, x_2, \dots, x_n \in K$ such that $\{O_{x_1}, O_{x_2}, \dots, O_{x_n}\}$ is a finite subcover of $K$. 
+
+        Since $K$ is contained in a finite collection of sets, it is bounded. 
+
+        To show $K$ is closed, let $(y_n)$ be a Cauchy sequence is $K$ with $(y_n) \to y$. Suppose $y \notin K$, i.e. $\forall x \in K$, $x$ lies some positive distance away from $y$. 
+
+        Construct an open cover by taking $O_x$ to be the interval of radius $\frac{\abs{x-y}}{2}$ around $x \in K$. By (iii), we have a finite subcover $\{O_{x_1}, O_{x_2}, \dots, O_{x_n}\}$.
+    
+        Let $\ep_0 = \min \left\{\frac{\abs{x_i - y}}{2}: 1 \leq i \leq n\right\}$. Since $(y_n) \to y$, $\exists y_N$ such that $\abs{y_N - y} < \ep_0$. 
+
+        This means that $y_N$ must be excluded from each $O_x$ so certainly, $y \notin \bigcup_{i=1}^n O_{x_i}$. Therefore, this finite collection cannot be a subcover since it does not contain all of $K$. This is a contradiction so $K$ contains every limit point, and therefore $K$ is closed.
+        
+        The other direction, (ii) $\implies$ (iii), is left for homework. $\qed$
+    \end{tbox}
+
+\chapter{Functional Limits and Continuity}
+\section*{March 12 (Continued)}
+    \textbf{Definition (Functional limit):} Let $f: A \to \R$ be a function and let $c$ be a limit point of the domain $A$. We say $\lim f(x) = L$ if $x \to c$. 
+
+    Then $\forall \ep > 0$, $\exists \delta > 0$, such that whenever $0 < \abs{x - c} < \delta$ and $x \in A$, we have $\abs{f(x) - L} < \ep$.
+
+    \usetikzlibrary{math}
+    \tikzmath{\c = 2.5; \L = 1.6; \d = 0.5; \e = 0.5; \cm = \c - \d; \cp = \c + \d; \lm = 1.5; \lp = 1.7;}
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = left,
+                domain=0:6,
+                range=0:6,
+                samples=100,
+                xticklabel={\empty},
+                yticklabel={\empty},
+                extra x ticks = {\cm, \cp}, 
+                extra x tick labels = {$c - \delta$, $c + \delta$},
+                extra y ticks = {\lm, \lp}, 
+                extra y tick labels = {$L - \ep$, $L + \ep$}
+                ]
+                \draw[red!50, fill=red!50] (axis cs: \cm, \lm) -- (axis cs: \cp, \lm) -- (axis cs: \cp, \lp) -- (axis cs: \cm, \lp) -- cycle;
+
+                \addplot[smooth, thick, blue]{sin(deg(x))+1};
+                \node[circle,fill,inner sep=2pt] (p) at (axis cs:\c, \L) {};
+                \node[above right] at (p) {$(c,L)$};
+            
+                \draw[dotted, red] (axis cs:\cm, 0) -- (axis cs: \cm, \lm);
+                \draw[dotted, red] (axis cs: \cp, 0) -- (axis cs: \cp, \lm);
+                
+                \draw[dotted, red] (axis cs: 0, \lp) -- (axis cs: \cm, \lp);
+                \draw[dotted, red] (axis cs: 0, \lm) -- (axis cs: \cm, \lm);
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    
+
+    \textbf{Topological Definition:} Let $c$ be a limit point in $A$ of $f: A \to \R$. We say that 
+    \[\lim_{x\to c} f(x) = L\]
+    if $\forall V_{\ep}(L)$, there exists $V_{\delta}(c)$ such that $\forall x \in V_{\delta}(c)$, $f(x) \in V_{\ep}(L)$ 
+
+    \textbf{Example:} Show $\lim_{x \to 2} f(x) = 7$ with $f(x) = 3x + 1$. 
+
+    Let $\ep > 0$. We need to produce a $\delta > 0$ such that $0 < \abs{x - 2} < \delta$ implies $\abs{f(x) - 7} < \ep$. 
+    \[\abs{f(x) - 7} = \abs{3x + 1 - 7} = \abs{3x - 6} = 3\abs{x - 2}\]
+
+    Choose $\delta = \frac{\ep}{3}$ so $0 < \abs{x - 2} < \delta \implies \abs{f(x) - 7} < 3\delta = \ep$.
+
+    \textbf{Example:} Show $\lim_{x\to 2} g(x) = 4$, $g(x) = x^2$. 
+
+    Let $\ep > 0$. We want $\abs{g(x) - 4} < \ep$ by restricting $\abs{x - 2} < \delta$. 
+
+    Notice
+    \[\abs{g(x) - 4} = \abs{x^2 - 4} = \abs{x + 2}\abs{x - 2}\] 
+
+    So we construct a $\delta$-neighborhood around $c = 2$ with radius no bigger than $\delta = 1$: 
+    \[\abs{x + 2} \leq \abs{3 + 2} = 5\] 
+
+    Choose $\delta = \min\{1, \frac{\ep}{5}\}$. Then when $0 < \abs{x - 2} < \delta$, we have 
+    \[\abs{g(x) -4} < \ep\]
+\end{document}  
+
+
+
+
+

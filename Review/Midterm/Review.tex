@@ -1,0 +1,530 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 Midterm Review}
+\author{Milan Capoor}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Class Notes}
+A \textbf{set} is a collection of objects. 
+
+\textbf{De Morgan's Laws:}
+\begin{align*}
+    (A \cap B)^c = A^c \cup B^c \\
+    (A \cup B)^c = A^c \cap B^c
+\end{align*}
+
+A \textbf{function} $f: A \to B$ assigns each $a \in A$ to a unique element $f(a) \in B$. $A$ is the \textbf{domain} of $f$ and $B$ is the \textbf{codomain} of $f$. The \textbf{range} of $f$ is the set of all possible outputs of $f$ (a subset of $B$)
+
+\textbf{Properties of the absolute value:}
+\begin{itemize}
+    \item $\abs{ab} = \abs{a} \; \abs{b}$
+    \item Triangle inequality: $\abs{a + b} \leq \abs{a} + \abs{b}$
+\end{itemize}
+
+\textbf{Theorem:} $a = b \iff \forall \ep > 0, \abs{a - b} < \ep$
+
+\textbf{The Real Numbers:} $\R$ is a field. $\exists P = \{x \in \R: x > 0\}$ such that the positive numbers are closed under addition and multiplication.
+
+\emph{Completeness Axiom:} If $A \subseteq \R$ such that $A \neq \emptyset$ and $A$ is bounded above, then $\sup A$ (the least upper bound for $A$) exists, i.e. $\sup A \geq y$ for all $y \in A$ and if $z$ is an upper bound for $A$, then $\sup A \leq z$.
+
+For $A \subseteq \R$, $\inf A$ and $\sup A$ exist and are unique. If $\sup A \in A$, it is the \textbf{maximum}. If $\inf A \in A$, it is the \textbf{minimum}.
+
+\textbf{Lemma:} $\forall \ep > 0$, exists $a \in A$ such that $\sup A - \ep < a$.
+
+\textbf{Theorem (Nested Interval Property):} If $I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots$ is a sequence of closed intervals, then $\bigcap_{n=1}^\infty I_n \neq \emptyset$.
+
+\textbf{Archimedean Property:} $\N$ is not bounded above. 
+
+\textbf{Theorem (Density of $\Q$ in $\R$):} For all $a, b \in \R$, exists $r \in \Q$ such that $a < r < b$. 
+
+A function is \textbf{injective/one-to-one} if $a_1 \neq a_2$ in $A$ implies $f(a_1) \neq f(a_2)$
+
+A function is \textbf{surjective/onto} if $\forall b \in B$, $\exists a \in A$ such that $f(a) = b$.
+
+A function is \textbf{bijective} if it is both injective and surjective. 
+
+Two sets have the same cardinality ($A \sim B$) if there exists a bijection $f: A \to B$.
+\begin{itemize}
+    \item $\N \sim \Z$
+    \item $(a, b) \sim \R$
+\end{itemize}
+
+A set is \textbf{countable} if it has the same cardinality as $\N$
+\begin{itemize}
+    \item $\Q$ is countable 
+    \item $\R$ is uncountable
+\end{itemize}
+
+A \textbf{sequence} is a function whose domain is $\N$
+
+A sequence $(a_n)$ \textbf{converges} if $\exists L \in \R$ such that $\forall \ep > 0$, $\exists N \in \N$ such that $n \geq N$ implies $\abs{a_n - L} < \ep$. Alternatively, $(a_n) \to a$ if, given any $\ep$-neighborhood of $a$, exists a point in the sequence after which all points are in the neighborhood.
+
+The \textbf{$\ep$-neighborhood} of $a \in \R$ (given $\ep > 0$) is the set 
+\[V_{\ep}(a) = \{x \in \R: \abs{x - a} < \ep\}\]
+
+\textbf{A template for convergence proofs:}
+\begin{enumerate}
+    \item Let $\ep > 0$ 
+    \item Choose $N \in \N$ 
+    \item Verify that $n \geq N$ implies $\abs{a_n - L} < \ep$
+\end{enumerate}
+
+\textbf{Theorem (Uniqueness of Limits):} The limit of a sequence, if it exists, is unique. 
+
+\textbf{Theorem:} Every convergent sequence is \textbf{bounded}, i.e. $\abs{x_n} \leq M$ for all $n \in \N$. 
+
+\textbf{Algebraic Limit Theorem:} Let $(a_n) \to a$, $(b_n)\to b$, then 
+\begin{enumerate}
+    \item $\lim (ca_n) = ca$
+    \item $\lim (a_n + b_n) = a + b$
+    \item $\lim (a_n b_n) = ab$
+    \item $\lim \left(\frac{a_n}{b_n}\right) = \frac{a}{b}$ if $b \neq 0$
+\end{enumerate}
+
+\textbf{Order Limit Theorem:} If $(a_n) \to a$ and $(b_n) \to b$, then
+\begin{enumerate}
+    \item If $a_n \geq 0$, then $a \geq 0$
+    \item If $a_n \leq b_n$ for all $n$, then $a \leq b$
+    \item If $c \leq b_n$ for all $n$, then $c \leq b$
+\end{enumerate} 
+
+\textbf{Monotone Convergence Theorem:} If a sequence is bounded and monotone (either increasing or decreasing for all $n \in \N$), then it converges.
+
+A \textbf{series} $\sum_{n=1}^{\infty} a_n$ converges if the sequence of partial sums $S_n = \sum_{n=1}^m a_n$ converges.
+
+\textbf{Cauchy Condensation Test:} Suppose $(b_n)$ is decreasing and $b_n \geq 0$.
+\[\sum_{n=1}^{\infty} b_n = b \iff \sum_{n=1}^{\infty} 2^n b_{2^n} = b_1 + 2b_2 + 4b_4 + \dots = b\]
+
+\emph{Corollary:} $\sum_{n=1}^{\infty} \frac{1}{n^p}$ converges if $p > 1$ and diverges if $p \leq 1$.
+
+Let $(a_n)$ be a sequence and let $n_1 < n_2 < n_3 < \dots$ be a sequence of natural numbers. Then the sequence $(a_{n_k})$ is called a \textbf{subsequence} of $(a_n)$. The order of terms in a subsequence is the same as in the original sequence and no repetitions are allowed.
+
+\textbf{Theorem:} A subsequence of a convergent sequence converges to the same limit as the original sequence.
+
+\emph{Corollary:} If two convergent subsequences of a sequence have different limits, then the sequence does not converge.
+
+\textbf{Bolzano-Werierstrass Theorem:} Every bounded sequence has a convergent subsequence.
+
+A sequence is \textbf{Cauchy} if $\forall \ep > 0$, $\exists N \in \N$ such that for $n, m \geq N$, 
+\[\abs{a_n - a_m} < m\] 
+
+\textbf{Cauchy Criterion:} A sequence converges if and only if it is Cauchy. 
+
+\emph{Corollary:} Every Cauchy sequence (every convergent sequence) is bounded.
+
+\textbf{Algebraic Limit Theorem for Series:} If $\sum_{n=1}^{\infty} a_n = A$ and $\sum_{n=1}^{\infty} b_n = B$, then
+\begin{enumerate}
+    \item $\sum_{k=1}^{\infty} ca_k = cA$ 
+    \item $\sum_{k=1}^{\infty} (a_k + b_k) = A + B$
+\end{enumerate}
+
+\textbf{Cauchy Criterion for Series:} The series $\sum_{k=1}^{\infty} a_k$ converges iff $\forall \ep > 0$, $\exists N \in \N$ such that for $m \geq n \geq N$,
+\[\abs{\sum_{k=m+1}^n a_k} = \abs{a_{m+1} + a_{m+2} + \dots + a_n} < \ep\]
+
+\textbf{Theorem:} If $\sum_{k=1}^{\infty} a_k$ converges, then $(a_k)\to 0$ 
+
+\textbf{Series Comparson Test:} If $(a_k)$ and $(b_k)$ are sequences satisfying $0 \leq a_k \leq b_k$ for all $k \in \N$, then
+\begin{enumerate}
+    \item If $\sum_{k=1}^{\infty} b_k$ converges, then $\sum_{k=1}^{\infty} a_k$ converges
+    \item If $\sum_{k=1}^{\infty} a_k$ diverges, then $\sum_{k=1}^{\infty} b_k$ diverges
+\end{enumerate}
+
+A series of the form $\sum_{k=0}^{\infty} ar^k$ is called a \textbf{geometric series}. It converges if $\abs{r} < 1$ and diverges otherwise. In the case $\abs{r} < 1$, 
+\[\sum_{k=0}^{\infty} ar^k = \frac{a}{1- r}\]
+
+\textbf{Absolute Convergence Test:} If $\sum_{n=1}^{\infty} \abs{a_n}$ converges, then $\sum_{n=1}^{\infty} a_n$ converges. 
+
+\textbf{Alternating Series Test:} If $(a_n)$ is a decreasing sequence such that $\lim a_n = 0$, then the series $\sum_{n=1}^{\infty} (-1)^{n+1}a_n$ converges.
+
+If $\sum_{n=1}^{\infty} \abs{a_n}$ converges, then $\sum_{n=1}^{\infty} a_n$ \textbf{converges absolutely}. If $\sum_{n=1}^{\infty} a_n$ converges but $\sum_{n=1}^{\infty} \abs{a_n}$ diverges, then $\sum_{n=1}^{\infty} a_n$ \textbf{converges conditionally}.
+
+\textbf{Theorem:} If $\sum_{n=1}^{\infty} a_n$ converges absolutely, every rearrangement of the series converges to the same sum.
+
+A set $O \subseteq \R$ is \textbf{open} if $\forall x \in O$, $\exists \ep > 0$ such that $V_{\ep}(x) \subseteq O$.
+\begin{itemize}
+    \item $\emptyset$ and $\R$ are open
+    \item $(c, d)$ is open 
+    \item The union of an arbitrary collection of open sets is open
+    \item The intersection of a finite collection of open sets is open
+\end{itemize}
+
+A point $x$ is a \textbf{limit point} of a set $A$ if every $\ep$-neighborhood of $x$ contains a point in $A$ other than $x$ itself. If a point is not a limit point of $A$, it is an \textbf{isolated point} of $A$. An isolated point is always in the set, the limit point may or may not be in the set.
+
+\textbf{Theorem:} A $x \in A$ is a limit point of $A$ $\iff \exists (a_n) \in A$ such that $(a_n) \to x$ and $a_n \neq x$ for all $n \in \N$. 
+
+A set $F \subseteq \R$ is \textbf{closed} if it contains its limit points. 
+\begin{itemize}
+    \item $[c, d]$ is closed
+\end{itemize}
+
+\textbf{Theorem:} A set is closed iff every Cauchy sequence in the set converges to a point in the set.
+
+The \textbf{closure} of a set $A \subseteq \R$ is given by $\bar A = A \cup L$ where $L$ is the set of all limit points of $A$.
+\begin{itemize}
+    \item $\bar Q = \R$
+    \item $A = (a, b) \implies \bar A = [a, b]$
+    \item If $A$ is closed, $\bar A = A$
+\end{itemize}
+
+\textbf{Theorem:} For any $A \subseteq \R$, $\bar A$ is closed and is the smallest closed set containing $A$.
+
+\textbf{Theorem:} $O$ is open $\iff$ $O^c$ is closed. $F$ is closed $\iff$ $F^c$ is open.
+
+\textbf{Theorem:} The intersection of an arbitrary collection of closed sets is closed. The union of a finite collection of closed sets is closed.
+
+A set $K \subseteq \R$ is \textbf{compact} if every sequence in $K$ has a convergent subsequence whose limit is in $K$.
+
+\textbf{Characterization of Compactness in $\R$:} A set $K \subseteq \R$ is compact $\iff$ $K$ is closed and bounded.
+
+\textbf{Nested Compact Set Property:} If $K_1 \supseteq K_2 \supseteq K_3 \supseteq \dots$ is a sequence of nonempty compact sets, then $\bigcap_{n=1}^\infty K_n \neq \emptyset$.
+
+\section{Homework Results} 
+
+Let $A \subset \R$ be nonempty and bounded above. Let $c \in \R$ and define $cA = \{ca: a \in A\}$. If $c \geq 0$, $\sup(cA) = c\sup A$. If $c < 0$, $\sup(cA) = c\inf A$.
+
+If $a$ is an upper bound for $A$ and $a \in A$, then $a = \sup A$. 
+
+If $a \in \Q$ and $t \in \I$ then $a + t \in I$ and $at \in I$. 
+
+$\I$ is dense in $\R$. 
+
+\textbf{Theorem:} If $A_1, A_2, \dots, A_m$ are countable, then $\bigcup_{n=1}^m A_n$ is countable.
+
+\textbf{Lemma:} If $(x_n) \to 0$, $\sqrt{x_n} \to 0$. If $(x_n) \to x$, $\sqrt{x_n} \to \sqrt{x}$. 
+
+\textbf{Squeeze Theorem:} If $x_n \leq y_n \leq z_n$ for all $n \in \N$ and $\lim x_n = \lim z_n = L$, then $\lim y_n = L$. 
+
+\textbf{Cesaro Means:} If $(x_n) \to x$, then $(y_n) \to x$ where 
+\[y_n = \frac{x_1 + x_2 + \dots + x_n}{n}\]
+
+The \textbf{limit superior} of $(a_n)$, denoted $\limsup a_n$ is given by $\lim \left(\sup\{a_k: k \geq n\}\right)$. The \textbf{limit inferior} of $(a_n)$, denoted $\liminf a_n$ is given by $\lim \left(\inf\{a_k: k \geq n\}\right)$. 
+\[\liminf a_n = \limsup a_n \iff (a_n) \to a\]
+
+\textbf{Lemma:} For two nonempty sets bounded above with $A \subset B$, $\sup A \leq \sup B$. 
+
+If $(a_n)$ and $(b_n)$ are Cauchy, then $c_n = \abs{a_n - b_n}$ is Cauchy. Similarly, $(a_n + b_n)$ and $(a_n \cdot b_n)$ are Cauchy. 
+
+\textbf{Limit Ratio Test:} Given a series $\sum_{n=1}^{\infty} a_n$ with $a_n \neq 0$, if $(a_n)$ satisfies 
+\[\lim \abs{\frac{a_{n+1}}{a_n}} = r < 1\]
+then $\sum_{n=1}^{\infty} a_n$ converges absolutely. 
+
+\textbf{Summation by Parts:} Let $s_n = x_1 + \dots + x_n$. Then 
+\[\sum_{j=m+1}^n x_jy_j = s_n y_{n+1} - s_m y_{m+1} + \sum_{j=m+1}^n s_j(y_j - y_{j+1})\]
+
+\textbf{Dirichlet's Test:} If the partial sums of $\sum_{n=1}^{\infty} x_n$ are bounded and if $y_n \geq 0$ and decreasing with $\lim y_n = 0$, then $\sum_{n=1}^{\infty} x_ny_n$ converges.
+
+
+
+\section*{Practice Problems}
+\textbf{1.3.6:} Given sets $A$ and $B$, define $A + B = \{a + b: a \in A, b \in B\}$. Follow these steps to prove that if $A, B$ nonempty and bounded above, then $\sup(A + B) = \sup A + \sup B$.
+\begin{enumerate}
+    \item Let $s = \sup A$ and $t= \sup B$. Show $s + t$ is an upper bound for $A + B$
+    
+        \color{blue}
+            Notice that for any $a \in A$ and $b \in B$, $a + b \leq s + b$. Similarly, $a + b \leq a + t$. Thus, 
+            \[2a + 2b \leq s + b + a + t \implies a + b \leq s + t \implies s + t \text{ is upper bound}\]
+        \color{black}
+
+    \item Let $u$ be an arbitrary upper bound for $A + B$ and fix $a \in A$. Show $t \leq u - a$
+
+        \color{red}
+            From (1), $a + b \leq s + t$. First suppose $s + t \leq u$. Since $a \leq s$, $a + t \leq s + t \leq u \implies t \leq u - a$. 
+            
+            Now consider the case $s + t > u$. Let $\ep > 0$. By definition of supremum, $s + t - \ep \leq a + b$ for some $a, b \in A, B$. Since $u$ is an upper bound for $A + B$, $s + t - \ep \leq u \implies s + t \leq u + \ep$. This is a contradiction so the $s + t \leq u$ for all upper bounds $u$. The first case shows $t \leq u - a$
+        \color{black}
+
+    \item Show $\sup(A + B) = s + t$
+    
+        \color{blue}
+            From (1), $s + t$ is an upper bound for $A + B$. From part (2), $s + t$ is the least upper bound for $A + B$. Thus, $\sup(A + B) = s + t$
+        \color{black}
+
+    \color{red}
+    \item Construct another proof of this same fact using Lemma 1.3.8
+    
+    \color{black}
+ \end{enumerate}
+
+\textbf{1.3.8:} Compute, without proof, the sup and inf (if they exist) of the following sets:
+\begin{enumerate}
+    \item $\{m/n: m,n \in \N, m < n\}$ 
+
+        \color{blue}
+            Since $m < n$, $m/n < 1$. Thus, $\sup = 1$. The inf is 0.
+        \color{black}
+
+    \item $\{(-1)^m/n: m,n \in \N\}$
+    
+        \color{blue}
+            The set is bounded above by 1 and below by -1. Thus, $\sup = 1$ and $\inf = -1$.
+        \color{black}
+
+    \item $\{n/(3n+1): n \in \N\}$ 
+            
+            \color{blue}
+                The set is bounded above by 1/3 and below by 0. Thus, $\sup = 1/3$ and $\inf = 0$.
+            \color{black}
+
+    \item $\{m/(m+n): m, n \in \N\}$
+
+        \color{blue}
+            $\inf = 0$. $\sup = 1$
+        \color{black}
+\end{enumerate}
+
+\textbf{1.4.2:} Let $A \subseteq \R$ be nonempty and bounded above. Let $s \in \R$ have the property $\forall n \in \N$, $s + \frac{1}{n}$ is an upper bound of $A$ and $s - \frac{1}{n}$ is not an upper bound for $A$. Prove that $s = \sup A$.
+
+    \color{blue}
+        Let $\ep > 0$ and $N = \frac{1}{\ep} \implies \ep = \frac{1}{N}$. Choose $n > N$ so 
+        \[s - \frac{1}{n} < \sup A < s + \frac{1}{n} \implies s - \ep < \sup A < s + \ep \implies \abs{\sup A - s} < \ep \implies s = \sup A\]
+    \color{black}
+
+\textbf{2.3.6} Consider the sequence given by $b_n = n - \sqrt{n^2 + 2n}$. Taking $(1/n) \to 0$ as given, and using both the Algebraic Limit Theorem and the result in Exercise 2.3.1 ($(x_n)\to x \implies (\sqrt{x_n})\to \sqrt{x}$), show $\lim b_n$ exists and find its value.
+
+    \color{blue}
+        Consider $\frac{1}{b_n}$: 
+        \begin{align*}
+            \lim \frac{1}{b_n} &= \lim \frac{1}{n + \sqrt{n^2 + n}}\\ 
+                &= \lim \frac{1}{n} + \lim \frac{1}{\sqrt{n^2 + n}} && (\text{ALT})\\ 
+                &= \lim \sqrt{\frac{1}{n^2 + n}} && ((1/n) \to 0)\\ 
+                &= \sqrt{\lim \frac{1}{n^2 + n}} && (\text{Ex 2.3.1})\\
+                &= \sqrt{\lim \frac{1}{n(n + 1)}}\\ 
+                &= \sqrt{\lim \frac{1}{n} \cdot \frac{1}{n + 1}}\\ 
+                &= \sqrt{\lim \frac{1}{n} \cdot \lim \frac{1}{n+1}} && \text{(ALT)}\\ 
+                &= \sqrt{0 \cdot 0} && ((1/n) \to 0)\\ 
+                &= 0 
+        \end{align*}
+
+        \color{red}
+        Thus, $\lim \frac{1}{b_n} = 0$. 
+    \color{black}
+
+
+\textbf{2.3.8:} Let $(x_n) \to x$ and let $p(x)$ be a polynomial. 
+\begin{enumerate}
+    \item Show $p(x_n) \to p(x)$
+    
+        \color{blue}
+            Let $p(x) = a_0 + a_1x + \dots + a_nx^n$. Then 
+            \[p(x_n) = a_0 + a_1x_n + \dots + a_nx_n^n\]
+          
+            $x_n \to x$ so $p(x_n) \to a_0 + a_1x + \dots + a_n x^n = p(x)$ by the ALT. 
+        \color{black}
+
+    \item Find an example of a function $f(x)$ and a convergent series $(x_n) \to x$ where the sequence $f(x_n)$ converges, but not to $f(x)$ 
+
+        \color{blue}
+            Let $(x_n) = 1/n \to 0$ and $f(x) = \sin x$. Then $f(x_n) = \sin(1/n) \to 0$ but $f(x)$ does not converge. 
+        \color{black}
+
+\end{enumerate}
+
+\textbf{2.4.2:}
+\begin{enumerate}
+    \item $y_1 = 1$, $y_{n+1} = 3 - y_n$, $\lim y_n = y$. Because $(y_n)$ and $(y_{n+1})$ have the same limit, taking the limit across the recursive equation gives $y = 3 - y$. Solving for $y$, we find $y = 3/2$. What is wrong with this argument? 
+    \item This time set $y_1 = 1$ and $y_{n+1} = 3 - \frac{1}{y_n}$. Can the argument in (1) be used to compute this limit?
+\end{enumerate}
+
+\textbf{2.4.8:} For each series, find an explicit formula for the sequence of partial sums and determine if the series converges.
+\begin{enumerate}
+    \item $\sum_{n=1}^{\infty} \frac{1}{2^n}$
+
+        \color{blue}
+            \begin{align*}
+                S_1 &=  \frac{1}{2}\\
+                S_2 &= \frac{1}{2} + \frac{1}{4} = \frac{3}{4}\\
+                S_3 &= \frac{1}{2} + \frac{1}{4} + \frac{1}{8} = \frac{7}{8}\\
+                S_4 &= \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} = \frac{15}{16}\\
+                S_n &= 1 - \frac{1}{2^n}
+            \end{align*}
+            $(\frac{1}{2^n}) \to 0$ so $S_n \to 1$.
+        \color{black}
+
+    \item $\sum_{n=1}^{\infty} \frac{1}{n(n+1)}$
+    
+        \color{blue}
+            \begin{align*}
+                S_1 &= \frac{1}{1(2)} = \frac{1}{2}\\
+                S_2 &= \frac{1}{1(2)} + \frac{1}{2(3)} = \frac{1}{2} + \frac{1}{6} = \frac{2}{3}\\
+                S_3 &= \frac{1}{1(2)} + \frac{1}{2(3)} + \frac{1}{3(4)} = \frac{1}{2} + \frac{1}{6} + \frac{1}{12} = \frac{3}{4}\\
+                S_4 &= \frac{1}{1(2)} + \frac{1}{2(3)} + \frac{1}{3(4)} + \frac{1}{4(5)} = \frac{1}{2} + \frac{1}{6} + \frac{1}{12} + \frac{1}{20} = \frac{4}{5}\\
+                S_n &= \frac{n}{n+1} = 1 - \frac{1}{n+1}
+            \end{align*}
+            $(\frac{1}{n+1}) \to 0$ so $S_n$ converges. 
+        \color{black}
+
+    \item $\sum_{n=1}^{\infty} \log(\frac{n+1}{n})$
+            
+        \color{blue}
+            \begin{align*}
+                S_1 &= \log(2)\\
+                S_2 &= \log(2) + \log(3/2) = \log(\frac{3}{2} \cdot 2) = \log(3)\\
+                S_3 &= \log(2) + \log(3/2) + \log(4/3) = \log(4)\\
+                S_4 &= \log(2) + \log(3/2) + \log(4/3) + \log(5/4) = \log(5)\\
+                S_n &= \log(n+1)
+            \end{align*}
+
+            $\log(n +1)$ is unbounded so $S_n$ diverges.
+        \color{black}
+\end{enumerate}
+
+\textbf{2.6.2:} Give an example of each of the following (or show they are impossible):
+\begin{enumerate}
+    \item A Cauchy sequence that is not monotone
+
+        \color{blue}
+            \[a_n = \frac{(-1)^n}{n^2}\]
+        \color{black}
+
+    \item A Cauchy sequence with an unbounded subsequence 
+
+        \color{blue}
+            A Cauchy sequence is convergent. Every subsequence of a convergent sequence converges. Every convergent sequence is bounded. Thus, a Cauchy sequence cannot have an unbounded subsequence.
+        \color{black}
+
+    \item A divergent monotone sequence with a Cauchy subsequence
+    
+        \color{blue}
+            A divergent monotone sequence is unbounded so it cannot have a bounded infinite subsequence. 
+        \color{black}
+
+    \item An unbounded sequence containing a Cauchy subsequence 
+    
+        \color{blue}
+            As above, a Cauchy sequence must be bounded so it cannot be a subsequence of an unbounded sequence.
+        \color{black}
+
+\end{enumerate}
+
+\textbf{2.7.2:} Decide whether the following series converge or diverge:
+\begin{enumerate}
+    \item $\sum_{n=1}^{\infty} \frac{1}{2^n + n}$
+    
+    \item $\sum_{n=1}^{\infty} \frac{\sin(n)}{n^2}$
+    \item $1 - \frac{3}{4} + \frac{4}{6} - \frac{5}{8} + \frac{6}{10} - \frac{7}{12} + \dots$
+    
+        \color{blue}
+            
+        \color{black}
+    
+        
+
+    \item $1 + \frac{1}{2} - \frac{1}{3} + \frac{1}{4} + \frac{1}{5} - \frac{1}{6} + \frac{1}{7} + \frac{1}{8} - \frac{1}{9} + \dots$
+    
+        \color{blue}
+            $(1/n) \to 0$ and is decreasing so by the Alternating Series Test the series converges.
+        \color{black}
+
+    
+    \item $1 - \frac{1}{2^2} + \frac{1}{3} - \frac{1}{4^2} + \frac{1}{5} - \frac{1}{6^2} + \frac{1}{7} - \frac{1}{8^2} + \dots$
+    
+        \color{blue}
+
+        \color{black}
+
+        
+\end{enumerate}
+
+\textbf{2.7.4:} Give an example of each or explain why it is impossible:
+\begin{enumerate}
+    \item Two series $\sum x_n$ and $\sum y_n$ that both diverge but where $\sum x_n y_n$ converges 
+    
+        \color{blue}
+            Let $(x_n) = (y_n) = \frac{1}{n}$. Then $\sum x_n y_n = \sum \frac{1}{n^2} = \frac{\pi^2}{6}$ which converges.
+        \color{black}
+
+        \color{red}
+    \item A convergent series $\sum x_n$ and a bounded sequence $(y_n)$ such that $\sum x_n y_n$ diverges
+    
+        \color{blue}
+        \color{black}
+
+    \item Two sequences $(x_n)$ and $(y_n)$ where $\sum x_n$ and $\sum(x_n + y_n)$ both converge but $\sum y_n$ diverges
+    
+        \color{blue}
+            Let $\sum x_n = A$ and $\sum (x_n + y_n) = B$. Then by the Algebraic Limit Theorem,
+            \[\sum y_n = \sum (x_n + y_n) - x_n = B - A \]
+            so $\sum y_n$ converges. 
+        \color{black}
+
+    \item A sequence $(x_n)$ with $0 \leq x_n \leq 1/n$ where $\sum (-1)^n x_n$ diverges
+    
+        \color{blue}
+            $(1/n) \to 0$ so by comparison test, $(x_n) \to 0$. Since $(1/n)$ is decreasing, $(x_n)$ must also be decreasing so $\sum (-1)^n x_n$ converges by Alternating Series Test. 
+        \color{black}
+
+\end{enumerate}
+
+\end{document}
