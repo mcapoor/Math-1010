@@ -1068,7 +1068,810 @@
 
     Choose $\delta = \min\{1, \frac{\ep}{5}\}$. Then when $0 < \abs{x - 2} < \delta$, we have 
     \[\abs{g(x) -4} < \ep\]
+
+\section{March 19:}
+    \begin{tbox}{\textbf{Theorem (Sequential Criterion for Functional Limits):} Given $f: A \to \R$ and $c$ is a limit point of $A$, then the following are equivalent:
+        \begin{enumerate}
+            \item $\lim_{x\to c} f(x) = L$
+            \item For every sequence $(x_n)$ in $A$ with $(x_n) \to c$ and $x_n \neq c$, we have $f(x_n) \to L$
+        \end{enumerate} }
+        \emph{Proof:} 
+
+        Assume $\lim_{x\to c} f(x) = L$. Let $(x_n)$ be a sequence in $A$ with $(x_n) \to c$ and $x_n \neq c$. We want to show that $\forall \ep >0$, $\exists V_{\delta}(c)$ such that $\forall x \in V_{\delta}(c)$, $f(x) \in V_{\ep}(L)$. 
+
+        We assume that $(x_n) \to c \implies \exists N \in \N$ such that $x_n \in V_{delta}(c)$ for all $n \geq N$. Then for all $n \geq N$, $f(x_n) \in V_{\ep}(L)$.
+        
+        For the other direction, we argue the contrapositive statement: 
+        \[\lim_{x \to c} f(x) \neq L \implies \exists \ep_0 \st \forall \delta > 0, \exists x \in V_{\delta}(c) \st f(x) \notin V_{\ep_0}(L)\]
+
+        Consider $\delta_n = \frac{1}{n}$. Then $\exists x_n \in V_{\delta_n}(c)$ such that $f(x_n) \notin V_{\ep_0}(L)$. Then $(x_n) \to c$ but $f(x_n) \nrightarrow L$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Corollary (ALT for Functional Limits):} Let $f$ and $g$ be functions defined on a domain $A \subseteq \R$ and assume $\lim_{x \to c} f(x) = L$ and $\lim_{x \to c} g(x) = M$. Then 
+        \begin{enumerate}
+            \item $\lim_{x \to c} kf(x) = kL$ for any $k \in \R$
+            \item $\lim_{x \to c} (f(x) + g(x)) = L + M$
+            \item $\lim_{x \to c} (f(x)g(x)) = LM$
+            \item $\lim_{x \to c} \frac{f(x)}{g(x)} = \frac{L}{M}$, provided $M \neq 0$
+        \end{enumerate}  }
+        \emph{Proof:} Direct consequence of ALT for sequences and Sequential Criterion for Functional Limits.
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Corollary (Divergence Criterion):} If $f: A \to \R$ with $c$ a limit point of $f$, if $\exists (x_n) \to c$ and $(y_n)\to c \in A$ but $\lim_{x_n \to c} f(x_n) \neq \lim_{y_n \to c} f(y_n)$, then $\lim_{x \to c} f(x)$ does not exist. }
+        \emph{Proof:} Omitted
+    \end{tbox}
+
+    \textbf{Example:} To show $\lim_{x \to 0} \sin(\frac{1}{x})$ does not exist, consider the sequences $(x_n) = \frac{1}{2n\pi}$ and $(y_n) = \frac{1}{2n\pi + \frac{\pi}{2}}$.
+
+    Clearly, $\lim_{n\to \infty} x_n = \lim_{n\to\infty} y_n = 0$. However, $\sin(\frac{1}{x_n}) = 0$ and $\sin(\frac{1}{y_n}) = 1$ so $\lim_{x\to 0} \sin(\frac{1}{x})$ does not exist.
+
+    \textbf{Definition:} A function $f: A \to \R$ is \emph{continuous} at a point $c \in A$ if $\forall \ep > 0$, $\exists \delta > 0$ such that for $x \in V_{\delta}(c)$ (and $x \in A$), it follows that 
+    \[\abs{f(x) - f(c)} < \ep\]
+
+    If $f$ is continuous at every point in $A$, then we say $f$ is \emph{continuous} on $A$. 
+
+    \begin{tbox}{\textbf{Theorem (Characterization of continuity):} Let $f: A \to \R$ and $c \in A$. The following definition of continuity of $f$ at $c$ are equivalent:
+        \begin{enumerate}
+            \item $\forall \ep > 0$, $\exists \delta > 0$, such that $\abs{x - c} < \delta \implies \abs{f(x) - f(c)} <\ep$ 
+            \item $\forall V_{\ep}(f(c)), \exists \delta > 0$ such that $x \in V_{\delta}(c) \implies f(x) \in V_{\ep}(f(c))$
+            \item If for $x_n \in A$ we have $(x_n) \to c$, then $f(x_n) \to f(c)$
+        \end{enumerate}}
+        \emph{Proof:} 
+    \end{tbox}
+
+    Equivalently, if $c$ is a limit point of $A$, then $f$ is continuous at $c$ if $\lim_{x\to c} f(x) = f(c)$.
+
+    \begin{tbox}{\textbf{Corollary (Criterion for discontinuity):} $f: A \to \R$, $c \in A$ be a limit point of $A$. If $\exists (x_n) \in A$ with $(x_n) \to c$ but with $f(x_n) \nrightarrow f(c)$, then $f$ is not continuous at $c$. }
+        \emph{Proof:} Direct from Characterization of continuity
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Algebraic Continuity Theorem:} Assume $f: A \to \R$, $g: A \to \R$ are continuous at $c \in A$. Then 
+        \begin{enumerate}
+            \item $kf(x)$ is continuous at $c$ for any $k \in \R$
+            \item $f(x) + g(x)$ is continuous at $c$ for any continuous functions $f$ and $g$
+            \item $f(x)g(x)$ is continuous at $c$ 
+            \item $\frac{f(x)}{g(x)}$ is continuous at $c$ provided $g(c) \neq 0$
+        \end{enumerate}}
+        \emph{Proof:} Direct from sequential criterion and sequences
+    \end{tbox}
+
+    \textbf{Example:} All polynomials (and in fact all rational functions) are continuous. Consider 
+    \[g(x) = x \implies \abs{g(x) - g(c)} = \abs{x - c}\] 
+    so $\forall \ep > 0$, pick $\delta = \ep$ and then $\abs{x - c} < \delta \implies \abs{g(x) - g(c)} < \ep$ so $g(x) = x$ is continuous. 
+
+    Now consider $f(x) = k$. Clearly, with $\ep > 0$ and $\delta =1$, $k$ is continuous. 
+
+    Notice the general form of a polynomial: 
+    \[p(x) = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n\]
+    Each term is continuous by the Algebraic Continuity Theorem so the sum is continuous.
+
+    \textbf{Example:} Consider 
+    \[g(x) = \begin{cases}
+        x \sin(\frac{1}{x}) & x \neq 0 \\
+        0 & x = 0
+    \end{cases}\]
+    Then we can estimate 
+    \[\abs{g(x) - g(0)} = \abs{x \sin(\frac{1}{x}) - 0} \leq x\]
+    since $\abs{\sin x} \leq 1$. 
+
+    Then, $\forall \ep > 0$, set $\delta = \ep$ so whenever $\abs{x - 0} = \abs{x} < \delta$, 
+    \[\abs{g(x) - g(0)} < \ep \implies g \text{ is continuous at 0}\]
+
+\section{March 21:} 
+    \textbf{Example:} $f(x) = \sqrt{x}$ on $A = \{x \in \R: x \geq 0\}$. Show that $f(x)$ is continuous in $A$. 
+
+    Let $\ep > 0$. We need to show that 
+    \[\abs{f(x) - f(c)} < \ep\]
+    for all $x$ in some $V_{\delta}(c)$.
+
+    \emph{Case 1 ($c = 0$):} 
+    \[\abs{f(x) - \sqrt{0}} = \sqrt{x} < \ep \implies x < \ep^2\]
+
+    Choosing $\delta = \ep^2$, we have $\abs{x - 0} < \delta \implies \abs{f(x) - f(0)} < \ep$.
+
+    \emph{Case 2 ($c > 0$):}
+    \[\abs{f(x) - f(c)} = \abs{\sqrt{x} - \sqrt{c}} = \frac{\abs{x - c}}{\sqrt{x} + \sqrt{c}} \leq \frac{\abs{x - c}}{\sqrt{c}}\]
+
+    Choose $\delta = \sqrt{c} \cdot \ep$. Then 
+    \[\abs{x - c} < \delta \implies \abs{\sqrt{x} - \sqrt{c}} < \frac{\ep\sqrt{c}}{\sqrt{c}} = \ep\]
+
+    \begin{tbox}{\textbf{Theorem (Composition of Continuous Functions):} Given $f: A \to \R$ and $g: B \to \R$ with $f(A) \subseteq B$, if $f$ is continuous at $c \in A$ and $g$ is continuous at $f(c) \in B$, then $g \circ f$ is continuous at $c$. }
+        \emph{Proof:} HW
+    \end{tbox}
+
+    \subsection*{Continuous Functions on Compact Sets} 
+        Let $f: A \to \R$ with $B \subseteq A$. We say $f(B) = \{f(x): x \in B\}$ is the \emph{image} of $B$ under $f$.
+
+        \textbf{Question:} does a continuous function map open sets to open sets? 
+
+        No! $f(x) = x^2$ maps $(-1, 1)$ to $[0, 1)$ which is not open. In fact, this property is also not true for closed sets: $g(x)  \frac{1}{1 + x^2}$ maps $[0, \infty)$ to $(0, 1)$ which is not closed. 
+
+        This leads to another natural question: is there any property which is preserved under continuous maps? 
+
+        \begin{tbox}{\textbf{Theorem (Preservation of Compact Sets):} Let $f: A \to \R$ be continuous on $A$. If $K \subseteq A$ is compact, then $f(K)$ is compact.}
+            \emph{Proof:} Let $(y_n) \in f(K)$. It suffices to find a subsequence $(y_{n_k})$ which converges to a limit contained in $f(K)$. 
+
+            Note that $(y_n) \in f(K) \implies \forall n \in \N$, $\exists x_n \in K$ such that $f(x_n) = y_n$. 
+            
+            Since $K$ is compact, $\exists (x_{n_k})$ such that $x_{n_k} \to x \in K$.
+
+            Since $f$ is continuous on $A$, clearly $f$ is continuous at $x$. Therefore,
+            \[(x_{n_k}) \to x \implies y_{n_k} = f(x_{n_k}) \to f(x) \in f(K)\]
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Extreme Value Theorem:} If $f: K \to \R$ is continuous on a compact set $K \subseteq \R$, then $f$ attain a maximum and minimum value, i.e. $\exists x_0, x_1 \in K$ such that $f(x_0) \leq f(x) \leq f(x_1)$ for all $x \in K$. }
+            \emph{Proof:} Since $f(K)$ is compact, we can set $\alpha = \sup f(K)$ and we know $\alpha \in f(K)$. Therefore, $\exists x_1 \in K$ such that $f(x_1) = \alpha$ and we call it the maximum.
+
+            The minimum follows by similar argument
+        \end{tbox}
+
+    \subsection*{Uniform Continuity}
+        \textbf{Example:} 
+        \begin{enumerate}
+            \item $f(x) = 3x + 1$ is continuous at $c \in \R$ so 
+            \[\abs{f(x) - f(c)} = \abs{3x + 1 - 3c - 1} = 3\abs{x - c}\] 
+            Then, given $\ep > 0$, choose $\delta = \frac{\ep}{3}$ so $\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \ep$.
+
+            \item $g(x) = x^2$. Given $c \in \R$, 
+            \[\abs{g(x) - g(c)} = \abs{x^2 - c^2} = \abs{x - c}\abs{x + c}\]
+            we need and upper bound so choose $\delta \leq 1$ which bounds $x \in (c - 1, c  1)$. 
+
+            Then, 
+            \[\abs{x + c} \leq \abs{x} + \abs{c} \leq (\abs{c} + 1) + \abs{c}= 2\abs{c} +1\]
+            Let $\ep > 0$, choose $\delta = \min\{1, \frac{\ep}{2\abs{c} + 1}\}$. Finally, 
+            \[\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \ep\]
+        \end{enumerate}
+
+        \textbf{Conclusion:} In example 1, we chose an arbitrary $c$. In example 2, our value of $\delta$ depended on $c$. 
+ 
+        \textbf{Definition:} A function $f: A \to \R$ is \emph{uniformly continuous} on $A$ if $\forall \ep > 0$, $\exists \delta > 0$ such that $\forall x, y \in A$,
+        \[\abs{x - y} < \delta \implies \abs{f(x) - f(c)} < \ep\] 
+
+        \textbf{Remark:} Continuity requires only that for each $c$ there exists at least one $\delta > 0$ such that $\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \ep$.
+
+        Uniform continuity requires that a single $\delta > 0$ works for all $c \in A$. 
+
+        \begin{tbox}{\textbf{Seqential Criterion for Absence of Uniform Continuity:} $f: A \to \R$ fails to be uniformly continuous iff $\exists \ep_0 > 0$ and $(x_n), (y_n) \in A$ such that $\forall \delta > 0$, 
+            \[\abs{x - y} \to 0 \text{ but } \abs{f(x) - f(y)} \geq \ep_0\]}
+            \emph{Proof:} Suppose that $f$ fails to be uniformly continuous. Then, by definition, $\exists \ep_0 > 0$ such that $\forall \delta > 0$, $\exists x, y \in A$ such that $\abs{x - y} < \delta$ but $\abs{f(x) - f(y)} \geq \ep_0$.
+            
+            Then we can construct $(x_n)$ and $(y_n)$ by choosing $\delta_n = \frac{1}{n}$ ($n \in \N$) so that $\exists x_n, y_n$ with 
+            \[\abs{x_n - y_n} < \frac{1}{n} \text{ but } \abs{f(x_n) - f(y_n)} \geq \ep_0\]
+
+            For the other direction, suppose that $\exists \ep_0 > 0$ and $(x_n), (y_n) \in A$ such that $\abs{x_n - y_n} \to 0$ but $\abs{f(x_n) - f(y_n)} \geq \ep_0$. 
+
+            Obviously, as $\abs{f(x_n) - f(y_n)} \geq \ep_0$, $f$ fails to be uniformly continuous. $\qed$
+        \end{tbox}
+
+\section{April 2:} 
+    \textbf{Example of uniform continuity:} We showed that $h(x) = \sin(\frac{1}{x})$ is continuous on $(0, 1)$. However, it is not uniformly continuous: Take $\ep_0 = 2$ so 
+    \[x_n = \frac{1}{\frac{\pi}{2} + 2n\pi}, \quad y_n = \frac{1}{\frac{3\pi}{2} + 2n\pi}\]
+    As $n \to \infty$, $(x_n) \to 0$ and $(y_n) \to 0$ so $\abs{x_n - y_n} = 0$. However, 
+    \[\abs{h(x_n) - h(y_n)} = 2\]
+    so it is not uniformly continuous
+
+    \begin{tbox}{\textbf{Theorem (Uniform Continuity on Compact Sets):} A function that is continuous on a compact set $K$ is uniformly continuous on $K$.}
+        \emph{Proof (by Contradiction):} Assume $f: K \to \R$ is continuous on $K$. Suppose that $f$ is not uniformly continuous on $K$. 
+        
+        Then by the Criterion for Absence, $\exists \ep_0 > 0$ and $(x_n), (y_n) \in K$ such that $\abs{x_n - y_n} \to 0$ but $\abs{f(x_n) - f(y_n)} \geq \ep_0$.
+
+        Since $K$ is compact, $(x_n)$ has a convergent subsequence $(x_{n_k})$ which converges to $x \in K$. We can then consider $(y_{n_k})$ consisting of the terms in $y_n$ that correspond to the terms in $(x_{n_k})$. We know these exist since $\abs{x_n - y_n} \to 0$.
+
+        By the ALT, 
+        \[\lim(y_{n_k}) = \lim((y_{n_k} - x_{n_k}) + x_{n_k}) = 0 + x \implies y_{n_k} \to x\]
+
+        Since $f$ is continuous at $x$, we have $f(x_{n_k}) \to f(x)$ and $f(y_{n_k}) \to f(x)$. However, this implies 
+        \[\lim (f(x_{n_k}) - f(y_{n_k})) = 0\] 
+        but this contradicts the Criterion for Absence. Therefore, $f$ is uniformly continuous on $K$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Intermediate Value Theorem:} Let $f: [a, b] \to \R$ be continuous. If $L$ is a real number satisfying $f(a) < L < f(b)$ or $f(a) > L > f(b)$, then $\exists c \in (a, b)$ such that $f(c) = L$.}
+        \emph{Proof:} HW
+    \end{tbox}
+
+\chapter{Derivatives}
+\section*{April 2 (Continued):}
+
+    \textbf{Definition:} Let $g: A \to \R$. Given $c \in A$, the \emph{derivative} of $g$ at $c$ is given 
+    \[g'(c) = \lim_{x \to c} \frac{g(x) - g(c)}{x - c}\]
+    provided the limit exists. In this case, we say $g$ is \emph{differentiable} at $c$.
+
+    If $g$ is differentiable at every point in $A$, then we say $g$ is differentiable on $A$.
+
+    \textbf{Example:}
+    \begin{itemize}
+        \item $f(x) = x^n$, $n \in \N$. 
+        
+        For $c \in \R$, we have 
+        \[x^n - c^n = (x-c)(x^{n-1} + cx^{n-2} + c^2x^{n-3} + \dots + c^{n-1})\]
+        so 
+        \begin{align*}
+            f'(c) &= \lim_{x \to c} \frac{x^n - c^n}{x - c}\\ 
+            &= \lim_{x \to c} (x^{n-1} + cx^{n-2} + c^2x^{n-3} + \dots + c^{n-1})\\ 
+            &= c^{n-1} + c^{n-1} + \dots + c^{n-1}\\ 
+            &= nc^{n-1} 
+        \end{align*} 
+
+        \item $g(x) = \abs{x}$. 
+        
+        Attempting to calculate the derivative at $c = 0$, we have 
+        \[g'(0) = \lim_{x \to 0} \frac{\abs{x}}{x} = \pm 1\]
+        so the limit does not exists. 
+    \end{itemize}
+
+    \begin{tbox}{\textbf{Theorem:} If $g: A \to \R$ is differentiable at $c \in A$, then $g$ is continuous at $c$.}
+        \emph{Proof:} Let $g$ be differentiable at $c$. Then 
+        \[g'(c) = \lim_{x \to c} \frac{g(x) - g(c)}{x - c}\]
+        exists. 
+
+        It suffices to show $\lim_{x \to c} g(x) = g(c)$. By ALT, 
+        \[\lim_{x \to c} g(x) - g(c) = \lim_{x \to c} \frac{g(x) - g(c)}{x - c} \cdot (x - c) = g'(c) \cdot 0 = 0\]
+        so $g$ is continuous at $c$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Algebraic Differentiability Theorem:} Let $f, g$ be defined on an interval $A$ and assume both are differentiable at some point $c \in A$. Then:
+        \begin{enumerate}
+            \item $(f + g)'(c) = f'(c) + g'(c)$
+            \item $(kf)'(c) = kf'(c) \quad \forall k \in \R$ 
+            \item $(fg)'(c) = f'(c)g(c) + f(c)g'(c)$
+            \item $\left(\frac{f}{g}\right)'(c) = \frac{f'(c)g(c) - f(c)g'(c)}{g^2(c)}$ provided $g(c) \neq 0$
+        \end{enumerate} }
+        \emph{Proof:} (1) and (2) come directly from the definition of the derivative and the ALT. 
+
+        (3):
+        \begin{align*}
+            \frac{(fg)(x) - (fg)(c)}{x - c} &= \frac{f(x)g(c) - f(x)g(c) + f(x)g(c) - f(c)g(c)}{x - c}\\ 
+            &= f(x) \frac{g(x) - g(c)}{x - c} + g(c) \frac{f(x) - f(c)}{x - c}
+        \end{align*}
+
+        Since $f$ is differentiable at $c$, it is continuous, i.e. $\lim_{x \to c} f(x) = f(c)$. Therefore, by the ALT, 
+        \[\lim_{x \to c} \frac{(fg)(x) - (fg)(c)}{x - c} = f(c)g'(c) + f'(c)g(c)\]
+
+        (4): Similar
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem (Chain Rule):} Let $f: A \to \R$ and $g: B \to \R$ with $f(A) \subseteq B$. If $f$ is differentiable at $c \in A$ and $g$ is differentiable at $f(c) \in B$, then $g \circ f$ is differentiable at $c$ and 
+        \[(g \circ f)'(c) = g'(f(c)) \cdot f'(c)\]}
+        \emph{Proof:} Since $g$ is differentiable at $f(c)$, 
+        \[g'(f(c)) = \lim_{y \to f(c)} \frac{g(y) - g(f(c))}{y - f(c)}\]
+
+        We can write 
+        \begin{align*}
+            d(y) &= \frac{g(y) - g(f(c))}{y - f(c)} \\ 
+                &\implies \lim_{y \to f(c)} d(y) = g'(f(c))\\ 
+                &\implies g(y) - g(f(c)) = d(y) (y - f(c))
+        \end{align*}
+
+        This new equation is defined $\forall y \in B$, including $g(c)$. Make the substitution $y = f(t)$ for some $t \in A$. 
+        
+        If $t \neq c$, 
+        \[\frac{g(f(t)) - g(f(c))}{t - c} = d(f(t)) \frac{f(t) - f(c)}{t - c}\]
+
+        Taking the limit as $t \to c$ and applying the ALT gives the result. $\qed$ 
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Interior Extremum Theorem:} Let $f$ be differentiable on an open interval $(a, b)$. If $f$ attains a max value at some point $c \in (a, b)$ (i.e. $f(c) \geq f(x)$ forall $x \in (a, b)$), then $f'(c) = 0$.}
+        \emph{Proof:} Since $c \in (a, b)$, construct $(x_n), (y_n)$ such that $(x_n) \to c$, $(y_n) \to c$, and $x_n < c < y_n$ forall $n \in \N$. 
+
+        Since $f(c)$ is a max, $f(y_n) - f(c) \leq 0$ $\forall n \in \N$. So (by the Order Limit Theorem),
+        \[f;(c) = \lim_{n \to \infty} \frac{f(y_n) - f(c)}{y_n - c} \leq 0\]
+
+        Similarly, 
+        \[\frac{f(x_n) - f(c)}{x_n - c} \geq 0 \implies f'(c) = \lim_{n \to \infty} \frac{f(x) - f(c)}{x - c}\geq 0\]
+
+        Therefore, $f'(c) = 0$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Darboux's Theorem:} If $f$ is differentiable on an interval $[a, b]$ and if $\alpha$ satisfies $f'(a) < \alpha < f'(b)$ then $\exists c \in (a, b)$ where $f'(c) = \alpha$.}
+        \emph{Proof:} HW
+    \end{tbox}
+
+    \subsection*{The Mean Value Theorem}
+    \begin{tbox}{\textbf{Rolle's Theorem:} Let $f: [a, b] \to \R$ be continuous on $[a, b]$ and differentiable on $(a, b)$. If $f(a) = f(b)$, then $\exists c \in (a, b)$ such that $f'(c) = 0$.}
+        \emph{Proof:} Since $f$ is continuous on a compact set, $f$ attains extrema on that set. 
+        
+        If both the max and min occur at the endpoints, then $f$ is constant since $f(a) = f(b)$. Trivially, $f'(c) = 0$ for all $c \in [a, b]$. 
+
+        If either the max or the min occur some point $c \in (a, b)$, then by the Interior Extremum Theorem, $f'(c) = 0$. 
+    \end{tbox}
+
+    \begin{tbox}{\textbf{The Mean Value Theorem:} If $f: [a, b] \to \R$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then $\exists c \in (a, b)$ such that 
+        \[f'(c) = \frac{f(b) - f(a)}{b - a}\]} 
+
+        \emph{Proof:} Notice that Rolle's Theorem is a special case of the MVT when $f(a) = f(b)$. We seek to reduce the general case to the special case. 
+        
+        The equation of the line through the points $(a, f(a))$ and $(b, f(b))$ is given by: 
+        \[y = \frac{f(b) - f(a)}{b -a}(x - a) + f(a)\]
+
+        Consider the difference between this line and the function $f(x)$: 
+        \[d(x) = f(x) - \left[\frac{f(b) - f(a)}{b -a}(x - a) + f(a)\right]\] 
+
+        Clearly, $d(x)$ is continuous on $[a, b]$. Further, it is differentiable on $(a, b)$ and $d(a) = d(b) = 0$. Therefore, we can apply Rolle's Theorem. 
+
+        This gives that $\exists c \in (a, b)$ where $d'(c) = 0$. Since 
+        \[d'(x) = f'(x) - \frac{f(b) - f(a)}{b- a} \implies 0 = f'(c) - \frac{f(b) - f(a)}{b - a} \qed\]
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Corollary:} If $g: A \to \R$ is differentiable on an interval $A$ and satisfies $g'(x) = 0$ for all $x \in A$, then $g(x) = k$ with $k \in \R$.}
+        \emph{Proof:} Take $x, y \in A$ and assume $x < y$. By MVT (applied to $g$ on $[x, y]$), $\exists c \in (x, y)$ such that 
+        \[g'(c) =\frac{g(y) - g(x)}{y - x} = 0 \implies g(y) = g(x) = k\]
+
+        Since $x, y$ were arbitrary, $g(x) =k \quad \forall x \in A$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Corollary:} If $f$ and $g$ are differentiable functions on an interval $A$ and satisfy $f'(x) = g'(x)$ $\forall x \in A$, then $f(x) = g(x) + k$ for $k \in \R$}
+        \emph{Proof:} Let $h(x) = f(x) - g(x)$. $h'(x) = 0$ so by the previous corollary, $h(x) = k$. $\qed$
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem (Generalized MVT):} If $f$ and $g$ are continuous on the closed interval $[a, b]$ and differentiable on $(a, b)$, then $\exists c \in (a, b)$ where 
+        \[[f(b) - f(a)]g'(c) = [g(b)- g(a)]f'(c)\]  
+        If $g\neq 0$ on $(a, b)$, 
+        \[\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)}\]}
+        \emph{Proof:} Follows from applying MVT to $h(x) = [f(b) - f(a)]g(x) - [g(b) - g(a)]f(x)$ 
+    \end{tbox}
+
+\section{April 9:}
+    \begin{tbox}{\textbf{Theorem (L'Hopital's Rule - 0 case):} Let $f, g$ be continuous on an interval containing $a$ and assume $f, g$ are differentiable on this interval. If $f(a) = g(a) = 0$, and $g'(x) \neq 0$ for all $x \neq a$ then
+        \[\lim_{x \to a} \frac{f'(x)}{g'(x)} = L \implies \lim_{x \to a} \frac{f(x)}{g(x)} = L\]}
+        \emph{Proof:} Direct application of Generalized Mean Value Theorem
+    \end{tbox}
+
+    \textbf{Definition:} Give $g: A \to \R$ and a limit point $c \in A$, we say that 
+    \[\lim_{x \to c} g(x) = \infty\]
+    if $\forall M > 0$, $\exists \delta > 0$ such that 
+    \[0 < \abs{x - c} < \delta \implies g(x) \geq M\]
+
+    \begin{tbox}{\textbf{Theorem (L'Hopital's Rule - $\infty$ case):} Assume $f$ and $g$ are differentiable on $(a, b)$ and that $g'(x) \neq 0$ for all $x \in (a, b)$. If $\lim_{x \to a} g(x) = \infty$ (or $-\infty$), then 
+        \[\lim_{x \to a} \frac{f'(x)}{g'(x)} = L \implies \lim_{x \to a} \frac{f(x)}{g(x)} = L\]}
+        \emph{Proof:} Omitted (again largely by Generalized MVT)
+    \end{tbox}
+
+\chapter{Sequences and Series of Functions}
+\section*{April 9 (Continued):} 
+    \subsection*{Pointwise Convergence}
+        \textbf{Definition:} For each $n \in \N$, let $f_n$ be defined on a set $A \subseteq \R$. The seuqnece $(f_n)$ of functions \emph{converges pointwise of A} to a function $f$ if $\forall x \in A$, the sequence of real numbers $f_n(x)$ converges to $f(x)$
+
+        \emph{Notation:} to designate pointwise convergence, we can write 
+        \begin{itemize}
+            \item $f_n \to f$ 
+            \item $\lim f_n = f$ 
+            \item $\lim_{n \to \infty} f_n(x) = f(x)$
+        \end{itemize}
+
+        \textbf{Example:} Consider $f_n(x) = \frac{x^2 + nx}{n}$ on $\R$. 
+
+        We compute 
+        \[\lim_{n \to \infty} f_n(x) = \lim_{n \to \infty} \frac{x^2 + nx}{n} = \lim_{n \to \infty} \frac{x^2}{n} + x = x\] 
+
+        \textbf{Example:} Let $g_n(x) = x^n$ on $[0, 1]$ 
+
+        If $0 \leq x < 1$, then $x^n \to 0$ as $n \to \infty$. For $x = 1$, $x^n \to 1$ as $n \to \infty$. 
+
+        Therefore, $g_n \to g$ pointwise on $[0, 1]$ where 
+        \[g(x) = \begin{cases}
+            0 & 0 \leq x < 1\\ 
+            1 & x = 1
+        \end{cases}\]
+
+        \textbf{Remark:} This is a problem! A continuous sequence might not have a continuous limit. We will see more of this later. 
+
+        \textbf{Example:} $h_n(x) = x^{1  \frac{1}{2n - 1}}$ on $[-1, 1]$. 
+
+        For a fixed $x \in [-1, 1]$, we have 
+        \[\lim_{n \to \infty} h_n(x) = x\cdot x^{\frac{1}{2n-1}} = x \lim_{n\to \infty} x^{\frac{1}{2n - 1}} = \abs{x}\]
+        since $x^{\frac{1}{2n-1}} \to 1$ if $x > 0$ and $\to -1$ if $x < 0$. 
+
+        \begin{tbox}{\textbf{Lemma (Failure Continuity of the Limit Function):}}
+            \emph{Proof:} For $f$ to be continuous: fix $c \in A$ with $\ep > 0$. We need to find $\delta > 0$ such that 
+            \[\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \delta\]
+
+            Notice 
+            \[\abs{f(x) - f(c)} \leq \abs{f(x) - f_n(x)} + \abs{f_n(x) - f_n(c)} + \abs{f_n(c) - f(c)}\]
+
+            Choose $N \in \N$ such that $\abs{f_N(c) - f(c)} < \frac{\ep}{3}$. By continuity of $f_N$, 
+            \[\abs{f_N(x) - f_N(c)} < \frac{\ep}{3}\]
+
+            However, it might be true that $N$ is not large enough to ensure $\abs{f(x) - f_N(x)}$ converges. 
+        \end{tbox}
+
+        \textbf{Example:} Let $g_n(x) = x^n$ on $[0, 1]$ as above. Notice 
+        \[\abs{g_n(\frac{1}{2}) - g(\frac{1}{2})} < \frac{1}{3} \implies n \geq 2\]
+        but 
+        \[\abs{g_n(\frac{9}{10}) - g(\frac{9}{10})}< \frac{1}{3} \implies n \geq 11\]
+
+        For any chosen $n$, there are values of $x$ for which $\abs{g_n(x) - g(x)}$ might not be small enough. 
+        
+    \subsection*{Uniform Convergence}
+        \textbf{Definition:} Let $(f_n)$ be a sequence of functions defined on $A \subseteq \R$. Then $f_n$ \emph{converges uniformly} on $A$ to a limit function $f$ defined on $A$, if $\forall \ep > 0$, $\exists N \in \N$ such that $\abs{f_n(x) - f(x)} < \ep$ whenever $n \geq N$ and $x \in A$.
+
+        \textbf{Example:} $g_n = \frac{1}{n(1 + x^2)}$ 
+
+        For any fixed $x \in \R$, $\lim_{n \to \infty} g_n(x) = 0 \implies g(x) = 0$ is the pointwise limit of $(g_n)$. 
+
+        Do we have uniform convergence?
+
+        Notice: 
+        \[\frac{1}{1 + x^2} \leq 1 \quad \forall x \in \R \implies \abs{g_n(x) - g(x)} = \abs{\frac{1}{n(1 + x^2)} - 0} \leq \frac{1}{n}\]
+
+        Given $\ep > 0$, choose $N > \frac{1}{\ep}$ so $n \geq N \implies \abs{g_n(x) - g(x)} < \ep$ for all $x \in \R$. 
+
+        Since $N$ \emph{does not depend on $x$}, $g_n \to 0$ uniformly on $\R$. 
+
+        \textbf{Example:} $f_n(x) = \frac{x^2 + nx}{n} \overset{p.w.}{\longrightarrow} f(x) = x$ but not uniformly! 
+        \[abs{f_n(x)  f(x)} = \abs{\frac{x^2 + nx}{n} - x} = \frac{x^2}{n}\] 
+        so $\abs{f_n(x) - f(x)} < \ep$ requires $N > \frac{x^2}{\ep}$ which depends on $x$. 
+        
+        \begin{tbox}{\textbf{Theorem (Cauchy Criterion for Uniform Convergence):} A sequence of functions $(f_n)$ defined on a set $A \subseteq \R$ converges uniformly on $A$ iff $\forall \ep > 0$, $\exists N \in \N$ such that $\abs{f_n(x) - f_m(x)} < \ep$ whenever $n, m \geq N$ and $x \in A$.}
+            \emph{Proof:} HW
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem (Continuous Limit Theorem):} Let $(f_n)$ be a sequence of functions defined on $A \subseteq \R$ that converges uniformly on $A$ to a function $f$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$.}
+            \emph{Proof:} Fix $c \in A$ and let $\ep > 0$. Choose $N \in \N$ such that 
+            \[\abs{f_N(x) - f(x)} < \frac{\ep}{3}\]
+
+            Since $f_N$ is continuous at $c$, $\exists \delta > 0$ for which 
+            \[\abs{f_N(x) - f_N(c)} < \frac{\ep}{3}\]
+            wheneber $\abs{x - c} < \delta$. 
+
+            This implies:
+            \begin{align*}
+                \abs{f(x) - f(c)} &= \abs{f(x) - f_N(x) + f_N(x) - f_N(c) + f_N(c) - f(c)}\\
+                &\leq \abs{f(x) - f_N(x)} + \abs{f_N(x) - f_N(c)} + \abs{f_N(c) - f(c)}\\
+                &< \frac{\ep}{3} + \frac{\ep}{3} + \frac{\ep}{3} = \ep
+            \end{align*}
+        
+            \textbf{Note:} we only have the convergence of the first term because of uniform continuity 
+        \end{tbox}
+
+\section{April 11:}
+    \begin{tbox}{\textbf{Differentiable Limit Theorem:} Let $f_n \to f$ pointwise on the closed interval $[a, b]$ and assume that each $f_n$ is differentiable if $(f_n')$ converges uniformly on $[a, b]$ to a function $g$. Then $f$ is differentiable on $[a, b]$ and $f' = g$.}
+        \emph{Proof:} We want to show that $f'(c)$ exists and equals $g(c)$. 
+
+        Since 
+        \[f'(c) = \lim_{x \to c} \frac{f(x) - f(c)}{x - c}\]
+        it suffices to show that $\exists \delta > 0$ such that whenever $0 < \abs{x - c} < \delta$. 
+        \[\abs{\frac{f(x) - f(c)}{x - c} - g(c)} < \ep\]
+
+        By the triangle inequality, $\forall x\neq c$, 
+        \begin{align*}
+            \abs{\frac{f(x) - f(c)}{x - c} - g(c)} &\leq \abs{\frac{f(x) - f(c)}{x - c} - \frac{f_n(x) - f_n(c)}{x- c}}\\ 
+            &\qquad + \abs{\frac{f_n(x) - f_n'(c)}{x - c} - f_n'(c)}\\ 
+            &\qquad + \abs{f_n'(c) - g(c)}
+        \end{align*}
+
+        Start by choosing $N \in \N$ such that $\abs{f_m'(c) - g(c)} < \frac{\ep}{3}$ for all $m \geq N$.
+
+        By uniform convergence of $(f_n')$, $\exists N_2$ such that $\forall m, n \geq N_2$, 
+        \[\abs{f_m'(x) - f_n'(x)} < \frac{\ep}{3} \quad \forall x \in [a, b]\]
+
+        Pick $N = \max\{N, N_2\}$. Since $f_n$ is differentiable at $c$, $\exists \delta > 0$ such that 
+        \[0 < \abs{x - c} < \delta \implies \abs{\frac{f_N(x) - f_N(c)}{x- c} - f_N'(c)} < \frac{\ep}{3}\]
+
+        Now all that remains is to bound the first term. Fix $x$ satisfying $0 < \abs{x - c} < \delta$ and let $m \geq n$. We can apply the MVT to $f_m - f_n$ on $[c, x]$ 
+
+        By the MVT, $\exists \alpha \in [c, x]$ such that 
+        \begin{align*}
+            f_m'(\alpha) - f_N'(\alpha) &= \frac{(f_m(x) - f_N(x)) - (f_m(c) - f_N(c))}{x - c}\\ 
+            &\implies \abs{\frac{f_m(x) - f_m(c)}{x - c}  -\frac{f_N(x) - f_N(c)}{x- c}} < \frac{\ep}{3}
+        \end{align*}
+
+        Since $f_m \to f$, take the limit as $m \to \infty$. By OLT, 
+        \[\abs{\frac{f(x)- f(c)}{x  -c}  -\frac{f_N(x) - f_N(c)}{x - c}} < \frac{\ep}{3}\]
+
+        Therefore, 
+        \begin{align*}
+            \abs{\frac{f(x) - f(c)}{x - c} - g(c)} &\leq \abs{\frac{f(x) - f(c)}{x - c} - \frac{f_n(x) - f_n(c)}{x- c}}\\ 
+                &\qquad + \abs{\frac{f_n(x) - f_n'(c)}{x - c} - f_n'(c)}\\ 
+                &\qquad + \abs{f_n'(c) - g(c)}\\ 
+            &< \frac{\ep}{3} + \frac{\ep}{3} + \frac{\ep}{3} = \ep
+        \end{align*}
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem:} Let $(f_n)$ be a sequence of differentiable functions defined on $[a, b]$ and assume that $(f_n')$ converges uniformly on $[a, b]$. If $\exists x_0 \in [a, b]$ where $f_n(x)$ is convergent, then $(f_n)$ converges uniformly on $[a, b]$.}
+        \emph{Proof:} HW
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem:} Let $(f_n)$ be a sequence of differentiable functions defined on $[a, b]$ and assume $(f_n')$ converges uniformly to $g$ on $[a, b]$. If $\exists x_0 \in [a, b]$ for which $(f_n(x_0))$ converges, then $(f_n)$ converges uniformly and $f =\lim f_n$ is differentiable with $f' = g$.}
+        \emph{Proof:} Follows from previous two theorems
+    \end{tbox}
+
+    \subsection*{Series of Functions} 
+        \textbf{Definition:} For each $n \in \N$, let $f_n$ and $f$ be defined on a set $A \subseteq \R$. Then infinite series 
+        \[\sum_{n=1}^{\infty} f_n(x) = f_1(x) + f_2(x) + \dots\]
+        \emph{converges pointwise} on $A$ to $f(x)$ if the sequence $(S_k(x))$ of partial sums 
+        \[S_k(x) = f_1(x) + \dots + f_k(x)\] 
+        converges pointwise to $f(x)$. 
+
+        Similarly, the series \emph{converges uniformly} on $A$ to $f(x)$ if the sequence of partial sums converges uniformly to $f(x)$.
+
+        \begin{tbox}{\textbf{Term-by-term Continuity Theorem:} Let $f_n$ be continuous functions defined on $A \subseteq \R$ and assume $\sum_{n=1}^{\infty} f_n$ converges uniformly on $A$ to $f$. Then $f$ is continuous on $A$.}
+            \emph{Proof:} Apply Continuous Limit Theorem to $(S_k)$ 
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Term-by-term Differentiability Theorem:} Let $f_n$ be a sequence of differentiable functions defined on $A \subseteq \R$ and assume that $\sum_{n=1}^{\infty} f_n'$ converges uniformly on $A$ to $g$. If $\exists x_0 \in A$ where $\sum_{n=1}^{\infty} f_n(x)$ converges, then $\sum_{n=1}^{\infty} f_n(x)$ converges uniformly on $A$ to a function $f$ that is differentiable on $A$ with $f' = g$.}
+            \emph{Proof:} Apply Differentiable Limit Theorem to $(S_k)$
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem (Cauchy Criterion for Uniform Convergence of Series):} The series $\sum_{n=1}^{\infty} f_n$ converges uniformly on $A \subseteq \R$ iff $\forall \ep > 0$, $\exists N \in \N$ such that $\abs{f_{m+1}(x) + f_{m+2}(x) + \dots + f_n(x)} < \ep$ when $n > m \geq N$ and $x \in A$.}
+            \emph{Proof:} Follows immediately 
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Corollary (Weierstrass M-test):} For each $n \in \N$, let $f_n$ be a function defined on $A \subseteq \R$ and $M_n > 0$ a real number satisfying 
+            \[\abs{f_n(x)} \leq M_n \quad \forall x \in A\]
+            If $\sum_{n=1}^{\infty} M_n$ converges, then $\sum_{n=1}^{\infty} f_n(x)$ converges uniformly on $A$}
+            \emph{Proof:} HW
+        \end{tbox}
+    
+\section{April 16:}
+    \subsection*{Power Series}
+        \textbf{Definition:} Functions expressed in the form 
+        \[f(x) = \sum_{n=0}^{\infty} a_n x^n = a_0 + a_1x + a_2x^2 + \dots\]
+        are called \emph{power series}. 
+        
+        \begin{tbox}{\textbf{Theorem:} If a power series $\sum_{n=0}^{\infty} a_nx^n$ converges at some point $x_0 \in \R$, then it converges absolutely for all $x$ with $\abs{x} < \abs{x_0}$}
+            \emph{Proof:} If $\sum_{n=0}^{\infty} a_n x_0^n$ converges, then $(a_n x_0^n)$ converges to 0 and is bounded. 
+
+            Since it is bounded, $\exists M > 0$ such that $\abs{a_n x_0^n} < M$ for all $n \in \N$. If $\abs{x} < \abs{x_0}$, then 
+            \[\abs{a_n x^n} = \abs{a_n x_0^n} \abs{\frac{x}{x_0}}^n \leq M \abs{\frac{x}{x_0}}^n \]
+            
+            Since $\sum_{n=0}^{\infty} M \abs{\frac{x}{x_0}}^n$ is a geometric series with $\abs{\frac{x}{x_0}} < 1$, it converges. 
+            
+            By the Comparison Test, $\sum_{n=0}^{\infty} a_n x^n$ converges absolutely.
+        \end{tbox}
+
+        The set of points for which the power series converges is $\{0\}, \R$, or some interval around $0$: $(-R, R), [-R, R), (-R, R], [-R, R]$ where $R$ is the \emph{radius of convergence}
+
+        \begin{tbox}{\textbf{Theorem:} If a power series $\sum_{n=0}^{\infty} a_n x^n$ converges absolutely at a point $x_0$, then it converges uniformly on the closed interval $[-c, c]$ where $c = \abs{x_0}$.}
+            \emph{Proof:} Weierstrass M-theorem.
+        \end{tbox}
+
+        Notice! If $g(x) = \sum_{n=0}^{\infty} a_n x^n$ converges conditionally at $x = R$, then it \emph{is} possible for it to diverge when $x = -R$
+         
+        \emph{Example:} With $R = 1$ 
+        \[g(x) = \sum_{n=1}^{\infty} \frac{(-1)^n x^n}{n} = \sum_{n=1}^{\infty} \frac{(-1)^n (-1)^n}{n = \sum_{n=1}^{\infty} \frac{(-1)^{2n}}{n}} = \sum_{n=1}^{\infty} \frac{1}{n}\]
+
+        \begin{tbox}{\textbf{Abel's Lemma:} Let $(b_n)$ satisfy $b_1 \geq b_2 \geq \dots \geq 0$ and let $\sum_{n=0}^\infty a_n$ be a series for which the partial sums are bounded. Then, $\exists A$ such that 
+        \[\abs{a_1 b_1 + a_2 b_2 + \dots + a_n b_n} \leq A\cdot b_1\]}
+            \emph{Proof:} Let $s_n = a_1 + a_2 + \dots + a_n$. Recall Summation by Parts: with $s_0 = 0$,
+            \[\sum_{j=m}^{n} x_j y_j = s_n y_{n+1} - s_{m-1}y_m + \sum_{j=m}^n s_j(y_j - y_{j+1})\]
+
+            Therefore, 
+            \begin{align*}
+                \abs{\sum_{k=1}^n a_k b_k} &= \abs{s_n b_{n+1} + \sum_{k=1}^n s_k(b_k - b_{k+1})}\\ 
+                    &\leq \abs{Ab_{n+1} + \sum_{k=1}^n A(b_k - b_{k+1})}\\
+                    &\leq Ab_{n+1} + A \sum_{k=1}^n (b_k - b_{k+1})\\ 
+                    &= Ab_{n+1} + A\left[(b_1 - b_2) + (b_2 - b_3) + \dots + (b_n - b_{n+1})\right]\\
+                    &= Ab_{n+1} + A(b_1 - b_{n+1})\\
+                    &= A b_1
+            \end{align*}
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Abel's Theorem:} Let $g(x) = \sum_{n=0}^{\infty} a_nx^n$ be a power series that converges at the point $x = R > 0$. Then $g(x)$ converges uniformly on $[0, R]$. A similar result holds if the series converges at $x = -R$.}
+            \emph{Proof:} To be able to apply Abel's Lemma, we write 
+            \[g(x) = \sum_{n=0}^{\infty} a_n x^n = \sum_{n=0}^\infty (a_n R^n) \left(\frac{x}{R}\right)^n\]
+
+            Let $\ep > 0$. By Cauchy Criterion for uniform convergence of a series, if we can produce $N$ such that for $n > m \geq N$,
+            \[\abs{(a_{m+1} R^{m+1})\left(\frac{x}{R}\right)^{m+1} + \dots + (a_n R^n) \left(\frac{x}{R}\right)^n} < \ep\]
+            then we are done. 
+
+            Since $\sum_{n=0}^\infty a_n R^n$ converges, by Cauchy Criterion for series, 
+            \[\abs{a_{m+1} R^{m+1} + \dots + a_n R^n} < \frac{\ep}{2}\]
+            when $n > m \geq N$. 
+
+            Notice that $\left(\frac{x}{R}\right)^{m+j}$ is monotone decreasing so we can apply Abel's Lemma to get
+            \[\abs{(a_{m+1} R^{m+1})\left(\frac{x}{R}\right)^{m+1} + \dots + (a_n R^n) \left(\frac{x}{R}\right)^n} \leq \frac{\ep}{2} \left(\frac{x}{R}\right)^{m+1} < \ep\]
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem:} If a power series converges pointwise on a set $A \subseteq \R$, then it converges uniformly on any compact set $K \subseteq A$. }
+            \emph{Proof:} A compact set contains a max $x_1$ and a min $x_0$. By Abel's theorem, the series converges uniformly on $[x_0, x_1]$ and thus also on $k$. 
+        \end{tbox}
+
+        \textbf{Corollary:} A power series is continuous at every point at which it converges
+
+        \begin{tbox}{\textbf{Theorem:} If $\sum_{n=0}^\infty a_nx^n$ converges $\forall x \in (-R, R)$ then the differentiated series $\sum_{n=1}^\infty na_nx^{n-1}$ converges a $x \in (-R, R)$.} 
+            \emph{Proof:} HW
+        \end{tbox} 
+
+        \textbf{Corollary:} The convergence is uniform on compact sets contained in $(-R, R)$
+
+\section{April 18:}
+    \begin{tbox}{\textbf{Theorem:} Assume $f(x) = \sum_{n=0}^{\infty} a_n x^n$ converges on $A \subseteq \R$. The function $f$ is continuous on $A$ and differentiable on any open interval $(-R, R) \subseteq A$. The derivative is given by 
+        \[f'(x) = \sum_{n=1}^{\infty} na_n x^{n-1}\]
+        Moreover, $f$ is infinitely differentiable on $(-R, R)$ with successive derivatives obtained term-by-term differentiation.} 
+
+        \emph{Proof:} Continuity follows from uniform convergence on compact sets (by pointwise convergence of $f$). Differentiability follows from term-by-term differentiation theorem. 
+        
+        The radius of convergence is constant because $\sum_{n=1}^{\infty} na_n x^{n-1}$ is also a power series with the same radius of convergence. 
+        
+        Infinite derivatives follow immediately by induction.
+    \end{tbox}
+
+    \subsection*{Taylor Series}
+        Consider: 
+        \[\frac{1}{1- x} = 1 + x + x^2 + x^3  + \dots\]
+        for $\abs{x} < 1$. 
+
+        We can equally replace $x$ with $-x^2$ and have 
+        \[\frac{1}{1 + x^2} = 1 - x^2 + x^4 - x^6 + x^8 + \dots\]
+
+        We recall from calculus that 
+        \[\int \frac{1}{1 + x^2}\; dx = \arctan(x)\]
+        so we can integrate term-by-term to get 
+        \[\arctan(x) = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{6} + \dots\]
+        for $\abs{x} < 1$.
+
+        \begin{tbox}{\textbf{Taylor's Formula:} Let 
+            \[f(x) = a_0 + a_1 x + a_2 x^2 + \dots\]
+            be defined on some nontrivial interval centered at $0$. Then 
+            \[a_n = \frac{f^{n}(0)}{n!}\]}
+            \emph{Proof:} HW
+        \end{tbox}
+
+        \textbf{Example:} Suppose $\sin(x)$ has a Taylor series. Then it could be written using Taylor's formula as 
+        \[x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots\]
+
+        \textbf{Converse:} Assume $f$ is infinitely times differentiable around $0$. If $a_n = \frac{f^(n)(0)}{n!}$, does $\sum_{n=0}^\infty a_n x^n \to f(x)$?
+
+        Potentially no! 
+
+        Let $S_n = \sum_{k=0}^n a_k x^k$. Does $S_n \to f$? Consider $E_N(x) = f(x) - S_N(x)$. 
+
+        \begin{tbox}{\textbf{Lagrange's Remainder Theorem:} Let $f$ be $N+1$ times differentiable on $(-R, R)$. Define 
+            \[a_n = \frac{f^{(n)}(0)}{n!} \quad n = 0, 1, 2, \dots\] 
+            and let $S_N(x) = a_0 + a_1x + \dots + a_N x^N$. Given $x \neq 0$ in $(-R, R)$, $\exists c$ such that $\abs{c} < \abs{x}$ where the error function $E_N(x)$ satisfies 
+            \[E_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!} x^{n+1}\]}
+        
+            \emph{Proof:} By assumption $f^{(n)} = S_n^{(n)}(0)$ for all $n$ such that $0 \leq n \leq N$. 
+
+            Clearly, $E_N(x) = f(x) - S_N(x)$ satisfies $E_N^{(n)}(0) = 0$ for all $n = 0, 1, 2, \dots, N$.
+
+            Assume WLOG $x > 0$. Apply the generalized MVT to $E_N(x)$ and $x^{N+1}$ on $[0, x]$ so
+
+            \[\exists x_1 \in (0, x), \quad \frac{E_N(x)}{x^{N+1}} = \frac{E_N'(x_1)}{(N+1)x_1^N}\]
+
+            We can apply the MVT to $E'N(x)$ and $(N+1)x^N$ on $[0, x_1]$. Then, $\exists x_2 \in (0, x_2)$ such that 
+            \[\frac{E_N(x)}{x^{N+1}} = \frac{E_N'(x_1)}{(N+1)x_1^N} = \frac{E_N''(x_2)}{(N+1)(N)x_2^{N-1}}\]
+
+            We may repeat this until we have $x_{N+1} \in (0, x_n) \subset \dots \subset (0, x)$ with 
+            \[\frac{E_N(x)}{x^{N+1}} = \frac{E_N^{(N+1)}(x_{N+1})}{(N+1)!}\]
+
+            Set $c = x_{N+1}$. Since $S_N^{(N+1)}(x) = 0$, we have 
+            \[E_N^{(N+1)}(x) = f^{(N+1)}(x) \implies E_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!}x^{N+1}\]
+        \end{tbox}
+
+        \textbf{Example:} How well does $S_5(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!}$ approximate $\sin(x)$ for $x \in [-2, 2]$?
+
+        By Lagrange's Remainder Theorem, 
+        \[E_5(x) = \sin(x) - S_5(x) = -\frac{\sin(c)}{6!}x^6\]
+        for some $c \in (-\abs{x}, \abs{x})$. 
+
+        $\abs{\sin(c)} \leq 1$ so for $x \in [-2, 2]$, $\abs{E_5} \leq \frac{2^6}{6!} \approx 0.089$
+
+        To prove $S_N \to \sin(x)$ uniformly on $[-2, 2]$, using $\abs{f^{(N+1)}(c)}\leq 1$, we get 
+        \[\abs{E_N(x)} = \abs{\frac{f^{(N+1)(c)}}{(N+1)!} x^{N+1}} \leq \frac{2^{N+1}}{(N+1)!} \to 0\]
+
+        But! We can replace $[-2, 2]$ by $[-R, R]$ with $R$ arbitrary. The Taylor Series thus converges to $\sin(x)$ on every $[-R, R]$.
+
+        \begin{tbox}{\textbf{Theorem:} If $f$ is defined in some neighborhood of $a \in \R$ and infinitely differentiable at $a$, then 
+            \[\sum_{n=0}^\infty c_n(x - a), \quad c_n = \frac{f^{(n)}(a)}{n!}\]}
+            \emph{Proof:} By Lagrange's Remainder Theorem, $\exists c \in (a, x)$ such that 
+            \[E_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!}(x - a)^{N+1}\]
+        \end{tbox}
+
+\chapter{Riemann Integral}
+\section{April 23:}
+    Throughout this chapter, we assume $f$ is bounded on $[a, b]$: that is, there exists $M > 0$ such that $\abs{f(x)} < M$ for all $x \in [a, b]$
+
+    \textbf{Definition:} A \emph{partition} $P$ of $[a, b]$ is a finite set of points from $[a, b]$ that includes $a$ nad $b$: 
+    \[P = \{x_0, x_1, \dots, x_n\} \quad \text{such that} \quad a = x_0 < x_1 < \dots < x_n = b\]
+
+    For each subinterval $[x_{k-1}, x_k]$ of $P$: 
+    \[m_k = \inf\{f(x): x \in [x_{k-1}, x_k]\}\]
+    \[M_k = \sup\{f(x): x \in [x_{k-1}, x_k]\}\]
+
+    The lower sum of $f$ with respect to $P$ is 
+    \[L(f, P) = \sum_{k=1}^n m_k(x_k - x_{k-1})\] 
+    (sum of areas of rectangles with height $m_k$ and width $x_k - x_{k-1}$ which \emph{underestimates} the value)
+
+    The upper sum of $f$ with respect to $P$ is
+    \[U(f, P) = \sum_{k=1}^n M_k(x_k - x_{k-1})\]
+    (sum of areas of rectangles which \emph{overestimate} the value) 
+
+    \textbf{Definition:} A partition $Q$ is \emph{refinement} of $P$ if $P \subseteq Q$ ($Q$ contains all points of $P$)    
+
+    \begin{tbox}{\textbf{Lemma:} If $P \subseteq Q$, then $L(f, P) \leq L(f, Q)$ and $u(f, P) \geq u(f, Q)$}
+        \emph{Proof:} Consider the refinement of $P$ by considering $\{z\} \cup [x_{k-1}, x_k]$.
+
+        Now, our lower sum is 
+        \begin{align*}
+            m_k(x_k - x_{k-1}) &= m_k(x_k - z) + m_k(z - x_{k-1})\\ 
+            &\leq m'_k(x_k - z) + m_k'' (z - x_{k-1})
+        \end{align*}
+        where 
+        \begin{align*}
+            m_k' &= \inf\{f(x): x \in [z, x_k]\}\\
+            m_k'' &= \inf\{f(x): x \in [x_{k-1}, z]\}
+        \end{align*}
+
+        By induction on $k$, we have $L(f, P) \leq L(f, Q)$
+
+        Similar argument shows the upper sum case. 
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Lemma:} If $P_1$ and $P_2$e are any two partitions of $[a, b]$, then $L(f, P_1) \leq u(f, P_2)$}
+        \emph{Proof:} Let $Q = P_1 \cup P_2$ (the common refinement of $P_1$ and $P_2$) 
+
+        Since $P_1 \subseteq Q$ and $P_2 \subseteq Q$, 
+        \[L(f, P_1) \leq L(f, Q) \leq u(f, Q) \leq u(f, P_2)\]
+        by the previous lemma
+    \end{tbox}
+
+    \subsection*{Integrability}
+    A function is integrable if the upper and lower sums ``meet'' as partitions get more refined. 
+
+    \emph{Idea:} instead of limits, use AoC and $\lim$/$\sup$
+
+    \textbf{Definition:} Let $\mathcal{P}$ be the collection of all possible partitions of $[a, b]$. The \emph{upper integral} of $f$ is 
+    \[U(f) = \inf\{U(f, P): P \in \mathcal{P}\}\]
+    the \emph{lower integral} of $f$ is 
+    \[L(f) = \sup\{L(f, P) : P \in \mathcal{P}\}\]
+
+    \begin{tbox}{\textbf{Lemma:} For any bounded function $f$ on $[a, b]$ we always have $U(f) \geq L(f)$ }
+        \emph{Proof:} HW
+    \end{tbox}
+
+    \textbf{Definition (Riemann Integrability):} A bounded function $f$ defined on $[a, b]$ is Riemann-integrable if $U(f) = L(f)$. Then we write 
+    \[\int_a^b f = U(f) = L(f)\]
+
+    \subsection*{Criterion for Integrability}
+    To review:
+    \begin{align*}
+        \sup\{L(f, P), P \in \mathcal{P}\} &= L(f) \leq U(f)\\ 
+            &= \inf\{U(f, P), P \in \mathcal{P}\}
+    \end{align*}
+    and $f$ is integrable if $L(f) = U(f)$
+
+    \begin{tbox}{\textbf{Theorem (Integrability Criterion):} A bounded function $f$ is interable on $[a, b]$ iff $\forall \ep > 0$, $\exists P_{\ep}$, a partition of ${a, b}$ such that 
+        \[U(f, P_{\ep}) - L(f, P_{\ep}) < \ep\] }
+        \emph{Proof:} ($\impliedby$) Let $\ep > 0$. If such a partition $P_{\ep}$ exists, then $U(f) - L(f) \leq U(f, P_{\ep})  L(f, P_{\ep}) < \ep$
+
+        Since $\ep$ is arbitrary, $U(f) = L(f)$ so $f$ is integrable. 
+
+        ($\implies$) Since $U(f)$ is the greatest lower bound of the upper sums, given $\ep > 0$, $\exists P_1$ such that
+        \[U(f, P_1) < U(f) + \frac{\ep}{2}\]
+        and $\exists P_2$ such that 
+        \[L(f, P_2) > L(f) - \frac{\ep}{2}\]
+
+        Let $P_{\ep} = P_1 \cup P_2$ be the common refinement of $P_1$ and $P_2$. Then...
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Theorem:} If $f$ is continuous on $[a, b]$ then it is integrable. }
+        \emph{Proof:} Since $f$ is continuous on a compact set, it is bounded, and uniformly continuous. 
+
+        Therefore, given $\ep > 0$, $\exists \delta$ such that $\abs{x - y} < \delta \implies \abs{f(x) - f(y)} < \frac{\ep}{b - a}$
+
+        Let $P$ be a partition on $[a, b]$ where 
+        \[\Delta x_k = x_k - x_{k-1} < \delta\] 
+
+        Given a particular $[x_{k-1}, x_k]$, by the Extreme Value Theorem 
+        \begin{align*}
+            \sup \implies \exists M_k = f(z_k) \quad \text{for some} \quad z_k \in [x_{k-1}, x_k]\\ 
+            \inf \implies \exists m_k = f(y_k) \quad \text{for some} \quad y_k \in [x_{k-1}, x_k]
+        \end{align*}
+
+        Therefore, $\abs{z_k - y_k} < \delta$ so $M_k - m_k = f(z_k) - f(y_k) < \frac{\ep}{b - a}$
+
+        Therefore, 
+        \begin{align*}
+            U(f, P) - L(f, P) &:= \sum_{k=1}^n (M_k - m_k) \delta x_k\\ 
+            &< \frac{\ep}{b - a} \sum_{k=1}^n \delta x_k\\ 
+            &= \frac{\ep}{b - a} (b - a) = \ep
+        \end{align*}
+        Therefore, $f$ is integrable.
+    \end{tbox}
+    
 \end{document}  
+
 
 
 
