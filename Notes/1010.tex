@@ -1869,6 +1869,228 @@
         \end{align*}
         Therefore, $f$ is integrable.
     \end{tbox}
+
+\section{April 25:}
+    \subsection*{Recall} 
+        \begin{itemize}
+            \item $m_k = \inf\{f(x): x \in [x_{k-1}, x_k]\},\; M_k = \sup\{f(x): x \in [x_{k-1}, x_k]\}$
+            \item $L(f, P) = \sum_{k=1}^n m_k(x_k - x_{k-1}),\; U(f, P) = \sum_{k=1}^n M_k(x_k - x_{k-1})$
+            \item Upper integral: $U(f) = \inf\{U(f, P): P \in \mathcal{P}\}$, Lower integral: $L(f) = \sup\{L(f, P): P \in \mathcal{P}\}$
+            \item Integrable: $U(f) = L(f) \iff \forall \ep > 0, \exists P_{\ep}$ such that $U(f, P_{\ep}) - L(f, P_{\ep}) < \ep$
+            \item $f$ continuous $\implies$ $f$ integrable
+        \end{itemize}
+
+    \subsection*{Integrating functions with discontinuities}
+        \textbf{Example:} $f(x) = \begin{cases}
+            1 & x \neq 1\\ 
+            0 & x = 1
+        \end{cases}$ on $[0, 2]$. 
+
+        For \emph{any} partition $P$ of $[0, 2]$ we have $U(f, P) = \sum_{k=1}^n M_k(x_k - x_{k - 1}) < \sum_{k=1}^n 1(2) = 2$. Therefore, the lower sum is less than $2$
+
+        We will proceed by constructing a partition that embeds $x = 1$ into a very small subinterval. Let $\ep > 0$, consider 
+        \[P_{\ep} = \{0, 1 - \frac{\ep}{3}, 1 + \frac{\ep}{3}, 2\}\]
+        (we are tightly constraining our discontinuity) 
+
+        Then 
+        \[L(f, P_{\ep}) = 1 \cdot (1 - \frac{\ep}{3}) + 0 + 1\cdot (1 - \frac{\ep}{3}) = 2 - \frac{2\ep}{3} < 2\]
+
+        Since $U(f, P_{\ep}) = 2$, 
+        \[U(f, P_{\ep}) - L(f, P_{\ep}) = \frac{2}{3}\ep < \ep\]
+
+        \begin{tbox}{\textbf{Theorem:} If $f: [a,b] \to \R$ is bounded and $f$ is integrable on $[c, b]$ for all $c \in (a, b)$, then $f$ is integrable on $[a, b]$}
+            \emph{Proof:} Let $\ep > 0$. It sufficesd to produce a $P$ such that $U(f, P) - L(f, P) < \ep$. 
+
+            For any partition, we have 
+            \begin{align*}
+                U(f, P) - L(f, P) &= \sum_{k=1}^n (M_k - m_k)(x_k - x_{k-1})\\
+                    &= \sum_{k=1}^n (M_k - m_k) \Delta x_k\\
+                    &= (M_1 - m_1)(x_1 - a) + \sum_{k=2}^n (M_k - m_k) \Delta x_k
+            \end{align*}
+            
+            We want to choose $x_1$ close enough to $a$ such that 
+            \[(M_1 - m_1)(x_1 - a) < \frac{\ep}{2}\]
+
+            Since $f$ is bounded, $\exists M > 0$ such that $\abs{f(x)} < M$ for all $x \in [a, b]$. Now $M_1 - m_1 \leq 2M$, so we can pick $x_1$ such that so 
+            \[x_1 - a < \frac{\ep}{4M}\]
+
+            By assumption, $f$ is integrable on $[x_1, b]$ so $\exists P_1$ such that 
+            \[U(f, P_1) - L(f, P_1) < \frac{\ep}{2}\]
+
+            Let $P = \{a\} \cup P$. Then 
+            \[U(f, P) - L(f, P) \leq 2M(x_1 - a) + U(f, P_1)  L(f, P_1) < \frac{\ep}{2} + \frac{\ep}{2} < \ep\]
+        \end{tbox}
+
+    \subsection*{Properties of the Integral} 
+        \begin{tbox}{\textbf{Theorem:} Assume $f: [a, b] \to \R$ is bounded and let $c \in (a, b)$. Then, $f$ is integrable on $[a, b]$ iff $f$ is integrable on $[a, c]$ and $[c, b]$. In that case, we may write 
+            \[\int_a^b f = \int_a^c f + \int_c^b f\]}
+            \emph{Proof:} ($\implies$) If $f$ is integrable on $[a, b]$, then $\forall \ep > 0$, $\exists P$ such that $U(f, P) - L(f, P) < \ep$.
+
+            Let $P_1 = P \cap [a, c]$ (a partition of $[a, c]$) and $P_2 = P \cap [c, b]$ (a partition of $[c, b]$). 
+
+            Then 
+            \[U(f, P_1) - L(f, P_1) < \ep \quad \text{and} \quad U(f, P_2) - L(f, P_2) < \ep \]
+            Therefore, $f$ is integrable on $[a, c]$ and $[c, b]$ 
+
+            ($\impliedby$) Assume $f$ is integrable on $[a, c]$ and $[a, b]$. Then given $\ep > 0$, $\exists P_1 \subset [a, c]$ and $P_2 \subset [c, b]$ such that 
+            \[U(f, P_1) - L(f, P_1) < \frac{\ep}{2} \quad \text{and} \quad U(f, P_2) - L(f, P_2) < \frac{\ep}{2} \]
+
+            Let $P = P_1 \cup P_2$. Then
+            \[U(f, P) - L(f, P) < \ep\] 
+            so $f$ is integrable on $[a, b]$
+            
+            Finally, we want to show that $\int_a^b f = \int_a^c f + \int_c^b f$.
+
+            We know 
+            \begin{align*}
+                \int_a^b \leq U(f, P) &< L(f, P) + \ep\\ 
+                &= L(f, P_1) + L(f, P_2) + \ep\\ 
+                &\leq \int_a^c f + \int_c^b f + \ep\\ 
+                &\leq \int_a^c f + \int_c^b f
+            \end{align*}
+            
+            Now we show the other direction: 
+            \begin{align*}
+                \int_a^c f + \int_c^b f &\leq U(f, P_1) + U(f, P_2)\\
+                    &< L(f, P_1) + L(f, P_2) + \ep\\ 
+                    &= L(f, P) + \ep\\ 
+                    &\leq \int_a^c f + \ep\\ 
+                    &\leq \int_a^b f
+            \end{align*}
+
+            Therefore, $\int_a^b f = \int_a^c f + \int_c^b f$
+        \end{tbox}
+
+        \begin{tbox}{\textbf{Theorem:} Assume $f, g$ are integrable on $[a, b]$. Then 
+            \begin{enumerate}[label=(\roman*)]
+                \item $f + g$ is integrable on $[a, b]$ with $\int_a^b(f + g) = \int_a^b f + \int_a^b g$ 
+                \item $kf$ is integrable on $[a, b]$ for any $k \in \R$ with $\int_a^b kf = k\int_a^b f$
+                \item If $m \leq f(x) \leq M$ on $[a, b]$, then $m(b - a) \leq \int_a^b f \leq M(b - a)$
+                \item $f(x) \leq g(x)$ for all $x \in [a, b]$ implies $\int_a^b f \leq \int_a^b g$
+                \item $\abs{f}$ is integrable and $\abs{\int_a^b f} \leq \int_a^b \abs{f}$
+            \end{enumerate}}
+            \emph{Proof:} $f$ is integrable $\iff$ $\exists (P_n)$ such that 
+            \[\lim_{n \to \infty} [U(f, P_n) - L(f, P_n)] = 0 \qquad \text{(\emph{Proof:} HW)}\]
+
+            Therefore
+            \[\int_a^b f = \lim U(f, P_n) = \lim L(f, P_n)\]
+
+            The rest of the results follow:
+            \begin{enumerate}[label=(\roman*)]
+                \item HW 
+                
+                \item For $k \geq 0$, from properties of $\sup$ and $\inf$ 
+                \[U(kf, P) = kU(f, P), \quad L(kf, P) = kL(f, P)\]
+                since $f$ is integrable, $\exists (P_n)$ such that 
+                \[\lim_{n\to \infty}[U(kf, P_n) - L(kf, P_n)] = \lim_{n \to \infty} k(U(f, P_n) - L(f, P_n)) = 0\]
+
+                For $k < 0$, similar except $U(kf, P) = kL(f, P)$ and $L(kf, P) = kU(f, P)$
+
+                \item Since $U(f, P )\geq L(f, P)$ for all $P$, pick $P = [a, b]$ so 
+                \[M(b- a) \geq \int_a^b f \geq m(b - a)\] 
+
+                \item Set $h = g - f$ and apply (i), (ii), (iii) 
+                
+                \item HW
+            \end{enumerate}
+        \end{tbox}
+
+        \textbf{Defintion:} If $f$ is integrable on $[a, b]$, define 
+        \[\int_a^b = -\int_b^a f\]
+
+        Moreover $\forall c \in [a, b]$: $\int_c^c f = 0$ 
+
+        \textbf{Question:} If $f_n \to f$, does $\int f_n = \int f$? No! Unless the convergence is uniform as we will see. 
+
+        \subsection*{Interlude: Arzela-Ascoli Theorem}
+            Recall the Bolzano-Weierstrass Theorem for sequences: $a_n$ bounded implies $\exists a_{n_k}$ convergent. 
+
+            Does this hold for functions, i.e. does $f_n(x)$ bounded imply $\exists f_{n_k}$ convergent? 
+
+            Not quite! We can show $f_n(x)$ bounded on a countable set $A$ implies $\exists f_{n_k}$ pointwise convergent on $A$ (Exercise 6.2.13)
+
+            \textbf{Definition:} $(f_n)$ is \emph{equicontinuous} on $E \subset \R$ if $\ep > 0$, $\exists \delta > 0$ such that $\abs{x - y} < \delta \implies \abs{f_n(x) - f_n(y)} < \ep$ for all $n \in \N$
+
+            \begin{tbox}{\textbf{Theorem:} If $f_n(x)$ is bounded and equicontinuous then $\exists f_{n_k}$ uniformly convergent on $A$.}
+                \emph{Proof:} HW
+            \end{tbox}
+
+            \textbf{Remark:} This is a much stronger result!  
+
+\section{April 30:} 
+    \textbf{Question:} If $(f_n(x)) \to f(x)$ of integrable functions on $[a, b]$, do we have that $\int f_n \to \int f$? 
+
+    \emph{Answer:} When $(f_n(x)) \to f(x)$ uniformly, then yes! 
+
+    \begin{tbox}{\textbf{Integrable Limit Theorem:} Assume that $f_n \to f$ uniformly on $[a, b]$ and that each $f_n$ is integrable on $[a, b]$. Then $f$ is integrable and \[\lim_{n \to \infty} \int_a^b f_n = \int_a^b f\]}
+        \emph{Proof:} Proof that $f$ is integrable is HW. 
+
+        From the properties of integrals,
+        \[\abs{\int_a^b f_n - \int_a^b f} = \abs{\int_a^b f_n - f} \leq \int_a^b \abs{f_n - f}\]
+        But $f_n \to f$ uniformly so for all $\ep > 0$, $\exists N$ such that $\abs{f_n - f} < \frac{\ep}{b - a}$ for all $n \geq N$ so 
+        \[\abs{\int_a^b f_n - \int_a^b f} \leq \int_a^b \abs{f_n(x) - f(x)} < \int_a^b \frac{\ep}{b - a} = \ep \qed\]
+    \end{tbox}
+
+    \begin{tbox}{\textbf{Fundamental Theorem of Calculus:} 
+        \begin{enumerate}[label=(\roman*)]
+            \item If $f: [a, b] \to \R$ is integrable and $F: [a, b] \to \R$ satisfies $F'(x) = f(x)$ for all $x \in [a, b]$, then 
+            \[\int_a^b f = F(b) - F(a)\]
+            \item Let $g: [a, b] \to \R$ be integrable and define $G(x) = \int_a^x f$ for all $x \in [a, b]$. Then: $G$ is continuous on $[a, b]$. If $g$ is continuous at some point $c \in [a, b]$, then $G$ is differentiable at $c$ and $G'(c) = g(c)$
+        \end{enumerate}}
+        \emph{Proof:} 
+
+        \begin{enumerate}[label=(\roman*)]
+            \item Let $P$ be a partition of $[a, b]$ and apply the MVT to $F$ on a subinterval $[x_{k-1}, x_k]$ of $P$ to get $\exists t \in (x_{k - 1}, x_k)$ such that 
+            \begin{align*}
+                F(x_k) - F(x_{k-1}) &= F'(t_k)(x_k - x_{k-1})\\ 
+                &= f(t_k) (x_k - x_{k-1})
+            \end{align*}
+
+            Now, consider the upper and lower sums $U(f, P)$ and $L(f, P)$. Since 
+            \[m_k = \inf_{t_k \in (x_{k-1}, x_k)} f(t_k) \leq f(t_k) \leq M_k = \sup_{t_k \in (x_{k-1}, x_k)} f(t_k)\]
+            we have
+            \begin{align*}
+                m_k &\leq f(t_k) \leq M_k\\ 
+                \sum m_k(x_k - x_{k-1}) &\leq \sum f(t_k)(x_k - x_{k-1})\leq  \sum M_k(x_k - x_{k-1})\\ 
+                L(f, P) &\leq \sum F(x_k) - F(x_{k-1}) \leq U(f, P)
+            \end{align*}
+            \[L(f, P) \leq \sum_{k=1}^n [F(x_k) - F(x_{k-1})] \leq U(f, P)\]
+            but this is a telescoping sum! so 
+            \[L(f, P) \leq F(b) - F(a) \leq U(f, P)\]
+            but this is independent of $P$ which gives 
+            \[L(f) \leq F(b) - F(a) \leq U(f)\]
+
+            Since $f$ is integrable, $U(f) = L(f)$ so $F(b) - F(a) = \int_a^b f$
+
+            \item Take $x > y$ in $[a, b]$. Observe: 
+            \[\abs{G(x) - G(y)} = \abs{\int_a^x g - \int_a^y g} = \abs{-\int_x^a g - \int_a^y g} = \abs{\int_y^x g} \leq \int_y^x \abs{g} \leq M(x - y)\]
+            where $M > 0$ is a bound on $\abs{g}$. 
+
+            Therefore, $G$ is Lipschitz on $[a, b]$ so $G$ is uniformly continuous on $[a, b]$.
+
+            Assume $g$ is continuous at $c \in [a, b]$.
+
+            By definition, 
+            \[G'(c) = \lim_{x \to c} \frac{G(x) - G(c)}{x- c} = \lim_{x \to c} \frac{1}{x - c} \left(\int_a^x g(t) \; dt - \int_a^c g(t)\; dt\right) = \lim_{x \to c} \frac{1}{x - c} \int_c^x g(t) \; dt\]
+
+            It suffices to show this limit equals $g(c)$. 
+
+            Given $\ep > 0$, we want a $\delta > 0$ such that $\abs{x -c}< \delta$ implies \[\abs{\frac{1}{x - c} \int_c^x g(t)\; dt - g(c)} < \ep\]
+
+            By continuity of $g$, $\exists \delta> 0$ such that $\abs{x - c} < \delta$ implies $\abs{g(x) - g(c)} < \ep$. 
+
+            We write 
+            \[g(c) = \frac{1}{x - c} \int_c^x g(c) \; dt\]
+        
+            Since $\abs{x  -c} \geq \abs{t - c}$, we have $\forall \abs{x - c} < \delta$, 
+            \begin{align*}
+                \abs{\frac{1}{x - c} \int_c^x g(t)\; dt - g(c)} &= \abs{\frac{1}{x - c} \int_c^x g(t)\; dt - \frac{1}{x - c} \int_c^x g(c) \; dt}\\ 
+                &= \abs{\frac{1}{x - c} \int_c^x [g(t) - g(c)]\; dt}\\
+                &\leq \frac{1}{\abs{x - c}} \int_c^x \abs{g(t) - g(c)}\; dt\\
+                &< \frac{1}{x - c} \int_c^x \ep \; dt = \ep \qed
+            \end{align*}
+        \end{enumerate}
+    \end{tbox}
     
 \end{document}  
 
