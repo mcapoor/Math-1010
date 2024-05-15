@@ -1,0 +1,595 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\geometry{
+    left=0.25in, 
+    right=0.25in,
+    top=0.25in,
+    bottom=0.25in
+}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\renewcommand{\hline}{\vspace*{10pt} \hrule \vspace*{10pt}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+\title{Math 1010 - Final Exam Review}
+\author{Milan Capoor}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definitions}
+    \textbf{Open Set:} $O \subset \R$ is open if $\forall x \in O, \exists \ep > 0$ such that $V_{\ep}(x) \subset O$ 
+
+    \textbf{Limit point:} $x$ is a limit point of $A$ if every $\ep$-neighborhood of $x$ intersects $A$ at a point other than $x$
+
+    \textbf{Isolated point:} a point which is not a limit point
+
+    \textbf{Closed set:} a set which contains all its limit points
+
+    \textbf{Closure of a set:} let $L$ be the set of all limit points of $A \subseteq \R$. The closure of $A$ is $A \cup L$ 
+
+    \textbf{Compact set:} a set $K$ is compact if every sequence in $K$ has a convergent subsequence with limit in $K$
+
+    \textbf{Bounded set:} $\exists M > 0$ such that $\abs{a} < M$ for all $a \in A$
+
+    \textbf{Open cover:} a collection of open sets $\{O_{\lambda}: \lambda \in \Lambda\}$ such that 
+    \[A \subseteq \bigcup_{\lambda \in \Lambda} O_{\lambda}\]
+
+    \textbf{Finite subcover:} a finite subcollection of an open cover whose union still contains $A$
+
+    \textbf{Functional limit:} Let $f: A \to \R$ be a function with $c$ a limit point of the domain of $A$. $\lim f(x) = L$ if $x \to c$ 
+
+    \textbf{Continuity:} $f: A \to \R$ is continuous at $c \in A$ if $\forall \ep > 0$, $\exists \delta > 0$ such that $\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \ep$
+
+    \textbf{Uniform Continuity:} $f: A \to \R$ is uniformly continuous on $A$ if $\forall \ep > 0$, $\exists \delta > 0$ such that $\forall x, y \in A$, 
+    \[\abs{x - y} < \delta \implies \abs{f(x) - f(y)} < \ep\]
+
+    \textbf{Differentiability:} $f: A \to \R$ is differentiable at $c \in A$ if $g'(c) = \lim_{x \to c} \frac{f(x) - f(c)}{x - c}$ exists
+
+    \textbf{Convergence at infinity:} Given $g: A \to \R$ and a limit point $c \in A$, we say that $\lim_{x \to c} g(x) = \infty$ if $\forall M > 0$, $\exists \delta > 0$ such that $0 < \abs{x - c} < \delta \implies g(x) \geq M$
+
+    \textbf{Pointwise convergence:} $(f_n)$ converges pointwise to $f$ if $\forall x \in A$, $\lim_{n \to \infty} f_n(x) = f(x)$
+
+    \textbf{Uniform convergence:} $f_n$ converges uniformly on $A$ to $f$ if $\forall \ep > 0$, $\exists N$ such that $\forall n \geq N$ and $x \in A$, 
+    \[\abs{f_n(x) - f(x)} < \ep\]
+
+    \textbf{Series of functions convergence:} The infinite series 
+    \[\sum_{n=1}^{\infty} f_n(x) = f_1(x) + f_2(x) + \cdots\]
+    converges pointwise on $A$ if the sequence of partial sums converges pointwise on $A$
+
+    The series converges uniformly on $A$ if the sequence of partial sums converges uniformly on $A$
+
+    \textbf{Power series:} a function of the form 
+    \[f(x) = \sum_{n=0}^{\infty} a_nx^n = a_0 + a_1 x + a_2x^2 + \dots\]
+
+    \textbf{Partition:} a partition $P \subseteq [a, b]$ is a finite set of points $P = \{x_0, x_1, \dots, x_n\}$ such that $a = x_0 < x_1 < \cdots < x_n = b$
+
+    \textbf{Refinement:} a partition $Q$ is a refinement of $P$ if $P \subseteq Q$ (that is, $Q$ contains all the points of $P$)
+
+    \textbf{Upper/lower sums:} For each subinterval $[x_{k-1}, x_k]$ of $P$, let 
+    \begin{align*}
+        m_k &= \inf\{f(x): x \in [x_{k-1}, x_k]\} \\
+        M_k &= \sup\{f(x): x \in [x_{k-1}, x_k]\}
+    \end{align*}
+
+    The lower sum of $f$ with respect to $P$ is 
+    \[L(f, P) = \sum_{k=1}^n m_k(x_k - x_{k-1})\]
+
+    The upper sum of $f$ with respect to $P$ is 
+    \[U(f, P) = \sum_{k=1}^{\infty} M_k(x_k - x_{k-1})\]
+
+    \textbf{Upper/lower integrals:} Let $\mathcal{P}$ be the collection of all possible partitions of $[a, b]$, the upper integral of $f$ is
+    \[U(f) = \inf\{U(f, P): P \in \mathcal{P}\}\]
+
+    The lower integral of $f$ is 
+    \[L(f) = \sup\{L(f, P): P \in \mathcal{P}\}\]
+
+    \textbf{Riemann integrable:} A bounded function $f$ is Riemann integrable on $[a, b]$ if $U(f) = L(f)$, in which case 
+    \[\int_a^b f = U(f) = L(f)\]
+
+\pagebreak
+\section{Theorems}
+    \textbf{Limit point $\iff$ limit of some sequence:} A point $x$ is a limit point of a set $A$ iff exists $(a_n) \in A$ such that $(a_n) \to x$ and $a_n \neq x$ for all $n \in \N$ 
+
+    \emph{Proof:} $(\impliedby)$ Pick $\ep = \frac{1}{n}$ and $a_n \in V_{1/n}(x) \cap A$ such that $a_n \neq x$. Choose $N$ so $\frac{1}{N} < \ep \implies \abs{a_n - x} < \ep$. 
+
+    $(\implies)$ Let $V_{\ep}(x)$ be arbitrary. By convergence, $\exists N \in \N$ so $n \geq N \implies \abs{a_n - x} < \ep \implies a_n \in V_{\ep}(x)$ 
+
+    \hline 
+
+    \textbf{Closed set $\iff$ all Cauchy have limit points in set:} $F \subseteq \R$ is closed iff every Cauchy sequence in $F$ has a limit in $F$
+
+    \emph{Proof:} ($\implies$): Let $(x_n) \in F$ be Cauchy. Since $F$ closed, $\exists x \in F$ such that $(x_n) \to x$.
+
+    ($\impliedby$): Assume $\exists x$, a limit point of $F$ not in $F$. Construct $(x_n)$ such that $x_n \subset V_{1/n}(x) \cap F$ with $x_n \neq x$. Then $(x_n) \to x$. $(x_n) \in F \implies x \in F$ (contradiction) so $F$ is closed. 
+
+    \hline
+
+    \textbf{Complements of open and closed sets:} 
+    \begin{enumerate}
+        \item $O$ open $\iff$ $O^c$ closed 
+        \item $F$ closed $\iff$ $F^c$ open
+    \end{enumerate}
+
+    \emph{Proof:} 
+    \begin{enumerate}
+        \item ($\implies$) if $x$ is a limit point of $O^c$, then every $\ep$-neighborhood of $x$ intersects $O^c$. Thus $V_{\ep}(x) \not\subset O \implies x \not\in O$. Thus $x \in O^c$.
+        
+        ($\impliedby$) $O^c$ closed $\implies$ $x$ not a limit point of $O^c$ $\implies \exists V_{\ep}(x)$ which does not intersect $O^c$. Thus $V_{\ep}(x) \subset O$ 
+
+        \item $(E^c)^c = E$. The rest follows from part 1. 
+    \end{enumerate}
+
+    \hline
+
+    \textbf{Characterization of compactness on $\R$:} $K \subseteq \R$ is compact $\iff$ $K$ is closed and bounded
+
+    \emph{Proof:} ($\implies$) $K$ not bounded implies $(x_n)$ with no convergent subsequence (contradiction of compactness). $K$ closed because $K$ compact implies $\exists (x_{n_k}) \to x \implies x \in K \implies K$ closed. 
+    
+    ($\impliedby$) $K$ bounded implies $(x_n) \subset K$ bounded. By Bolzano-Weierstrass and $K$ closed, $\exists (x_{n_k}) \to x \in K$.  
+
+    \hline 
+
+    \textbf{Nested compact set:} If $K_1 \supseteq K_2 \supseteq K_3 \supseteq \cdots$ is a nested sequence of nonempty compact sets, then $\bigcap_{n=1}^{\infty} K_n \neq \emptyset$
+
+    \emph{Proof:} By compactness of $K_n$, $\exists (x_n) \in K_n \implies (x_n) \in K_1 \implies \exists (x_{n_k}) \to x \in K_1$. Given $n_0 \in \N$, $(x_n) \in K_{n_0}$ if $n> n_0$. Ignoring the finite terms $n_k < n_0$, $(x_{n_k}) \in K_{n_0} \implies \lim x_{n_k} = x \in K_{n_0}$. Since $n_0$ arbitrary, 
+    \[x \in \bigcap_{n=1}^{\infty} K_n\]
+
+    \hline 
+
+    \textbf{Heine-Borel:} For $K \subseteq \R$, $K$ is compact $\iff$ $K$ is closed and bounded $\iff$ every open cover of $K$ has a finite subcover
+
+    \emph{Proof:} $(i) \iff (ii)$ by characterization of compactness. 
+    
+    ($(ii) \impliedby (iii)$) $K$ is bounded because it is contained in a finite collection of sets. $K$ is closed because $\exists (y_n) \to y$ with $y \notin K$ implies $\exists y_N$ such that $\forall x \in K$, 
+    \[\abs{y_N - y} < \min\{\frac{x_i - y}{2}: 1 \leq i \leq n\} \implies y_N \notin V_{\abs{x - y}/2}(x) \implies y \notin \bigcup_{i=1}^N V_{\abs{x_i - y}/2}(x_i) \implies \text{ no finite subcover}\]
+    which is a contradiction so $y \in K$ and $K$ is closed. 
+
+    \textcolor{red}{($(ii) \implies (iii)$) HW }
+
+    \hline 
+
+    \textbf{Sequential criterion for functional limits:} gIVEN $f: A \to \R$ and $c$ is a limit point of $A$, then the following are equivalent:
+    \begin{enumerate}
+        \item  $\lim_{x \to c} f(x) = L$
+        \item For every sequence $(x_n) \in A$ with $x_n \neq c$ and $(x_n) \to c$, $(f(x_n)) \to L$
+    \end{enumerate}
+
+    \emph{Proof:} $(i) \implies (ii)$: $(x_n) \to c \implies x_n \in V_{\delta}(c)$ for all $n \geq N$. So $f(x_n) \in V_{\ep}(L)$
+
+    $(ii) \implies (i)$: Argue contrapositive by $\delta_n = \frac{1}{n}$ so $\exists x_n \in V_{\delta_n}(c)$ with $f(x_n) \notin V_{\ep}(L)$. Then $(x_n) \to c$ but $(f(x_n)) \not\to L$
+
+    \hline 
+
+    \textbf{Algebraic limit theorem for functional limits:} Let $f$ and $g$ be functions on a domain $A \subset \R$ and assume $\lim_{x \to c} f(x) = L, \lim_{x \to c} g(x) = M$. Then
+    \begin{enumerate}
+        \item $\lim_{x \to c} kf(x) = kL$ 
+        \item $\lim_{x \to c} (f(x) + g(x)) = L + M$
+        \item $\lim_{x \to c} (f(x)g(x)) = LM$
+        \item $\lim_{x \to c} \frac{f(x)}{g(x)} = \frac{L}{M}$ if $M \neq 0$
+    \end{enumerate}
+
+        \emph{Proof:} Omitted
+        
+    \hline 
+
+    \textbf{Divergence criterion:} If $f: A \to \R$ with $c$ a limit point of $f$ and $\exists(x_n) \to c, (y_n) \to c \in A$ but $\lim_{x_n \to c} f(x_n) \neq \lim_{y_n \to c} f(y_n)$, then $\lim_{x \to c} f(x)$ does not exist
+
+        \emph{Proof:} Omitted 
+
+    \hline 
+        
+    \textbf{Characterization of continuity:} Let $f: A \to \R$ and $c \in A$. The following definitions of continuity of $f$ at $c$ are equivalent:
+    \begin{enumerate}
+        \item $\forall \ep > 0$, $\exists \delta > 0$ such that $\abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \ep$ 
+        \item $\forall V_{\ep}(f(c))$, $\exists \delta > 0$ such that $x \in V_{\delta}(c) \implies f(x) \in V_{\ep}(f(c))$
+        \item $\forall (x_n) \in A$ with $(x_n) \to c$, we have $f(x_n) \to f(c)$
+    \end{enumerate} 
+
+        \emph{Proof:} Omitted 
+
+    \hline
+
+    \textbf{Criterion for discontinuity:} Let $f: A \to \R$ with $c$ a limit point of $f$. If $\exists (x_n) \in A$ with $(x_n) \to c$ but $(f(x_n)) \not\to f(c)$, then $f$ is discontinuous at $c$
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Algebraic continuity theorem:} Let $f: A \to \R$ and $g: A \to \R$ be continuous at $c \in A$. Then 
+    \begin{enumerate}
+        \item $kf(x)$ is continuous at $c$ for all $k \in \R$
+        \item $f(x) + g(x)$ is continuous at $c$
+        \item $f(x)g(x)$ is continuous at $c$
+        \item $\frac{f(x)}{g(x)}$ is continuous at $c$ if $g(c) \neq 0$
+    \end{enumerate}
+
+        \emph{Proof:} Omitted 
+
+    \hline 
+
+    \textbf{Composition of continuous functions:} Let $f: A \to \R$ be continuous at $c$. Let $g: B \to \R$ be continuous at $f(c)$ with $f(A) \subseteq B$. Then $g \circ f$ is continuous at $c$
+
+        \emph{Proof:} Omitted
+
+    \hline
+
+    \textbf{Preservation of compact sets:} Let $f: A \to \R$ be continuous on $A$. If $K \subseteq A$ is compact, then $f(K)$ is compact. 
+
+        \emph{Proof:} Find a subsequence $(y_{n_k})$ of $(y_n) \in f(K)$ which converges to a limit contained in $f(K)$ using compactness and continuity (i.e. existence of $(x_{n_k}) \in K$) of $f$. 
+
+    \hline
+
+    \textbf{Extreme Value Theorem:} If $f: K \to \R$ is continuous on a compact set $K \subseteq \R$, then $f$ attains a maximum and minimum on $K$
+
+        \emph{Proof:} Since $f(K)$ is compact, $\alpha = \sup f(K)$ and $\beta = \inf f(K)$ are in $f(K)$ so $\exists x_1, x_2 \in K$ such that $f(x_1) = \alpha$ and $f(x_2) = \beta$
+
+    \hline 
+
+    \textbf{Sequential criterion for absence of uniform continuity:} $f: A \to \R$ fails to be uniformly continuous iff $\exists \ep_0 > 0$ and $(x_n), (y_n) \in A$ such that $\forall \delta > 0$, $\abs{x  -y} \to 0$ but $\abs{f(x) - f(y)} \geq \ep_0$ 
+
+        \emph{Proof:} ($\implies$) By definition, we have $\abs{x - y} < \delta$ but $\abs{f(x) - f(y)} \geq \ep_0$ for some $\ep_0 > 0$. Just construct $(x_n), (y_n)$ such that $\abs{x_n - y_n} < \frac{1}{n}$ but $\abs{f(x_n) - f(y_n)} \geq \ep_0$
+
+        ($\impliedby$) Trivial by $\abs{f(x_n) - f(y_n)} \geq \ep_0$ 
+
+    \hline 
+
+    \textbf{Uniform continuity on compact sets:} A function that is continuous on a compact set $K$ is uniformly continuous on $K$
+
+        \emph{Proof:} Contradiction with the Criterion for absence of uniform continuity using convergent subsequences 
+
+    \hline 
+
+    \textbf{Intermediate Value Theorem:} Let $f: [a, b] \to \R$ be continuous. If $L \in \R$ satisfies $f(a) < L < f(b)$ (or $f(a) > L > f(b)$), then $\exists c \in (a, b)$ such that $f(c) = L$
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Differentiability implies continuity:} If $f: A \to \R$ is differentiable at $c \in A$, then $f$ is continuous at $c$
+
+        \emph{Proof:} $\lim_{x \to c} g(x) = g(c)$ by ALT and differentiability of $f$ at $c$
+
+    \hline 
+
+    \textbf{Algebraic differentiability theorem:} Let $f: A \to \R$ and $g: A \to \R$ be differentiable at $c \in A$. Then
+    \begin{enumerate}
+        \item $(f + g)'(c) = f'(c) + g'(c)$
+        \item $(kf)'(c) = kf'(c)$
+        \item $(fg)'(c) = f'(c)g(c) + f(c)g'(c)$
+        \item $\left(\frac{f}{g}\right)'(c) = \frac{f'(c)g(c) - f(c)g'(c)}{(g(c))^2}$ if $g(c) \neq 0$
+    \end{enumerate}
+
+        \textbf{Proof:} 
+        \begin{enumerate}
+            \item Omitted 
+            \item Omitted 
+            \item \begin{align*}
+                \lim_{x \to c} \frac{f(x)g(x) - f(c)g(c)}{x - c} &= \lim_{x \to c} \frac{f(x)g(x) - f(x)g(c) + f(x)g(c) - f(c)g(c)}{x - c} \\
+                &= \lim_{x \to c} f(x)\frac{g(x) - g(c)}{x - c} + g(c)\frac{f(x) - f(c)}{x - c} \\
+                &= f(c)g'(c) + g(c)f'(c)
+            \end{align*}
+            \item Omitted 
+        \end{enumerate}
+
+    \hline 
+
+    \textbf{Chain rule:} Let $f: A \to \R$ and $g: B \to \R$ with $f(A) \subseteq B$. If $f$ is differentiable at $c \in A$ and $g$ is differentiable at $f(c) \in B$, then $g \circ f$ is differentiable at $c$ with 
+    \[(g \circ f)'(c) = g'(f(c)) \cdot f'(c)\]
+
+        \emph{Proof:} 
+        \[g'(f(c)) = \lim_{y \to f(c)} \frac{g(y) - g(f(c))}{y - f(c)}\]
+        Then let $y= f(t)$ and apply the ALT. 
+
+    \hline 
+
+    \textbf{Interior Limit Theorem:} Let $f$ be differentiable on $(a, b)$. If $f$ attains a max at $c \in (a, b)$, then $f'(c) = 0$
+
+        \emph{Proof:} Construct $(x_n) \to c, (y_n) \to c$ with $x_n < c < y_n$. Using the order limit theorem,
+        \begin{align*}
+            f'(c) &= \lim{n \to \infty} \frac{f(y_n) - f(c)}{y_n - c} \leq 0\\ 
+            f'(c) &= \lim{n \to \infty} \frac{f(x_n) - f(c)}{x_n - c} \geq 0
+        \end{align*}
+        so $f'(c) = 0$ 
+
+    \hline 
+
+    \textbf{Darboux's Theorem:} If $f$ is differentiable on $[a, b]$ and if $f'(a) < L < f'(b)$, then $\exists c \in (a, b)$ such that $f'(c) = L$
+
+        \emph{Proof:} $g(x) = f(x) - L$ has $g'(a) < 0 < g'(b)$ so $g$ attains a max at $c \in (a, b)$ so $g'(c) = 0 \implies f'(c) = L$
+
+    \hline
+
+    \textbf{Rolle's Theorem:} Let $f: [a, b] \to \R$ be continuous on $[a, b]$ and differentiable on $(a, b)$. If $f(a) = f(b)$, then $\exists c \in (a, b)$ such that $f'(c) = 0$
+
+        \emph{Proof:} If the extrema are on the endpoints, $f$ is constant. Otherwise, interior limit theorem gives the result. 
+
+    \hline 
+
+    \textbf{Mean Value Theorem:} If $f: [a, b] \to \R$ is continuous on $[a, b]$ and differentiable on $(a, b)$ then $\exists c \in (a, b)$ such that
+    \[f'(c) = \frac{f(b) - f(a)}{b - a}\]
+
+        \emph{Proof:} Omitted 
+
+
+    \textbf{Corollary 1 of MVT:} If $g: A \to \R$ is differentiable on $A$ and $g'(x) = 0$ for all $x \in A$, then $g(x) = k$ with $k \in \R$
+
+        \emph{Proof:} By MVT on $[x, y]$, 
+        \[g'(c) = \frac{g(y) - g(x)}{y - x} = 0 \implies g(y) - g(x) = 0 \implies g(y) = g(x) = k\]
+
+    \textbf{Corollary 2 of MVT:} If $f$ and $g$ are differentiable functions on $A$ and $f'(x) = g'(x)$ for all $x \in A$, then $f(x) = g(x) + k$ for some $k \in \R$
+
+        \emph{Proof:} Let $h(x) = f(x) - g(x)$. Then $h'(x) = 0$ so $h(x) = k$
+
+    \hline 
+
+    \textbf{Generalized MVT:} If $f$ and $g$ are continuous on $[a, b]$ and differentiable on $(a, b)$ then $\exists c \in (a, b)$ such that 
+    \[[f(b) - f(a)]g'(c) = [g(b) - g(a)]f'(c)\]
+    
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{L'Hopital's Rule:} Assume $f, g$ are differentiable on $(a, b)$ and $g'(x) \neq 0$ for all $x \neq c \in (a, b)$. If $f(c) = g(c) = 0$ or $\lim_{x\to a} g(x) = \pm \infty$, then
+    \[\lim_{x \to c} \frac{f'(x)}{g'(x)} = L \implies \lim_{x \to c} \frac{f(x)}{g(x)} = L\]
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Cauchy Criterion for Uniform Convergence:} $(f_n)$ on $A \subset \R$ converges uniformly on $A$ iff $\forall \ep > 0$, $\exists N$ such that $\forall n, m \geq N$ and $x \in A$,
+    \[\abs{f_n(x) - f_m(x)} < \ep\]
+
+        \emph{Proof:} Cauchy criterion for sequences of real numbers and bounding pointwise convergence  
+
+    \hline
+
+    \textbf{Continuous Limit Thm:} Let $(f_n) \to f$ uniformly on $A$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$
+
+        \emph{Proof:} By uniform convergence we can choose $N \in \N$ so $\abs{f_N(x) - f(x)} < \frac{\ep}{3}$. Since $f_N$ is continuous at $c$, $\abs{f_N(x) - f_N(c)} < \frac{\ep}{3}$ when $\abs{x - c} < \delta$. 
+        \[\abs{f(x) - f(c)} \leq \abs{f(x) - f_N(x)} + \abs{f_N(x) - f_N(c)} + \abs{f_N(c) - f(c)} < \ep\]
+
+    \hline 
+
+    \textbf{Differentiable Limit Theorems:} 
+    \begin{enumerate}
+        \item Let $f_n \to f$ is a sequence of differentiable functions which converge pointwise on $[a, b]$. If $(f_n') \to g$ uniformly, $f' = g$ 
+        
+        \item Let $(f_n)$ be a sequence of differentiable functions on $[a, b]$. If $(f_n') \to g$  uniformly and $\exists x_0 \in [a, b]$ where $f_n(x_0) \to L$, then $(f_n) \to f$ uniformly.
+        
+        \item Let $(f_n)$ be a sequence of differentiable functions on $[a, b]$ with $(f_n') \to g$ uniformly. If $(f_n(x_0)) \to f(x_0)$ for some $x_0 \in [a, b]$, then $(f_n) \to f$ uniformly and $f' = g$.
+    \end{enumerate}
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Term-by-term Continuity Thm for Series:} Let $f_n$ be continuous function. If $\sum f_n$ converges uniformly on $A$ to $f$, then $f$ is continuous on $A$
+
+        \emph{Proof:} Apply continuous limit theorem to $(S_k)$
+
+    \hline 
+
+    \textbf{Term-by-term Differentiability Thm for Series:} Let $f_n$ be differentiable functions and assume $\sum f_n'$ converges uniformly to $g$. If $\exists x_0 \in A$ where $\sum f_n(x_0)$ converges, then $\sum f_n(x)$ converges uniformly to $f$ with $f' = g$
+
+        \emph{Proof:} Apply differentiable limit theorem to $(S_k)$ 
+
+    \hline 
+
+    \textbf{Cauchy Criterion for Uniform convergence of series:} $\sum f_n$ converges uniformly on $A$ iff $\forall \ep > 0$, $\exists N$ such that $\forall n, m \geq N$ and $x \in A$,
+    \[\abs{f_{m+1} + f_{m+2} + \cdots + f_n(x)} < \ep\]
+
+        \emph{Proof:} Omitted
+
+    \hline
+
+    \textbf{Weierstrass M-Test:} If $\abs{f_n(x)} \leq M_n$ for $M_n > 0$, if $\sum M_n$ converes, then $\sum f_n(x)$ converfes uniformly on $A$
+
+        \emph{Proof:} Cauchy Criterion for uniform convergence of series
+
+    \hline
+
+    \textbf{Convergence of Power Series:} If $\sum a_n x^n$ converges at $x_0 \in \R$ then it converges absolutely for $\abs{x} < \abs{x_0}$ 
+
+        \emph{Proof:} Comparison test with geometric series from $\abs{a_n x_0^n} < M$ 
+
+    \hline
+
+    \textbf{Uniform convergence of Power Series:} If $\sum a_n x^n$ converges absolutely at $x_0$, then it converges uniformly on $[-\abs{x_0}, \abs{x_0}]$ 
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Abel's Thm:} Let $g(x) = \sum a_n x^n$ converge at $x = R > 0$. Then $g(x)$ converges uniformly on $[0, R]$
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Convergence of Power Series on Compact sets:} If $\sum a_n x^n$ converges pointwise on $A \subseteq \R$, it converges uniformly on compact subsets of $A$
+
+        \emph{Proof:} Abel's theorem and existence of extrema on compact sets 
+
+    \hline 
+
+    \textbf{Differentiation of Power Series:} If $f(x) = \sum_{n=0}^{\infty} a_nx^n$ converges on $(-R, R)$, then $f'(x) = \sum_{n=1}^{\infty} na_n x^{n-1}$ converges on $(-R, R)$
+
+        \emph{Proof:} Uniform convergence on compact sets and boundedness of $ns^{n-1}$ for $0 < s < 1$
+
+    \hline
+
+    \textbf{Taylor's Formula:} Let $f(x) = a_0 + a_1 x + a_2 x^2 + \dots$ on some nontrivial interval centered at $0$. Then $a_n = \frac{f^{(n)}(0)}{n!}$
+
+        \emph{Proof:} Omitted
+
+    \hline 
+
+    \textbf{Lagrange Remainder Thm:} Let $f$ be $N + 1$ times differentiable on $(-R, R)$. Given $x \neq 0$ in $(-R, R)$, $\exists c$ with $\abs{c} < \abs{x}$ such that
+    \[E_N(x) = f(x) - S_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!} x^{n+1}\]
+
+        \emph{Proof:} Successive application of generalized MVT
+
+    \hline
+
+    \textbf{Two lemmas on partitions:} 
+    \begin{enumerate}
+        \item If $P\subset Q$, then $L(f, P) \leq L(f, Q)$ and $U(f, P) \geq U(f, Q)$ 
+        
+        \emph{Proof:} Induction on $k$ considering the refinement $\{z\} \cup [x_{k-1}, x_k]$ 
+
+        \item If $P_1$ and $P_2$ are partitions of $[a, b]$, then $L(f, P_1) \leq U(f, P_2)$
+        
+        \emph{Proof:} Apply the previous lemma to the common refinement $Q = P_1 \cup P_2$
+    \end{enumerate}
+
+    \hline
+
+    \textbf{Integrability Criterion:} A bounded function $f$ is integrable on $[a, b]$ iff $\forall \ep > 0$, $\exists P_{\ep}$ (a partition of $[a, b]$) such that 
+    \[U(f, P_{\ep}) - L(f, P_{\ep}) < 0\] 
+
+        \emph{Proof:} $(\impliedby)$: If such a partition exists, $U(f) = L(f)$ so $f$ is integrable 
+
+        $(\implies)$ $U(f)$ is the greatest lower bound of upper sums so $U(f, P_1) < U(f) + \frac{\ep}{2}$ and $L(f, P_2) > L(f) - \frac{\ep}{2}$. Let $P_{\ep} = P_1 \cup P_2$ 
+
+    \hline 
+
+    \textbf{Continuity implies integrability:} If $f$ is continuous on $[a, b]$, then it is integrable. 
+
+        \emph{Proof:} By integrability criterion, it suffices to bound $U(f, P) - L(f, P) < \ep$. 
+    \hline 
+
+    \textbf{Integrability with discontinuity at an endpoint:} If $f: [a, b] \to \R$ is bounded and integrable on $[c, b]$ for all $c \in (a, b)$, then $f$ is integrable on $[a, b]$
+
+        \emph{Proof:} Produce a $P$ such that $U(f, P) - L(f, P) < \ep$. Let $P = \{a\} \cup P$ so 
+        \[U(f, P) - L(f, P) \leq 2M(x_1 - a) + U(f, P_1)L(f, P_2) < \ep\]
+
+    \hline
+
+    \textbf{Integrable on [a, b] $\iff$ integrable on [a, c] and [c, b]:} Let $f: [a, b] \to \R$ be bounded and $c \in (a, b)$. $f$ is integrable on $[a, b]$ iff $f$ is integrable on $[a, c]$ and $[c, b]$, in which case 
+    \[\int_a^b f = \int_a^c f + \int_c^b f\]
+
+        \emph{Proof:} $(\implies)$ $f$ integrable on $[a, b]$ implies $U(f, P) - L(f, P) < \ep$. let $P_1 = P \cap [a, c]$ and $P_2 = P \cap [c, b]$. Then 
+        \[U(f, P_1) - L(f, P_1) < \ep, \quad U(f, P_2) - L(f, P_2) < \ep\]
+
+        $(\impliedby)$ $U(f, P_1) - L(f, P_1) < \frac{\ep}{2}$ and $U(f, P_2) - L(f, P_2) < \frac{\ep}{2}$ so $P = P_1 \cup P_2$ so 
+        \[U(f, P) - L(f, P) < \ep\]
+
+    \hline
+
+    \textbf{Algebraic integrability Thm:} Assume $f, g$ are integrable on $[a, b]$. Then
+    \begin{enumerate}
+        \item $\int_a^b f + g = \int_a^b f + \int_a^b g$
+        \item $\int_a^b kf = k\int_a^b f$
+        \item $m \leq f(x) \leq M \implies m(b-a) \leq \int_a^b f\leq M(b-a)$
+        \item $f(x) \leq g(x) \implies \int_a^b f \leq \int_a^b g$
+        \item $\abs{\int_a^b f} \leq \int_a^b \abs{f}$
+    \end{enumerate}
+
+        \emph{Proof:} Omitted
+
+    \hline
+
+    \textbf{Integrable Limit Thm:} Let $f_n \to f$ uniformly on $[a, b]$ and suppose each $f_n$ is integrable on $[a, b]$. Then $f$ is integrable on $[a, b]$ and
+    \[\lim_{n \to \infty} \int_a^b f_n = \int_a^b f\]
+
+        \emph{Proof:} (Integrability of $f$) Bound $\abs{U(f, P) - U(f_N, P)} = \abs{\sum (M_k - N_k)\delta x_k}$ by $\ep/3(b-a)$ using uniform convergence. 
+
+        ($\lim_{n \to \infty} \int_a^b f_n = \int_a^b f$): $f_n \to f$ uniformly so $\abs{f_n - f} < \frac{\ep}{b - a}$ for large enough $n$. 
+
+        \[\abs{\int_a^b f_n - \int_a^b f} \leq \int_a^b \abs{f_n(x) - f(x)} < \int_a^b \frac{\ep}{b - a} = \ep\]
+
+    \hline   
+
+    \textbf{Fundamental Thm of Calculus:}
+    \begin{enumerate}
+        \item If $f: [a, b] \to \R$ is integrable and $F: [a, b] \to \R$ satisfies $F'(x) = f(x)$ then 
+        \[\int_a^b f = F(b) - F(a)\]
+
+        \item Let $g: [a, b] \to \R$ be integrable and define $G(x) = \int_a^x f$. Then $G$ is continuous on $[a, b]$. If $g$ is continuous at $c \in [a, b]$, then $G$ is differentiable at $c$ with $G'(c) = g(c)$
+    \end{enumerate}
+
+        \emph{Proof:} Omitted
+
+\pagebreak
+
+
+\section*{Final}
+\begin{enumerate}
+    \item Mostly problems from 11
+    \item definition of compact set 
+    \item uniform continuity definition
+    \item pointwise convergent definition
+    \item Focus on Chapter 6, Continuity/uniform continuity 
+    \item 30/120 points theorems and definitions
+    \item Examples in class should be good for 3/4 questions 
+    \item The homework question is combined from two similar homeworks 
+    \item 
+\end{enumerate}
+\end{document}
