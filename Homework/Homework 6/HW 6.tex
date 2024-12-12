@@ -1,0 +1,143 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm,
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+\title{Math 1010: Problem set 6}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace*{-1in}
+
+\section*{Problem 1 }
+Prove the converse of Theorem 3.2.5 in the book by showing that if $x=\lim a_n$ for some sequence $(a_n)$ contained in $A$ satisfying $a_n\neq x$, then $x$ is a limit point of $A$.
+
+    \color{blue}
+        Suppose $x = \lim a_n$ for some $(a_n) \in A$ with $a_n \neq x$. Let $V_{\ep}(x)$ be an $\ep$-neighborhood of $x$. 
+
+        Since $(a_n) \to x$, $\exists N \in \N$ such that $n \geq N \implies a_n \in V_{ep}(x)$. However, $(a_n) \in A$ and $a_n \neq x$ so $V_{\ep}(x)$ contains a point other than $x$ which is in $A$. Therefore, $x$ is a limit point of $A$. $\qed$
+    \color{black}
+
+
+\pagebreak
+\section*{Problem 2}
+Let $a\in A$. Prove that $a$ is an isolated point of the set $A$ if and only if there exists an $\varepsilon$-neighborhood of $a$, $V_\varepsilon(a)$, such that $V_\varepsilon(a)\cap A=\{a\}$.
+
+        \color{blue}
+            Suppose $a$ is an isolated point of $A$. Then it is not a limit point. Therefore, by definition, $\exists V_{\ep}(a)$ which does not intersect $A$ at any point other than $a$, i.e, $V_{\ep}(a) \cap A = \{a\}$.
+
+            Now suppose there exists an $\varepsilon$-neighborhood of $a$, $V_\varepsilon(a)$, such that $V_\varepsilon(a)\cap A=\{a\}$. Then $a$ cannot be a limit point of $A$ because $V_{\ep}(a)$ does not intersect $A$ at any point other than $a$. Therefore, $a$ is an isolated point of $A$. $\qed$
+        \color{black}
+
+\pagebreak
+\section*{Problem 3 }
+Prove Theorem 3.2.8 from the book.
+
+    \color{blue}
+        Theorem 3.2.8 says a set $F \subseteq \R$ is closed iff every Cauchy Sequence contained in $F$ has a limit in $F$.
+
+        Suppose $F$ is closed. Let $(x_n) \to x$ be a Cauchy sequence in $F$. Then by Theorem 3.2.5, $x$ is a limit point of $F$ because $x$ is the limit of a sequence in $F$. Since $F$ is closed, $x \in F$. Therefore, every Cauchy sequence contained in $F$ has a limit in $F$.
+
+        Now suppose every Cauchy sequence contained in $F$ has a limit in $F$. Assume $F$ is not closed, i.e. $\exists x$, a limit point of $F$ which is not contained in $F$. Since every $\ep$-neighborhood of $x$ intersects $F$ at a point other than $x$, we can construct a sequence $(x_n)$ by picking a point $x_n \in V_{1/n}(x) \cap F$ such that $x_n \neq x$. Clearly $(x_n) \to x$. 
+        
+        However, by construction, all the elements of the Cauchy sequence $(x_n)$ are in $F$ so by assumption $x$ must be in $F$. This is a contradiction. Therefore, $F$ is closed. $\qed$ 
+    \color{black}
+
+
+
+\pagebreak
+\section*{Problem 4}
+
+Let $x\in O$ where $O$ is some open set. If $(x_n)$ is a sequence converging to $x$, prove that all but a finite number of terms of $(x_n)$ must lie in $O$.
+
+    \color{blue}
+        Since $O$ is open, $\exists V_{\ep}(x) \subseteq O$. Since $(x_n) \to x$, $\exists N \in \N$ such that $n \geq N \implies x_n \in V_{\ep}(x)$. Since $(x_n)$ is an infinite sequence, there is an infinite number of terms of $(x_n)$ which are in $V_{\ep}(x)$. The only terms which could be outside $O$ are the first $N-1$ terms of $(x_n)$. $\qed$ 
+    \color{black}
+
+\pagebreak
+
+\section*{Problem 5}
+Prove the converse of Theorem 3.3.4 in the book, by showing that if a set $K\subset\mathbb{R}$ is closed and bounded then it is compact.
+
+    \color{blue}
+        Suppose $K$ is closed and bounded. 
+        
+        By definition, a set $K \subseteq \R$ is compact if every sequence in $K$ has a convergent subsequence whose limit is in $K$. 
+
+        Let $(x_n)$ be a sequence in $K$. Since $K$ is bounded, $(x_n)$ is bounded. By the Bolzano-Weierstrass theorem, $(x_n)$ has a convergent subsequence $(x_{n_k})$. Since $K$ is closed, all convergent sequences in $K$ have their limit is in $K$. Therefore, every sequence in $K$ has a convergent subsequence whose limit is in $K$. $\qed$ 
+    \color{black}
+
+
+\end{document}

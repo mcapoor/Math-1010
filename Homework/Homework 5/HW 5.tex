@@ -1,0 +1,222 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 - Homework 5}
+\author{Milan Capoor}
+\date{}
+
+\begin{document}
+\maketitle
+\section*{Problem 1}
+Assume $(a_n)$ and $(b_n)$ are Cauchy sequences. Use a triangle inequality argument to prove $c_n = \abs{a_n - b_n}$ is Cauchy
+
+    \color{blue}
+        Let $\ep > 0$. Since $(a_n)$ is Cauchy, $\exists N \in \N$ such that $m,n \geq N$ implies $\abs{a_m - a_n} < \frac{\ep}{2}$. Similarly, since $(b_n)$ is Cauchy, $\exists M \in \N$ such that $m,n \geq M$ implies $\abs{b_m - b_n} < \frac{\ep}{2}$. Let $K = \max\{N,M\}$. Then $m,n \geq K$ implies
+        \begin{align*}
+            \abs{c_n - c_m} &= \abs{(a_n - b_n) - (a_m - b_m)}\\ 
+                &= \abs{a_n - a_m - b_n + b_m}\\ 
+                &\leq \abs{a_n - a_m} + \abs{b_n - b_m}\\ 
+                &< \frac{\ep}{2} + \frac{\ep}{2} = \ep
+        \end{align*}
+        Therefore, $(c_n)$ is Cauchy. $\qed$
+    \color{black}
+
+\pagebreak 
+
+\section*{Problem 2}
+If $(x_n)$ and $(y_n)$ are Cauchy sequences, then one easy way to prove that $(x_n + y_n)$ is Cauchy is to use the Cauchy Criterion: $(x_n)$ and $(y_n)$ must be convergent, and the Algebraic Limit Theorem then implies $(x_n + y_n)$ is convergent and hence Cauchy.
+\begin{enumerate}
+    \item Give a direct argument that $(x_n + y_n)$ is a Cauchy sequence that does not use the Cauchy Criterion or the Algebraic Limit Theorem.
+    
+        \color{blue}
+            Let $\ep > 0$. Since $(x_n)$ is Cauchy, $\exists N \in \N$ such that $m,n \geq N$ implies $\abs{x_m - x_n} < \frac{\ep}{2}$. Similarly, since $(y_n)$ is Cauchy, $\exists M \in \N$ such that $m,n \geq M$ implies $\abs{y_m - y_n} < \frac{\ep}{2}$. Let $K = \max\{N,M\}$. Then $m,n \geq K$ implies    
+            \[\abs{(x_n + y_n) - (x_m + y_m)} = \abs{x_n - x_m + y_n - y_m} \leq \abs{x_n - x_m} + \abs{y_n - y_m} < \frac{\ep}{2} + \frac{\ep}{2} = \ep\] 
+            Therefore, $(x_n + y_n)$ is Cauchy. $\qed$
+        \color{black}
+
+    \item the same for the product $(x_n \cdot y_n)$.
+
+        \color{blue}
+            Let $\ep > 0$. Since $(x_n)$ and $(y_n)$ are Cauchy, they are bounded. Let $B = \max\{\abs{x_n}, \abs{y_n}\}$. 
+            
+            Further, since $(x_n)$ is Cauchy, $\exists N \in \N$ such that $m,n \geq N$ implies $\abs{x_m - x_n} < \frac{\ep}{2B}$ Similarly, since $(y_n)$ is Cauchy, $\exists M \in \N$ such that $m,n \geq M$ implies $\abs{y_m - y_n} < \frac{\ep}{2B}$. Let $K = \max\{N,M\}$. Then $m,n \geq K$ implies    
+            \begin{align*}
+                \abs{x_ny_n - x_my_m} &= \abs{x_ny_n - x_ny_m + x_ny_m - x_my_m} \\
+                &= \abs{x_n(y_n - y_m) + y_m(x_n - x_m)} \\
+                &\leq \abs{x_n}\abs{y_n - y_m} + \abs{y_m}\abs{x_n - x_m}\\
+                &< \abs{x_n}\frac{\ep}{2B} + \abs{y_m}\frac{\ep}{2B} \\
+                &= \frac{\ep}{2B}(\abs{x_n} + \abs{y_m})\\ 
+                &\leq \frac{\ep}{2B}(B + B) = \ep
+            \end{align*}
+            Therefore $(x_ny_n)$ is Cauchy. $\qed$
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+
+\section*{Problem 3}
+Given a series $\sum_{n=1}^{\infty} a_n$ with $a_n \neq 0$, the Ratio Test states that if $(a_n)$ satisfies 
+\[\lim \abs{\frac{a_{n+1}}{a_n}} = r < 1\]
+then the series converges absolutely. 
+
+\begin{enumerate}
+    \item Let $r'$ satisfy $r < r' < 1$ (Why must such an $r'$ exist?) Explain why there exists an $N$ such that $n \geq N$ implies $\abs{a_{n+1}} \leq \abs{a_n}r'$
+    
+        \color{blue}
+            ($r'$ exists by density of $\R$)
+
+            Suppose $\lim \abs{\frac{a_{n+1}}{a_n}} = r < r' < 1$. Then $\exists N \in \N$ such that $n \geq N$ implies $\abs{\frac{a_{n+1}}{a_n}} < r'$ by definition of convergence. Then 
+            \[\abs{\frac{a_{n+1}}{a_n}} = \abs{a_{n+1}} \cdot \abs{\frac{1}{a_n}} = \abs{a_{n+1}} \cdot \frac{1}{\abs{a_n}}\]
+            Since $\abs{\frac{a_{n+1}}{a_n}} < r'$, 
+            \[\abs{a_{n+1}} \leq \abs{a_n}r' \qed\]
+        \color{black}
+
+    \item Why does $\abs{a_N}(r')^n$ necessarily converge?
+     
+        \color{blue}
+            Since $\abs{a_N}$ is a constant and $r' < 1$, $\sum_{n=1}^{\infty} \abs{a_N}(r')^n$ is a geometric series and converges. Since the series converges, $\abs{a_N}(r')^n$ converges. $\qed$
+        \color{black}
+
+    \item Now show that $\sum \abs{a_n}$ converges
+    
+        \color{blue}
+            From part 1, for all $n > N$, $\abs{a_{n+1}} \leq \abs{a_n}r'$. 
+           
+            Then, 
+            \[\abs{a_{n+2}} \leq \abs{a_{n+1}}r' \leq \abs{a_n}(r')(r')\]
+
+            By induction, 
+            \[\abs{a_{n+k}} \leq \abs{a_{n}}(r')^k\]
+            
+            Then, for $n > N$, 
+            \[\abs{a_n} \leq \abs{a_N}(r')^{n-N}\]
+        
+            
+            From part 2, $\sum_{n=1}^{\infty} \abs{a_N}(r')^n$ converges and an identical argument shows that $\sum_{n=1}^{\infty} \abs{a_N}(r')^{n-N}$ converges. Thus, by the series comparison test, $\sum_{n=1}^{\infty} \abs{a_n}$ converges. $\qed$                
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+
+\section*{Problem 4}
+\begin{enumerate}
+    \item \textbf{(Summation by parts)}  Let $(x_n)$ and $(y_n)$ be sequences, and let $s_n = x_1 + x_2 + \dots + x_n$. Use the observation that $x_j = s_j - s_{j-1}$ to verify the formula
+    \[\sum_{j=m+1}^n x_jy_j = s_ny_{n+1} -s_m y_{m+1} + \sum_{j=m+1}^n s_j(y_j - y_{j+1})\]
+
+        \color{blue}
+            \begin{align*}
+                \sum_{j=m+1}^n x_jy_j &= \sum_{j=m+1}^{n}(s_j - s_{j-1})y_j\\ 
+                &= \sum_{j=m+1}^{n} s_jy_j - \sum_{j=m+1}^{n} s_{j-1}y_j\\
+                &= \sum_{j=m+1}^{n} s_jy_j - \left(-s_ny_{n+1} - s_my_{m+1} + \sum_{j=m+1}^{n+1} s_{j-1}y_{j}\right)\\
+                &= s_ny_{n+1} - s_my_{m+1} + \sum_{j=m+1}^n s_jy_j - \sum_{j=m+1}^n s_jy_{j+1}\\
+                &= s_ny_{n+1} - s_my_{m+1} + \sum_{j=m+1}^n s_j(y_j - y_{j+1}) \qed
+                \end{align*}
+        \color{black}
+
+    \item \textbf{(Dirichlet's Test)} Dirichlet's Test for convergence states that if the partial sums of $\sum_{n=1}^{\infty} x_n$ are bounded (but not necessarily convergent), and if $(y_n)$ is a sequence satisfying $y_n \geq y_2 \geq \dots \geq 0$ and $\lim y_n = 0$, then $\sum_{n=1}^{\infty} x_ny_n$ converges. 
+    \begin{enumerate}[label=(\alph*)]
+        \item Let $M > 0$ be an upper bound for the partial sums of $\sum_{n=1}^{\infty} x_n$. Use part 1 to show that 
+        \[\abs{\sum_{j=m+1}^n x_jy_j} \leq 2M\abs{y_{m+1}}\] 
+
+            \color{blue}
+                \begin{align*}
+                    \abs{\sum_{j=m+1}^n x_jy_j} &= \abs{s_ny_{n+1} - s_my_{m+1} + \sum_{j=m+1}^n s_j(y_j - y_{j+1})}\\ 
+                        &\leq \abs{s_ny_{n+1} - s_my_{m+1}} + \abs{\sum_{j=m+1}^n s_j(y_j - y_{j+1})}\\
+                        &\leq M\abs{y_{n+1} - y_{m+1}} + \abs{\sum_{j=m+1}^n M(y_j - y_{j+1})}\\
+                        &= M\abs{y_{n+1}- y_{m+1}} + M\abs{(y_{m+1} - y_{m+2}) + (y_{m+2} - y_{m+3}) + \dots + (y_n - y_{n+1})}\\
+                        &= M\abs{y_{n+1}- y_{m+1}} + M\abs{y_{m+1} - y_{n+1}}\\
+                        &= 2M\abs{y_{m+1} - y_{n+1}}
+                \end{align*}
+                Since $y_n > 0$, $2M \abs{y_{m+1} - y_{n+1}} \leq 2M\abs{y_{m+1}}$. $\qed$
+            \color{black}
+
+        \item Prove Dirichlet's Test
+        
+            \color{blue}
+                Since $\lim y_n = 0$, $\exists N \in \N$ such that $m, n \geq N$ implies $\abs{y_n} < \frac{\ep}{2M}$. 
+
+                Now let $S_n = \sum_{j=1}^{n} x_jy_j$ 
+                so 
+                \[\abs{S_n - S_m} = \abs{\sum_{j=m+1}^n x_jy_j} \leq 2M\abs{y_{m+1}} < 2M\frac{\ep}{2M} = \ep\]
+                Then by the Cauchy Criterion, $(S_n)$ converges so $\sum_{k=m+1}^n x_jy_j$ converges. $\qed$
+                
+            \color{black}
+
+    \end{enumerate}
+\end{enumerate}
+\end{document}

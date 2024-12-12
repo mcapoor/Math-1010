@@ -1,0 +1,300 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    letterpaper,
+    left=0.25in, 
+    right=0.25in,
+    top=0.25in,
+    bottom=0.25in
+}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 - Homework 10}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace*{-1in} 
+
+
+\section*{Problem 1 }
+Let 
+\[f_n(x)=\frac{nx}{1+nx^2}\]
+\begin{enumerate}
+	\item Find the pointwise limit of $(f_n)$ for all $x\in(0,\infty)$.
+
+        \color{blue}
+           \[\lim_{n \to \infty} f_n(x) = \lim_{n \to \infty} \frac{nx}{1 + nx^2} = \lim_{n \to \infty} \frac{x}{\frac{1}{n} + x^2} = \frac{x}{x^2} = \frac{1}{x}\]
+        \color{black}
+
+	\item Is the convergence uniform on $(0,\infty)$?
+	
+        \color{blue}
+            Let $\ep > 0$. 
+            \begin{align*}
+                \abs{f_n(x) - f(x)} &= \abs{\frac{nx}{1+nx^2} - \frac{1}{x}}\\ 
+                &= \abs{\frac{nx^2}{x(1 + nx^2)} - \frac{1 + nx^2}{x(1 + nx^2)}}\\
+                &= \abs{-\frac{1}{x(1 + nx^2)}} = \frac{1}{x(1 + nx^2)}
+            \end{align*}
+            Therefore, any choice of $n$ to make $\abs{f_n(x) - f(x)}$ will depends on $x$ so the convergence is not uniform on $(0, \infty)$. $\qed$
+        \color{black}
+
+	\item Is the convergence uniform on $(0,1)$?
+	
+        \color{blue}
+            Let $\ep = 1$. Then 
+            \[\abs{f_n(x) - f(x)} = \frac{1}{x + nx^3}\]
+
+            If we choose $x = \frac{1}{4}$ then 
+            \[\abs{f_n(\frac{1}{4}) - f(\frac{1}{4})} = \frac{1}{1/4 + n(1/64)} = \frac{64}{16 + n}\]
+            so we need $n > 48$ to make $\abs{f_n(\frac{1}{4}) - f(\frac{1}{4})} < 1$. 
+
+            However, if we chose $x = \frac{1}{2}$, then 
+            \[\abs{f_n(\frac{1}{2}) - f(\frac{1}{2})} = \frac{1}{1/2 + n/8} = \frac{8}{4 + n}\]
+            so we just need $n > 4$ to make $\abs{f_n(\frac{1}{2}) - f(\frac{1}{2})} < 1$.
+
+            Therefore, the convergence is not uniform on $(0,1)$. $\qed$
+        \color{black}
+
+	\item Is the convergence uniform on $(1,\infty)$?
+	
+        \color{blue}
+            $x \geq 1$ implies that 
+            \[\abs{f_n(x) - f(x)} = \frac{1}{x + nx^3} < \frac{1}{1 + n} < \frac{1}{n}\] 
+
+            Therefore, to bound $\abs{f_n(x) - f(x)} < \ep$, we need $n > \frac{1}{\ep}$ which is independent of $x$. The convergence is uniform on $(1, \infty)$. $\qed$
+        \color{black}
+\end{enumerate}
+
+\pagebreak
+
+
+\section*{Problem 2 }
+Using the Cauchy Criterion for convergent sequences of real numbers (Thm. 2.6.4 in the book), supply a proof for the Cauchy Criterion for Uniform Convergence (Thm. 6.2.5 in the book). First define a candidate for $f(x)$ and then argue that $f_n\to f$ uniformly.
+
+    \color{blue}
+        The Cauchy Criterion for uniform convergence says a sequence of functions $(f_n)$ defined on $A \subseteq \R$ converges uniformly on $A$ iff $\forall \ep > 0$, $\exists N \in \N$ such that $\abs{f_n(x) - f_m(x)} < \ep$ whenever $n, m \geq N$ and $x \in A$.
+
+        The Cauchy Criterion for convergent sequences of real numbers says a sequence converges iff it is a Cauchy sequence. 
+        
+        Suppose $(f_n) \to f$ uniformly. Then $\exists N \in \N$ such that $\abs{f_n(x) - f(x)} < \frac{\ep}{2}$ whenever $n \geq N$ and $x \in A$. Choose $m > N$. Then 
+        \[\abs{f_n(x) - f_m(x)} = \abs{f_n(x) - f_m(x) - f(x) + f(x)} \leq \abs{f_n(x) - f(x)} + \abs{f_m(x) - f(x)} < \frac{\ep}{2} + \frac{\ep}{2} = \ep\] 
+        so $(f_n)$ is a Cauchy sequence.
+
+        Suppose now that $\exists N \in \N$ such that $\abs{f_n(x) - f_m(x)} < \frac{\ep}{2}$ whenever $n, m \geq N$ and $x \in A$. Then, by the Cauchy Criterion for Convergent Sequences, $(f_n)$ converges to some limit $L$. 
+        
+        Define $f(x) = L$. then 
+        \[\abs{f_n(x) - f(x)} = \abs{f_n(x) - f(x) + f_m(x) - f_m(x)} \leq \abs{f_n(x) - f_m(x)} + \abs{f_m(x) - f(x)}\]
+
+        By assumption, $\abs{f_n(x) - f_m(x)} < \frac{\ep}{2}$. By pointwise convergence of $(f_n)$, if we choose $m$ sufficiently large, we have $\abs{f_m(x) - f(x)} = \abs{f_m(x) - L} < \frac{\ep}{2}$. Therefore, $\abs{f_n(x) - f(x)} < \ep$ for all $n \geq N$ and $x \in A$ so $(f_n)$ converges uniformly to $f$. $\qed$
+    \color{black}
+
+
+\pagebreak
+
+
+\section*{Problem 3 (Arzela-Ascoli Theorem)}
+A sequence of functions $(f_n)$ defined on a set $E\subset\mathbb{R}$ is called \textit{equicontinuous} if for every $\ep>0$ there exists a $\delta>0$ such that $|f_n(x)-f_n(y)|<\ep$ for all $n\in\mathbb{N}$ and $|x-y|<\delta$ in $E$. \\ \\
+For each $n\in\mathbb{N}$, let $f_n$ be a function defined on $[0,1]$. If $(f_n)$ is bounded on $[0,1]$ -- that is, there exists an $M>0$ such that $|f_n(x)|\leq M$ for all $n\in\mathbb{N}$ and $x\in[0,1]$ -- and if the collection of functions $(f_n)$ is equicontinuous, follow these steps to show that $(f_n)$ contains a uniformly convergent subsequence.
+\begin{enumerate}
+	\item Explain why the construction in Exercise 6.2.13 (see below) produces a subsequence $(f_{n_k})$ that converges at every rational point in $[0,1]$. To simplify notation, set $g_k=f_{n_k}$. It remains to show that $(g_k)$ converges uniformly on all of $[0,1]$.
+	
+        \color{blue}
+            We proved in class that $\Q$ is countable. Let $A = \{x \in [0, 1] \cap \Q\}$. Since $A \subseteq \Q$, $A$ is countable (not finite by density of $\Q$ in $\R$).
+
+            Further, since $A \subseteq [0, 1]$, $(f_n)$ is defined on $A$ and is bounded on $A$ by assumption. By Exercise 6.2.13, there exists a subsequence $(f_{n_k})$ that converges pointwise on $A$.
+        \color{black}
+        
+	\item Let $\ep>0$. By equicontinuity, there exists a $\delta>0$ such that $$|g_k(x)-g_k(y)|<\frac{\ep}{3}$$
+	for all $|x-y|<\delta$ and $k\in\mathbb{N}$. Using this $\delta$, let $r_1,r_2,\cdots,r_m$ be a \textit{finite} collection of rational points with the property that the union of the neighborhoods $V_\delta(r_i)$ contains $[0,1]$. 
+    
+    Explain why there must exist an $N\in\mathbb{N}$ such that $$|g_s(r_i)-g_t(r_i)|<\frac{\ep}{3}$$ for all $s,t\geq N$ and $r_i$ in the finite subset of $[0,1]$ just described. Why does having the set $\{r_1,r_2,\cdots,r_m \}$ be finite matter?
+
+        \color{blue}
+            Since $r_i$ is a rational point in $[0, 1]$, we have that $(g_k)$ converges at $r_i$. Therefore, it is Cauchy so $\exists N_i \in \N$ such that $\abs{g_s(r_i) - g_t(r_i)} < \frac{\ep}{3}$ for all $s, t \geq N$.
+
+            We want the sequence to converge for all $r_i$, so we take $N = \max\{N_1, N_2, \cdots, N_m\}$. However, taking a maximum of a set requires that the set be finite. The supremum would not suffice because our domain is limited to $\N$ (axiom of completeness). 
+        \color{black}
+
+	\item Finish the argument by showing that, for an arbitrary $x\in[0,1]$, 
+    \[|g_s(x)-g_t(x)|<\ep\] 
+     for all $s,t\geq N$.
+
+        \color{blue}
+            By the triangle inequality, 
+            \begin{align*}
+                \abs{g_s(x) - g_t(x)} &= \abs{g_s(x) - g_t(x) + g_s(r_i) - g_s(r_i) + g_t(r_i) - g_t(r_i)}\\ 
+                &= \abs{g_s(x) - g_s(r_i)} + \abs{g_t(x) - g_t(r_i)} + \abs{g_s(r_i) - g_t(r_i)}\\
+            \end{align*}
+            for any $r_i$ in the finite subset of $[0, 1]$.
+
+            By (2), for all $s, t \geq N$, we have $\abs{g_s(r_i) - g_t(r_i)} < \frac{\ep}{3}$. 
+
+            By the definition of $\{r_i\}_{i=1}^m$, we have that any $x \in [0, 1]$ is in $V_\delta(r_i)$ for some $r_i$. Therefore, $\abs{x - r_i} < \delta$. By equicontinuity, $\abs{g_s(x) - g_s(r_i)} < \frac{\ep}{3}$ and $\abs{g_t(x) - g_t(r_i)} < \frac{\ep}{3}$.
+
+            Thus, 
+            \[\abs{g_s(x) - g_t(x)} < \frac{\ep}{3} + \frac{\ep}{3} + \frac{\ep}{3} = \ep \qed\]
+        \color{black}
+\end{enumerate}
+
+\textbf{Result from Exercise 6.2.13}: Let $A=\{x_1,x_2,x_3,\cdots\}$ be a countable set. For each $n\in\mathbb{N}$, let $f_n$ be defined on $A$ and assume there exists an $M>0$ such that $|f_n(x)|\leq M$ for all $n\in\mathbb{N}$ and $x\in A$. Then there exists a subsequence of $(f_n)$ that converges pointwise on $A$. (This a version of the Bolzano--Weierstrass Thm. for bounded sequences of functions).
+
+\pagebreak
+
+\section*{Problem 4 }
+Consider the sequence of functions defined by 
+\begin{equation*}
+	g_n(x)=\frac{x^n}{n}.
+\end{equation*}
+\begin{enumerate}
+	\item Show $(g_n)$ converges uniformly on $[0,1]$ and find $g=\lim g_n$. Show that $g$ is differentiable and compute $g'(x)$ for all $x\in[0,1]$.
+	
+        \color{blue}
+            Let $\ep > 0$. Since $x \leq 1$, $g_n(x) \leq \frac{1}{n}$. Therefore, $N > \frac{1}{\ep}$ will suffice to make $\abs{g_n(x) - 0} < \ep$ for all $n \geq N$ and $x \in [0, 1]$. Thus, $\lim g_n = 0$. 
+
+            Clearly, $g$ is differentiable since $g(x) = 0$ for all $x \in [0, 1]$. Therefore, $g'(x) = 0$ for all $x \in [0, 1]$. $\qed$
+        \color{black}
+
+	\item Now, show that $(g'_n)$ converges on $[0,1]$. Is the convergence uniform? Set $h=\lim g_n'$ and compare $h$ and $g'$. Are they the same?
+
+        \color{blue}
+            \[\lim_{n \to \infty} g_n' = \lim_{n \to \infty} x^{n-1} = \begin{cases}
+                0 & \text{if } 0 \leq x < 1\\
+                1 & \text{if } x = 1
+            \end{cases}\] 
+            
+            Notice 
+            \begin{align*}
+                \abs{g_n'(\frac{1}{2}) - h(\frac{1}{2})} < \frac{1}{3} \implies n \geq 3\\ 
+                \abs{g_n'(\frac{9}{10}) - h(\frac{9}{10})} < \frac{1}{3} \implies n \geq 12\\
+            \end{align*}
+            so the convergence is not uniform.
+
+            We have $g'(x) = 0$ for all $x \in [0, 1]$ and $h = \mathbf{1}_{x=1}(x)$ so $h \neq g'$. $\qed$
+            
+        \color{black}
+
+\end{enumerate}
+
+
+\pagebreak
+\section*{Problem 5}
+Use the Mean Value Theorem to supply a proof for Theorem 6.3.2 from the book. To get started, observe that the triangle inequality implies that, for any $x\in[a,b]$ and $m,n\mathbb{N}$,
+\begin{equation*}
+	|f_n(x)-f_m(x)|\leq|(f_n(x)-f_m(x))-(f_n(x_0)-f_m(x_0))|+|f_n(x_0)-f_m(x_0)|.
+\end{equation*}
+
+    \color{blue}
+        \emph{Theorem 6.3.2:} Let $(f_n)$ be a sequence of differentiable functions defined on the closed interval $[a, b]$ and assume $(f_n')$ converges uniformly to $g$ on $[a, b]$. If there exists a point $x_0\in[a,b]$ such that $(f_n(x_0))$ converges, then $(f_n)$ converges uniformly. Moreover, $f = \lim f_n$ is differentiable and $f'(x) = g(x)$ for all $x\in[a,b]$.
+
+        \emph{Proof:} Let $(f_n)$ be differentiable on $[a, b]$ and assume $(f_n') \to g$ uniformly on $[a, b]$. Suppose $\exists x_0 \in [a, b]$ so $(f_n(x_0))$ converges. 
+        
+        Let $\ep > 0$. We want to show that $(f_n)$ converges uniformly, i.e. $\exists K \in \N$ for which $\forall n, m \geq K$,
+        \[\abs{f_n(x) - f_m(x)} < \ep\]
+
+        Using the triangle inequality, 
+        \begin{align*}
+            \abs{f_n(x) - f_m(x)} &= \abs{f_n(x) - f_m(x) + f_n(x_0) - f_m(x_0) + f_n(x_0) - f_m(x_0)}\\
+            &\leq \abs{(f_n(x) - f_m(x)) - (f_n(x_0) - f_m(x_0))} + \abs{f_n(x_0) - f_m(x_0)}
+        \end{align*}
+
+        By assumption, $\exists x_0 \in [a, b]$ so $\exists N \in \N$ for which $\forall n, m \geq N$, 
+        \[\abs{f_n(x_0) - f_m(x_0)} < \frac{\ep}{2}\] 
+
+        Now let $h(x) = f_n(x) - f_m(x)$. Since $f_n(x)$ is differentiable for all $x \in [a, b]$ and $n \in \N$, $h'(x) = f_n'(x) - f_m'(x)$ by the Algebraic Differentiability Theorem. 
+        
+        Since $(f_n') \to g$ uniformly, by the Cauchy Criterion, $\exists M \in \N$ such that $\forall m, n \geq M$, 
+        \[\abs{f_n'(x) - f_m'(x)} < \ep_0\]
+        for all $x \in [a, b]$. 
+
+        Therefore, $\abs{h'(x)} < \ep_0$.  
+        
+        By the mean value theorem, $\exists c \in [x_0, x]$ such that
+        \[h'(c) = \frac{h(x) - h(x_0)}{x - x_0} = \frac{(f_n(x) - f_m(x)) - (f_n(x_0) - f_m(x_0))}{x - x_0}\]
+
+        Therefore, 
+        \begin{align*}
+            \abs{f_n(x) - f_m(x)} &\leq \abs{(f_n(x) - f_m(x)) - (f_n(x_0) - f_m(x_0))} + \abs{f_n(x_0) - f_m(x_0)}\\ 
+            &= \abs{h'(c)(x - x_0)} + \abs{f_n(x_0) - f_m(x_0)}\\
+        \end{align*}
+
+        Using our earlier convergence bounds, $\forall n, m \geq \max\{N, M\}$,
+        \[\abs{f_n(x) - f_m(x)} \leq \abs{\ep_0(x - x_0)} + \frac{\ep}{2}\]
+
+        Since $x, x_0 \in [a, b]$, $\abs{x - x_0} \leq b - a$. If we let $\ep_0 = \frac{\ep}{2(b - a)}$, then
+        \[\abs{f_n(x) - f_m(x)} \leq \frac{\ep}{2} + \frac{\ep}{2} = \ep\]
+        so by the Cauchy Criterion, $(f_n)$ converges uniformly.
+
+        Since $(f_n) \to f$ uniformly, it converges pointwise on $[a, b]$ and by assumption $(f_n') \to g$ uniformly. Therefore, by the Differentiable Limit Theorem $f = \lim f_n$ is differentiable and $f'(x) = g(x)$ for all $x\in[a,b]$. $\qed$
+
+    \color{black}
+
+
+\end{document}

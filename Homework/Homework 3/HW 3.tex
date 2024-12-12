@@ -1,0 +1,241 @@
+\documentclass[10pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{letterpaper,
+    left=0.5in,
+    right=0.5in,
+    top=0.75in,
+    bottom=0.75in
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\N}{\mathbb{N}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010: Homework 3}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace*{-0.5in}
+
+
+\section*{Problem 1 (Squeeze Theorem)}
+Show that if $x_n\leq y_n\leq z_n$ for all $n\in\mathbb{N}$, and if $\lim x_n=\lim z_n=l$, then $y_n=l$ as well.
+
+    \color{blue}
+        By the Order Limit Theorem, since $y_n \leq z_n$ for all $n \in \N$, then $\lim y_n \leq \lim z_n$. Similarly, since $x_n \leq y_n$ for all $n \in \N$, then $\lim x_n \leq \lim y_n$. Thus, \[\lim x_n \leq \lim y_n \leq \lim z_n \implies l \leq \lim y_n \leq l \implies \lim y_n = 1 \qed\] 
+    \color{black}
+
+\pagebreak
+
+\section*{Problem 2}
+Give an example of each of the following or state that such request is impossible by referencing the proper theorem(s):
+\begin{enumerate}
+	\item sequences $(x_n)$ and $(y_n)$, which both diverge, but whose sum $(x_n+y_n)$ converges;
+	
+        \color{blue}
+            Let $x_n = n$ and $y_n = -n$. Then, $(x_n)$ and $(y_n)$ both diverge since they are clearly not bounded, but $(x_n + y_n) = 0$ for all $n$, so $(x_n + y_n)$ converges.
+        \color{black}
+
+	\item sequences $(x_n)$ and $(y_n)$, where $(x_n)$ converges, $(y_n)$ diverges and $(x_n+y_n)$ converges;
+	
+        \color{blue}
+            Let $\lim_{n\to \infty} x_n = x$ for $x < \infty$. Since $(y_n)$ diverges, we can write  $\lim_{n\to \infty} y_n = \infty$ to mean that for $\ep > 0$ there does not exist $N \in \N$ such that $\abs{y_n - y} < \ep$ for all $n > N$ and any $y \in \R$.
+            
+            Then by the algebraic limit theorem, 
+            \[\lim_{n\to\infty} (x_n + y_n) = \lim_{n\to \infty} x_n + \lim_{n\to \infty} y_n = x + \infty = \infty\] 
+            Therefore $(x_n + y_n)$ diverges for any choice of $(x_n)$ and $(y_n)$. 
+        \color{black}
+
+	\item a convergent sequence $(b_n)$ with $b_n\neq0$ for all $n$ such that $(1/b_n)$ diverges;
+    
+        \color{blue}
+            Let $b_n = \sum_{m=1}^n \frac{1}{m}$. Since all terms $1/n > 0$, $b_n > 0$ for all $n$. However, $(b_n)$ is simply the sequence of partial sums of the harmonic series, which is known to diverge. Thus, $(b_n)$ diverges.
+        \color{black}
+
+	\item an unbounded sequence $(a_n)$ and a convergent sequence $(b_n)$ with $(a_n-b_n)$ bounded.
+    
+        \color{blue}
+            As $(a_n)$ is unbounded, we can write $\lim_{n\to \infty} a_n = \infty$ to mean that $(a_n)$ is not bounded so there is not finite value of convergence. Let $\lim_{n\to \infty} b_n = b$ for $b < \infty$. Then by the Algebraic Limit Theorem, 
+            \[\lim_{n\to \infty} (a_n - b_n) = \lim_{n\to \infty} a_n - \lim_{n\to \infty} b_n = \infty - b = \infty\] 
+            Therefore, $(a_n - b_n)$ is unbounded for any choice of $(a_n)$ and $(b_n)$.          
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+\section*{Problem 3 (Cesaro Means)}
+\begin{enumerate}
+	\item Show that if $(x_n)$ is a convergent sequence, then the sequence given by the averages
+	\begin{equation*}
+		y_n=\frac{x_1+x_2+\cdots+x_n}{n}
+	\end{equation*}
+	also converges to the same limit.
+
+        \color{blue}
+            Let $\ep > 0$. Since $(x_n) \to x$, $\exists N_x \in \N$ such that for all $n > N_x$, $\abs{x_n - x} < \frac{\ep}{2}$. Then,
+            \begin{align*}
+                \abs{y_n - x} &= \abs{\frac{x_1 + x_2 + \dots + x_n}{n} - x} \\ 
+                    &= \abs{\frac{x_1 + x_2 + \dots + x_n - nx}{n}}\\
+                    &\leq \frac{\abs{x_1 - x} + \abs{x_2 - x} + \dots + \abs{x_n - x}}{n}\\
+                    &= \frac{1}{n} \sum_{i=1}^{N_x} \abs{x_i - x} + \frac{1}{n}\sum_{i=N_x}^n \abs{x_i - x}\\
+                    &< \frac{1}{n} \sum_{i=1}^{N_x} \abs{x_i - x} + \frac{1}{n}\sum_{i=N_x}^n \frac{\ep}{2}\\
+                    &\leq \frac{N_x}{n} \sup_{x_i:\; i \leq N_x} \abs{x_i - x} + \frac{n - N_x}{n} \cdot \frac{\ep}{2}
+            \end{align*}
+
+            Now we can choose $N_y > \frac{2}{\ep} \cdot N_x \sup_{x_i:\; i \leq N_x} \abs{x_i - x}$ so that for all $n > N_y$, 
+            \[\abs{y_n - x} < \frac{N_y}{n}\cdot \frac{\ep}{2} + \frac{n - N_x}{n}\cdot \frac{\ep}{2} < \frac{\ep}{2} + \frac{\ep}{2} < \ep\]
+
+            Therefore, $\lim_{n\to \infty} y_n = x$. $\qed$
+        \color{black}
+
+
+	\item Give an example to show that it is possible for the sequence $(y_n)$ of averages to converge even if $(x_n)$ does not.
+        
+        \color{blue}
+            Let $x_n = (-1)^n$. Clearly, $(x_n)$ is divergent. However, 
+            \[y_n = \frac{(-1)^1 + (-1)^2 + \dots + (-1)^n}{n} = \frac{1 - 1 + 1 - 1 + \dots + 1}{n} = \begin{cases}
+                0 & \text{if } n \text{ is even}\\
+                -1/n & \text{if } n \text{ is odd}
+            \end{cases}\]
+
+            Define $z_n = -1/n$. Then $\abs{z_n} < 1$ and 
+            \[z_{n+1} = -\frac{1}{n+1} > -\frac{1}{n} = z_n\]
+            so it is bounded and monotone. Thus, $(z_n)$ converges. 
+
+            Let $\ep > 0$. Choose $N \in \N$ such that $N > 1/\ep$. Then for all $n > N$, $\abs{z_n} < \ep$. Therefore, $\lim_{n\to \infty} z_n = 0$. Then for all $n > N$, $\abs{y_n - 0} = \abs{y_n} \leq \abs{-\frac{1}{n}} < \ep$. Therefore, $(y_n)$ converges. $\qed$
+           
+        \color{black}
+    
+\end{enumerate}
+
+\pagebreak
+\section*{Problem 4}
+Let $(x_n)$ and $(y_n)$ be given and define $(z_n)$ to be the ``shuffled" sequence $(x_1,y_1,x_2,y_2,x_3,y_3,\cdots,x_n,y_n,\cdots)$. Prove that $(z_n)$ is convergent if and only if $(x_n)$ and $(y_n)$ are both convergent with $\lim x_n=\lim y_n$.
+
+    \color{blue}
+        Suppose $(x_n)$ and $(y_n)$ are both convergent with $\lim x_n=\lim y_n$. 
+        
+        Let $l = \lim x_n = \lim y_n$. Then, for any $\epsilon > 0$, there exists $N_1, N_2 \in \N$ such that for all $n > N_1$, $\abs{x_n - l} < \epsilon$ and for all $n > N_2$, $\abs{y_n - l} < \epsilon$. Let $N = \max\{N_1, N_2\}$. 
+        
+        We can write 
+        \[z_n = \begin{cases}
+            x_{(n+1)/2} & \text{if } n \text{ is odd}\\
+            y_{n/2} & \text{if } n \text{ is even}
+        \end{cases}\]
+        Then, for all $n > 2N + 1$, $\frac{n+1}{2} > \frac{n}{2} > N$ so $z_n = x_n = y_n$ and 
+        \[\abs{z_n - l} = \abs{x_n - l} = \abs{y_n - l} < \ep\]
+        So $(z_n)$ is convergent with $\lim z_n = l$.
+
+        For the other direction, suppose $(z_n) \to z$. Then $\exists N \in \N$ such that $\abs{z_n - z} < \ep$ for all $n > N$. Since 
+        \[z_n = \begin{cases}
+            x_{(n+1)/2} & \text{if } n \text{ is odd}\\
+            y_{n/2} & \text{if } n \text{ is even}
+        \end{cases}\]
+        and $n > (n+1)/2 > n/2$, 
+        \[\abs{x_{(n+1)/2} - z} < \ep \text{ and } \abs{y_{n/2} - z} < \ep\]
+        Therefore, $(x_n)$ and $(y_n)$ are both convergent with $\lim x_n = \lim y_n = z$. $\qed$
+    \color{black}
+
+\pagebreak
+\section*{Problem 5}
+\begin{enumerate}
+	\item Prove that the sequence defined by $x_1=3$ and 
+	\begin{equation*}
+		x_{n+1}=\frac{1}{4-x_n}
+	\end{equation*}
+	converges.
+
+        \color{blue}
+            By the Monotone Convergence Theorem, a sequence converges if it is bounded and monotone. 
+
+            We will show $(x_n)$ is decreasing by induction. First, $x_1 = 3$ and $x_2 = \frac{1}{4 - 3} = 1 < x_1$. Now suppose $x_{n +1} < x_n$ for some $n \in \N$. Then, 
+            \[x_{n+2} = \frac{1}{4 - x_{n+1}} < \frac{1}{4 - x_n} = x_{n+1}\] 
+            Thus, $(x_n)$ is decreasing.
+    
+            Further, since $(x_n)$ is decreasing, it is bounded above by $x_1 = 3$ since $x_n \leq 3$ for all $n \in \N$. Below, $x_n \geq -3$ for all $n \in \N$ since if $x_n < -3$, then $x_{n+1} < \frac{1}{4 - (-3)} > 0$, which is a contradiction of the monotonicity of $(x_n)$.
+            
+            Thus, $(x_n)$ is bounded and decreasing, so it converges. $\qed$ 
+        \color{black}
+
+	\item Now that we know $\lim x_n$ exists, explain why $\lim x_{n+1}$ must also exist and be equal to the same value.
+	
+        \color{blue}
+            Let $\lim x_n = l$, then by definition, $\forall \ep > 0$, $\abs{x_n - l} < \ep$ for all $n$ greater than some $N \in \N$. Since $n + 1 > n > N$, $\abs{x_{n + 1} - l} < \ep$. But this is precisely the statement that $\lim x_{n+1} = l$. Thus, $\lim x_{n+1} = \lim x_n$ $\qed$.          
+        \color{black}
+
+	\item Take the limit of each side of the recursive equation in part (1) to explicitly compute $\lim x_n$.
+	
+    \color{blue}
+        \begin{align*}
+            \lim_{n\to \infty} x_{n+1} = \lim_{n\to \infty} \frac{1}{4 - x_n} = \lim_{n\to \infty} x_n &\implies \lim_{n\to \infty} x_n^2 - 4x_n + 1 = 0\\ 
+            &\implies \lim_{n\to \infty} x_n = \frac{4 \pm \sqrt{16 - 4}}{2} = 2 \pm \sqrt{3}
+        \end{align*}
+
+        But since $x_1 = 3$ and $(x_n)$ is decreasing, $\boxed{\lim x_n = 2 - \sqrt{3}}$.
+    \color{black}
+\end{enumerate}
+
+\end{document}

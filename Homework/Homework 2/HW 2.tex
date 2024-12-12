@@ -1,0 +1,236 @@
+\documentclass[11pt]{article} 
+
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsfonts,amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{mathrsfs} % \mathscr for script font, \mathcal unaffected
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\ep}{\varepsilon}
+\newcommand{\be}{{\mathrm{b}}}
+\newcommand{\crit}{{\mathrm{cr}}}
+\newcommand{\tr}{{\mathrm{tr}}}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+
+\title{Math 1010: Problem Set 2}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+\vspace*{-1in}
+  
+\section*{Problem 1 }
+Prove the following theorem: If $A_1,A_2,\cdots A_m$ are each countable sets, then the union $A_1\cup A_2\cup \cdots \cup A_m$ is countable. 
+
+For your proof, use the following outline: 
+
+\begin{enumerate}[label=(\alph*)]
+    \item First, prove the statement for two countable sets $A_1$ and $A_2$. Example 1.5.3 (ii)
+    might be a useful reference. Some technicalities can be avoided by first replacing $A_2$ with the set $B_2=A_2\setminus A_1=\{x\in A_2 : x\notin A_1\}$. The point of this is that the union $A_1\cup B_2$ is equal to $A_1\cup A_2$ and the sets $A_1$ and $B_2$ are disjoint. (What happens if $B_2$ is finite?)
+
+        \color{blue}
+            Let $A_1$ and $A_2$ be countable sets. Let $B_2 = A_2 \setminus A_1$. Then $A_1 \cup B_2 = A_1 \cup A_2$ and $A_1 \cap B_2 = \emptyset$. Therefore, it suffices to show that $A_1 \cup B_2$ is countable. 
+
+            The simplest case is when $B_2$ is finite. Then $B_2 = \{b_1, b_2, \dots, b_n\}$ for some $n \in \N$ while $A_1 = \{a_1, a_2, \dots\}$. Then $A_1 \cup B_2 = \{b_1, b_2, \dots, b_n, a_1, a_2, \dots\}$. We induce a natural bijection $A_1 \cup B_2 \to \N$ by 
+            \[\begin{array}{cccccccc}
+                A_1 \cup B_2: & b_1 & b_2 & \cdots & b_n & a_1 & a_2 & \cdots\\
+                & \updownarrow & \updownarrow & & \updownarrow & \updownarrow & \updownarrow &\\
+                \N: & 1 & 2 & \cdots & n & n+1 & n+2 & \cdots\\
+            \end{array}\]
+            As $A_1 \cap B_2 = \emptyset$, every element of $A_1 \cup B_2$ is uniquely mapped to an element of $\N$ and vice versa. Therefore, $A_1 \cup B_2$ is countable.
+
+            Now suppose $B_2$ is infinite. We will re-index $A_1 \cup B_2 = \{a_0, a_1, b_1, a_2, b_2, \dots\}$
+            
+            Now consider 
+            \[f(n) = \begin{cases}
+                (n-1)/2 & \text{if } n \text{ is odd}\\
+                -n/2 & \text{if } n \text{ is even}
+            \end{cases}\]
+            from Example 1.5.3. This is a bijection from $\N$ to $\Z$. We can introduce a second bijection $g: \Z \to A_1 \cup B_2$ by 
+            \[g(n) = \begin{cases}
+                a_0 & \text{if } n = 0\\
+                a_{\abs{n}} & \text{if } n < 0\\ 
+                b_{\abs{n}} & \text{if } n > 0\\
+            \end{cases}\]
+            
+            Then $g \circ f: \N \to A_1 \cup B_2$ is a bijection given by 
+            \[\begin{array}{ccccccccc}
+                \N: & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \cdots\\
+                    & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow\\
+                \Z: & 0 & -1 & 1 & -2 & 2 & -3 & 3 & \cdots\\ 
+                    & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow\\
+                A_1\cup B_2: & a_0 & a_1 & b_1 & a_2 & b_2 & a_3 & b_3 & \cdots
+            \end{array}\]
+            
+            As we have a bijection from $\N$ to $A_1 \cup B_2$, we conclude that $A_1 \cup B_2$ is countable. $\qed$
+        \color{black}
+
+    \item Now explain how the more general statement follows.
+    
+        \color{blue}
+            Let $A_1, A_2, \dots, A_m$ be countable sets. 
+
+            Denote 
+            \[B_n = A_{n} \setminus \bigcup_{n=1}^{n-1} A_n\]
+            
+            From part 1, $A_1 \cup B_2 = A_1 \cup (A_2 \setminus A_1) = A_1 \cup A_2$ is countable. 
+
+            Suppose $A = A_1 \cup \cdots \cup A_{n-1}$ is countable for $n < m$. Then 
+            \[A \cup B_n = A_1 \cup \cdots \cup A_{n-1} \cup \left(A_n \setminus \bigcup_{n=1}^{n-1} A_n\right) = A_1 \cup \cdots \cup A_n\]
+            and $A \cap B_n = \emptyset$. By part 1, $A \cap B_n$ is countable so $A_1 \cup \cdots \cup A_n$ is countable.
+
+            Therefore, by induction, $A_1 \cup \cdots \cup A_m$ is countable. $\qed$
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+\section*{Problem 2}
+Show that $(a,b)\sim \mathbb{R}$ for any interval $(a,b)$.
+
+    \color{blue}
+        We seek to show that $(a, b) \sim \R$ by constructing a bijection $f: (a, b) \to \R$. 
+
+        Consider 
+        \[f(x) = \tan(\frac{\pi}{b-a}(x - a) - \frac{\pi}{2})\]
+    
+        Conveniently, $\tan: (-\frac{\pi}{2}, \frac{\pi}{2}) \to \R$ so by rescaling the argument to $(a, b)$ we intuitively have a map $(a, b) \to \R$.
+
+        To confirm this is, in fact, a bijection it suffices to construct an inverse: 
+        \[f^{-1}(x) = \frac{b - a}{\pi}(\arctan(x) + \frac{\pi}{2}) + a\]
+        and indeed 
+        \begin{align*}
+            f^{-1}(f(x)) &= \frac{b - a}{\pi}(\arctan(\tan(\frac{\pi}{b-a}(x - a) - \frac{\pi}{2})) + \frac{\pi}{2}) + a = x\\ 
+            f(f^{-1}(x)) &= \tan(\frac{\pi}{b-a}(\frac{b - a}{\pi}(\arctan(x) + \frac{\pi}{2}) + a - a) - \frac{\pi}{2}) = x\\
+        \end{align*}
+        so we are done. $\qed$
+    \color{black}
+
+\pagebreak
+
+\section*{Problem 3}
+Verify, using the definition of convergence of a sequence, that the following sequences converge to the proposed limit.
+\begin{enumerate}
+	\item $\lim\frac{1}{6n^2+1}=0$.
+	
+        \color{blue}
+            Let $\ep > 0$. Choose $N \in \N$ such that $N > \sqrt{\frac{1 - \ep}{6\ep}}$. Let $n \geq N$. Then
+            \[n > \sqrt{\frac{1 - \ep}{6\ep}} \implies 6n^2 > \frac{1 - \ep}{\ep} \implies 6n^2 + 1 > \frac{1}{\ep} \implies \abs{\frac{1}{6n^2 + 1}} < \ep \qed\]
+        \color{black}
+
+	\item $\lim\frac{3n+1}{2n+5}=\frac{3}{2}$.
+
+        \color{blue}
+            Let $\ep > 0$. Choose $N \in \N$ such that $N > -\frac{13}{4\ep} - \frac{10}{4}$. Let $n \geq N$. Then 
+            \begin{align*}
+                n > -\frac{13}{4\ep} - \frac{10}{4} &\implies 4n + 10 > -\frac{13}{\ep} \\ 
+                &\implies \frac{-13}{4n + 10} < \ep\\ 
+                &\implies \frac{1 - \frac{15}{2}}{2n + 5} < \ep\\
+                & \implies \frac{3n + 1 - 3n - \frac{15}{2}}{2n + 5} < \ep\\ 
+                & \implies \frac{3n + 1}{2n + 5} - \frac{3n + \frac{15}{2}}{2n + 5} < \ep\\
+                &\implies \abs{\frac{3n + 1}{2n + 5} - \frac{3}{2}} < \ep \qed
+            \end{align*}
+            
+        \color{black}
+
+	\item $\lim\frac{2}{\sqrt{n+3}}=0$.
+	
+        \color{blue}
+            Let $\ep > 0$. Choose $N \in \N$ such that $N > \frac{4}{\ep^2} - 3$. Let $n \geq N$. Then
+            \[n > \frac{4}{\ep^2} - 3 \implies n + 3 > \frac{4}{\ep^2} \implies \sqrt{n + 3} > \frac{2}{\ep} \implies \abs{\frac{2}{\sqrt{n + 3}}} < \ep \qed\]
+        \color{black}
+\end{enumerate}
+
+\pagebreak
+
+\section*{Problem 4}
+Prove the theorem: the limit of a sequence, when it exists, is unique. To get started, assume $(a_n) \to a$ and also that $(a_n) \to b$. Now argue $a = b$.
+
+    \color{blue}
+        Let $(a_n) \to a$ and $(a_n) \to b$.         
+        
+        Then, for $\varepsilon > 0$, there exists $N_1, N_2 \in \N$ such that $n \geq N_1$ implies $\abs{a_n - a} < \frac{\varepsilon}{2}$ and $n \geq N_2$ implies $\abs{a_n - b} < \frac{\ep}{2}$. 
+
+        Then, for $n \geq \max\{N_1, N_2\}$, we have
+        \begin{align*}
+            \abs{b - a} &= \abs{b - a_n + a_n - a} \\ 
+                &\leq \abs{b - a_n} + \abs{a_n - a}\\ 
+                &= \abs{-(a_n - b)} + \abs{a_n - a}\\ 
+                &= \abs{a_n - b} + \abs{a_n - a}\\ 
+                &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}\\ 
+                &= \varepsilon
+        \end{align*}
+        so for $\ep > 0$,
+        \[\abs{b- a} < \varepsilon\]
+
+        Since $\ep$ is arbitrary, we have $b - a = 0 \implies a = b$. $\qed$. 
+        
+    \color{black}
+
+
+\pagebreak
+\section*{Problem 5}
+Let $x_n \geq 0$ for all $n \in \mathbb{N}$.
+\begin{enumerate}
+	\item If $(x_n)\to0$, show that $\sqrt{x_n}\to0$.
+    
+        \color{blue}
+            Let $\lim_{n\to \infty} x_n = 0$. Suppose $\lim_{n\to \infty} \sqrt{x_n}$ exists and denote the value of the limit $x$. Then by the Algebraic Limit Theorem, 
+            \[\lim_{n\to \infty} x_n = \lim_{n\to \infty} (\sqrt{x_n})(\sqrt{x_n}) = 0 \implies x\cdot x = 0 \implies x = 0 \implies \lim_{n\to \infty} \sqrt{x_n} = 0 \qed\]
+        \color{black}
+
+	\item If $(x_n) \to x$, show that $\sqrt{x_n} \to \sqrt{x}$.
+	
+        \color{blue}
+            By similar argument, suppose that $\lim_{n\to \infty} \sqrt{x_n} = y$. Then by the Algebraic Limit Theorem,
+            \[\lim_{n\to \infty} x_n = \lim_{n\to \infty} \sqrt{x_n}\cdot \sqrt{x_n} = x \implies y^2 = x \implies y = \sqrt{x} \implies \lim_{n\to\infty} \sqrt{x_n} = \sqrt{x} \qed\]
+        \color{black}
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,353 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    left=0.25in, 
+    right=0.25in,
+    top=0.25in,
+    bottom=0.25in
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 - Homework 9}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace*{-1in}
+
+
+\section{Problem 1 }
+Let $f_a(x)=\begin{cases}
+    x^a \quad &\text{if } x > 0\\ 
+    0 \quad &\text{ if } x \leq 0.
+\end{cases}$
+\begin{enumerate}
+	\item For which values of $a$ is $f$ continuous at zero?
+    
+        \color{blue}
+            Let $\ep > 0$. We will proceed by cases. 
+
+            If $x \leq 0$, $f_a(x) = 0$ so when $\abs{x - 0} < \delta$, $\abs{f_a(x) - f_a(0)} = \abs{0 - 0} = 0 < \ep$ for all $a \in \R^{\times}$. 
+
+            If $x > 0$, $f_a(x) = x^a$. Suppose $\abs{x - 0} < \delta$. Then 
+            \[\abs{f_a(x) - f_a(0)} = \abs{x^a - 0^a} = \abs{x^a} = \abs{x}^a\]
+
+            If $a > 0$, then $\abs{x}^a < \delta^a$. 
+
+            Therefore, if $\delta^a < \ep$, $f$ is continuous at zero. We can write 
+            \[\log \delta = \frac{\log \ep}{a} \implies \delta = \ep^{1/a}\]
+            $\delta > 0$ for all $a > 0$ so $\abs{x} < \delta \implies \abs{f_a(x) - f_a(0)} < \ep$ as desired. 
+
+            If $a = 0$, then $\abs{f_a(x) - f_a(0)} = \abs{x^0 - 0^0}$ is not defined
+
+            Therefore, $f$ is continuous at zero for all $a > 0$. $\qed$
+
+        \color{black}
+
+	\item For which values of $a$ is $f$ differentiable at zero? In this case, is the derivative function continuous?
+	
+        \color{blue}
+            We can explicitly calculate 
+            \[f_a'(x) = \begin{cases}
+                ax^{a-1} \quad &\text{if } x > 0\\
+                0 \quad &\text{if } x \leq 0
+            \end{cases}\]
+
+            As above, if $x \leq 0$, $f_a'(x) = 0$ so $f_a'(x)$ is continuous for all $a \in \R$. 
+
+            If $x > 0$, $f_a'(x) = ax^{a-1}$. Let $\ep > 0$. Suppose $\abs{x - 0} < \delta$. Then
+            \[\abs{f_a'(x) - f_a'(0)} = \abs{ax^{a-1} - 0} = \abs{ax^{a-1}} = \abs{a}\, \abs{x^{a-1}} = \abs{a}\, \abs{x}^{a - 1} < \abs{a}\delta^{a-1}\]
+
+            For $f$ to be continuous, we need $\abs{a}\delta^{a-1} < \ep \implies (a - 1) \log \delta = \log \frac{\ep}{\abs{a}}$. We can therefore choose 
+            
+            Rearranging, we have
+            \[\delta = a^{\frac{-1}{a - 1}} \cdot \ep^{\frac{1}{a - 1}}\]
+
+            Clearly this is not defined at $a \leq 1$ so $f$ is differentiable at $0$ for $a > 1$.
+
+            \vspace*{10pt}
+            \hrule 
+            \vspace*{10pt}
+
+            As $f_a$ is differentiable at $0$, we have 
+            \[f_a'(0) = \lim_{x \to 0} \frac{f_a(x) - f_a(0)}{x}\]
+
+            Immediately, 
+            \[f_a'(0) = 0 = \lim_{x \to 0} \frac{f_a(x) - 0}{x} = \frac{\lim_{x \to 0} f_a(x)}{\lim_{x \to 0} x} \]
+
+            By L'Hopital's Rule, 
+            \[ \frac{\lim_{x \to 0} f_a(x)}{\lim_{x \to 0} x} = \frac{\lim_{x \to 0} f_a'(x)}{\lim_{x \to 0} 1} = \lim_{x \to 0} f_a'(x)\]
+
+            So 
+            \[f_a'(0) = \lim_{x \to 0} f_a'(x)\]
+            which implies the derivative function is continuous at $0$. $\qed$
+        \color{black}
+
+	\item For which values of $a$ is $f$ twice-differentiable?
+	
+        \color{blue}
+            \[f_a''(x) = \begin{cases}
+                a(a-1)x^{a-2} \quad &\text{if } x > 0\\
+                0 \quad &\text{if } x \leq 0
+            \end{cases}\]
+
+            To be differentiable we need, 
+            \begin{align*}
+                f_a''(0) &= \lim_{x \to 0} \frac{ax^{a-1} -  a(0)^{a-1}}{x} \qquad (\implies a > 1)\\
+                &= \lim_{x \to 0} \frac{ax^{a-1}}{x}\\ 
+                &= \lim_{x \to 0} a(a-1)x^{a-2} \qquad (\text{L'hopital})
+            \end{align*}
+
+            However, (supposing the derivative exists), we can explicitly calculate $f_a''(0) = 0$. So $f$ is twice differentiable iff
+            \[\lim_{x \to 0} a(a-1)x^{a-2} = 0\]
+
+            This is true for all $a > 2$. $\qed$
+   
+    \color{black}
+\end{enumerate}
+
+\pagebreak
+
+\section{Problem 2 }
+Review the definition of uniform continuity. Given a differentiable function $f:A\to\mathbb{R}$, let's say that $f$ is uniformly differentiable on $A$ if, given $\ep>0$ there exists a $\delta>0$ such that
+\begin{equation*}
+	\bigg|\frac{f(x)-f(y)}{x-y}-f'(y) \bigg|<\ep\qquad\text{whenever }0<|x-y|<\delta.
+\end{equation*}
+\begin{enumerate}
+	\item Is $f(x)=x^2$ uniformly differentiable on $\mathbb{R}$? How about $g(x)=x^3?$
+	
+        \color{blue}
+            Let $\ep > 0$. Suppose $\abs{x - y} < \delta$. Then
+            \begin{align*}
+                \abs{\frac{f(x) - f(y)}{x - y} - f'(y)} &= \abs{\frac{x^2 - y^2}{x - y} - 2y} \\
+                &= \abs{\frac{(x - y)(x + y)}{x - y} -2y}\\ 
+                &= \abs{x + y - 2y} \qquad (\text{since }0 < \abs{x - y})\\
+                &= \abs{x - y} < \delta
+            \end{align*}
+
+            Let $\delta = \ep$. Then $0 < \abs{x - y} < \delta$ implies $\abs{\frac{f(x) - f(y)}{x - y} - f'(y)} < \ep$ so $f(x) = x^2$ is uniformly differentiable on $\R$.
+
+            \vspace*{10pt}
+            \hrule 
+            \vspace*{10pt}
+
+            Suppose $\abs{x - y} < \delta$. Then
+            \begin{align*}
+                \abs{\frac{g(x) - g(y)}{x - y} - g'(y)} &= \abs{\frac{x^3 - y^3}{x - y} - 3y^2} \\
+                &= \abs{\frac{(x - y)(x^2 + xy + y^2)}{x - y} - 3y^2}\\ 
+                &= \abs{x^2 + xy + y^2 - 3y^2} \qquad (\text{since }0 < \abs{x - y})\\
+                &= \abs{x^2 + xy - 2y^2} \\
+                &= \abs{(x + 2y)(x - y)}\\ 
+                &= \abs{x + 2y}\, \abs{x - y}\\
+                &< \delta \abs{x + 2y}
+            \end{align*}
+
+            If we choose $\ep = 1$ and $x= y = 1$, then $\abs{x - y} = 0 < \delta$ but $\abs{\frac{g(x) - g(y)}{x - y} - g'(y)} < \ep$ only if $\delta = \frac{1}{3}$. For $x = y = 2$, again $\abs{x - y} = 0 < \delta$ but $\abs{\frac{g(x) - g(y)}{x - y} - g'(y)} = 2$ which is not less than $\ep$. Therefore, $g(x) = x^3$ is not uniformly differentiable on $\R$. $\qed$
+        \color{black}
+
+	\item Show that if a function is uniformly differentiable on an interval $A$, then the derivative must be continuous on $A$.
+	
+        \color{blue}
+            Let $\ep >0$. Suppose $\abs{x - y} < \delta$. Then we want to show 
+            \[\abs{f'(x) - f'(y)} < \ep\]
+
+            Since $f$ is uniformly differentiable, we have
+            \[0 < \abs{x - y} < \delta_1 \implies \abs{\frac{f(x) - f(y)}{x - y} - f'(y)} < \frac{\ep}{2}\]
+
+            However, since uniform differentiability holds for all $x, y \in A$, we can choose $\delta_2$ such that
+            \[0 < \abs{y - x} < \delta_2 \implies \abs{\frac{f(y) - f(x)}{y - x} - f'(x)} < \frac{\ep}{2}\]
+
+            Therefore, if $\abs{x - y} < \delta = \min\{\delta_1, \delta_2\}$, we have 
+            \begin{align*}
+                \abs{f'(x) - f'(y)} &= \abs{f'(x) - f'(y) + \frac{f(x) - f(y)}{x - y} - \frac{f(x) - f(y)}{x - y}}\\
+                &= \abs{f'(x) - \frac{f(x) - f(y)}{x - y} - f'(y) + \frac{f(x) - f(y)}{x - y}}\\
+                &\leq \abs{f'(x) - \frac{f(x) - f(y)}{x - y}} + \abs{-f'(y) + \frac{f(x) - f(y)}{x - y}}\\ 
+                &= \abs{\frac{f(x) - f(y)}{x  -y} - f'(x)} + \abs{\frac{f(x) - f(y)}{x - y} - f'(y)}\\
+                &< \frac{\ep}{2} + \frac{\ep}{2} = \ep
+            \end{align*}
+            so $f'$ is continuous on $A$. $\qed$
+        \color{black}
+
+	\item Is there a theorem analogous to the theorem ``Uniform Continuity on Compact Sets" (Thm 4.4.7 from the book) for differentiation? Are functions that are differentiable on a closed interval $[a,b]$ necessarily uniformly differentiable?
+	
+        \color{blue}
+            No. Consider
+            \[f(x) = x^2\sin(\frac{1}{x})\] 
+            on $[-\frac{1}{\pi}, \frac{1}{\pi}]$. 
+
+            We can calculate 
+            \[f'(x) = x^2\cos\frac{1}{x} \cdot \frac{-1}{x^2} + 2x \cdot \sin \frac{1}{x} = 2x \sin \frac{1}{x} - \cos \frac{1}{x}\]
+            so the derivative exists but is not continuous at $x = 0$. 
+
+            From (2), if $f$ were uniformly differentiable, the derivative would be continuous. Therefore, $\exists f$ which is differentiable on a compact set but not uniformly differentiable. $\qed$ 
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+
+\section{Problem 3}
+Assume that $g$ is differentiable on $[a,b]$ and satisfies $g'(a)<0<g'(b)$.
+\begin{enumerate}
+	\item Show that there exists a point $x\in(a,b)$ where $g(a)>g(x)$, and a point $y\in(a,b)$ where $g(y)<g(b)$.
+	
+        \color{blue}
+            We have 
+            \[g'(a) = \lim_{x \to a} \frac{g(x) - g(a)}{x - a} < 0\]
+
+            Since $a$ is a lower bound, $x \geq a$ so 
+            \[\lim_{x \to a} g(x) - g(a) < 0 \implies \lim_{x \to a} g(x) < \lim_{x \to a} g(a) = g(a)\] 
+            (if $x \neq 0$) so 
+            \[\lim_{x \to a} g(x) < g(a)\]
+            therefore, $\exists x \in (a, b)$ with $g(a) > g(x)$. 
+
+            By similar argument, 
+            \begin{align*}
+                g'(b) &= \lim_{x \to b} \frac{g(x) - g(b)}{x - b} > 0\\ 
+                &\implies \frac{\lim_{x \to b} g(x) - \lim_{x \to b} g(b)}{\lim_{x \to b} (x - b)} > 0\\ 
+                &\implies \lim_{x \to b} g(x) - \lim_{x \to b} g(b) < 0\\ 
+                &\implies \lim_{x \to b} g(x) < \lim_{x \to b} g(b)\\ 
+                &\implies \lim_{x \to b} g(x) < g(b)
+            \end{align*}
+            So $\exists y \in (a, b)$ such that $g(y) < g(b)$. $\qed$
+        \color{black}
+
+	\item Now complete the proof of Darboux's Theorem, started on page 152 in the book.
+	
+        \color{blue}
+            Darboux's Theorem states that if $g$ is differentiable on $[a, b]$ and $f'(a) < \alpha < f'(b)$ (or $f'(a) > \alpha > f'(b)$), then $\exists c \in (a, b)$ such that $f'(c) = \alpha$.
+
+            Let $g(x) = f(x) - \alpha x$ on $[a, b]$. Since $f$ is differentiable, $g$ is differentiable by the Algebraic Differentiability Theorem: 
+            \[g'(x) = f'(x) - \alpha\]
+
+            Then, in terms of $g$, we want to show that $\exists c \in (a, b)$ such that $g'(c) = 0$ given $g'(a) < 0 < g'(b)$.
+
+            From part (1), we have that $\exists x \in (a, b)$ where $g(a) > g(x)$ and $\exists y \in (a, b)$ where $g(y) < g(b)$. Therefore, $a$ and $b$ are not minima for $g$ on $(a, b)$. Therefore, since $g$ is differentiable on $(a, b)$, by the Interior Extremum Theorem, $\exists c \in (a, b)$ which is the minimum on $(a, b)$ so $g'(c) = 0$.
+
+            Therefore, $f'(c) = \alpha$ for some $c \in (a, b)$. $\qed$
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+
+\section{Problem 4 }
+Recall from the previous problem set that a function $f:A\to\mathbb{R}$ is Lipschitz on $A$ if there exists an $M>0$ such that
+\begin{equation*}
+	\bigg|\frac{f(x)-f(y)}{x-y} \bigg|\leq M \qquad\text{for all }x\neq y\text{ in }A.
+\end{equation*}
+\begin{enumerate}
+	\item Show that if $f$ is differentiable on a closed interval $[a,b]$ and if $f'$ is continuous on $[a,b]$, then $f$ is Lipschitz on $[a,b]$.
+	
+        \color{blue}
+            Since $f$ is differentiable on $[a, b]$, it is continuous on $[a, b]$ and differentiable on $(a, b)\subset [a, b]$.
+
+            By the mean value theorem, $\exists c \in (a, b)$ such that 
+            \[f'(c) = \frac{f(b) - f(a)}{b - a} \implies \abs{\frac{f(b) - f(a)}{b - a}} = \abs{f'(c)}\]
+
+            Notice that $[a, b] \subset \R$ is compact because it is closed and bounded. Since $f'$ is continuous on $[a, b]$, by the Extreme Value Theorem, $f'$ attains a maximum and minimum on $[a, b]$. Let $M = \max_{x \in [a, b]} \abs{f'(x)}$. Then $\abs{\frac{f(b) - f(a)}{b - a}} \leq M$ for all $x \in [a, b]$. Therefore, $f$ is Lipschitz on $[a, b]$. $\qed$
+        \color{black}
+
+	\item Review the definition of a contractive function from the previous problem set. If we add the assumption that $|f'(x)|<1$ on $[a,b]$, does it follow that $f$ is contractive on this set?
+    
+        \color{blue}
+            A contractive function is one such that 
+            \[\abs{f(x) - f(y)} \leq c\abs{x - y}\]
+            with $0 < c < 1$ for all $x, y \in [a, b]$.
+
+            Adding the condition $\abs{f'(x)} < 1$ for $x \in [a, b]$ tells us 
+            \[\abs{f'(x)} = \abs{\frac{f(x) - f(y)}{x - y}} < 1\] 
+            for all $x, y \in [a, b]$ 
+
+            Therefore, let $c = \abs{\frac{f(x) - f(y)}{x - y}}$
+        
+            So 
+            \[\abs{f(x) - f(y)} \leq \abs{\frac{f(x) - f(y)}{x - y}} \abs{x - y} = \abs{f(x) - f(y)}\]
+            with $0 < c < 1$ as desired. Therefore, $f$ is contractive. $\qed$
+        \color{black}
+\end{enumerate}
+
+
+\pagebreak
+\section{Problem 5}
+Recall that a fixed point of a function $f$ is a value $x$ where $f(x)=x$. Show that if $f$ is differentiable on an interval with $f'(x)\neq1$, then $f$ can have at most one fixed point.
+
+    \color{blue}
+        Let $f$ be differentiable (so continuous) on $[a, b]$. Let $x_1 \in (a, b)$ be a fixed point of $f$. Suppose there exists $x_2 \in (a, b)$ with $x_2 \neq x_1$ such that $f(x_2) = x_2$. 
+
+        Suppose WLOG that $x_1 < x_2$. clearly, $[x_1, x_] \subseteq [a, b]$ so $f$ is differentiable on $(x_1, x_2)$ and continuous on $[x_1, x_2]$. 
+        
+        By the Mean Value Theorem, there exists $x \in (x_1, x_2)$ such that
+        \[f'(x) = \frac{f(x_2) - f(x_1)}{x_2 - x_1} = \frac{x_2 - x_1}{x_2 - x_1} = 1\]
+
+        However, this is a contradiction of the assumption that $f'(x) \neq 1$. Therefore, $f$ can have at most one fixed point. $\qed$
+    \color{black}
+
+\end{document}

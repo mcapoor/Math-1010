@@ -1,0 +1,270 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    left=0.5in, 
+    right=0.5in,
+    top=0.75in,
+    bottom=0.75in
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 - Homework 4}
+\author{Milan Capoor}
+\date{}
+
+\begin{document}
+\maketitle
+        
+\section{Problem 1 (Calculating square roots)}
+Let $x_1=2$ and define
+\begin{equation*}
+x_{n+1}=\frac{1}{2}\left(x_n+\frac{2}{x_n} \right).
+\end{equation*}
+\begin{enumerate}
+	\item Show that $x_n^2$ is always greater than or equal to $2$, and then use this to prove that $x_n-x_{n+1}\geq0$. Conclude that $\lim x_n=\sqrt{2}$.
+	
+        \color{blue}
+            First observe $x_1^2 = 4 > 2$. Then, 
+            \begin{align*}
+                x_{n+1}^2 &= \left[\frac{1}{2}\left(x_n + \frac{2}{x_n}\right)\right]^2\\ 
+                    &= \frac{1}{4}\left(x_n + \frac{2}{x_n}\right)^2\\ 
+                    &= \frac{1}{4}(x_n^2 + 4 + \frac{4}{x_n^2})
+            \end{align*}
+
+            Suppose $x_i^2 \geq 2$ for all $1 \leq i \leq n$. Then 
+            \[x_{n+1}^2 \geq \frac{1}{4}((2)^2 + 4 + \frac{4}{(2)^2}) = \frac{9}{4} \geq 2\]
+            
+            Thus, by induction, $x_n^2 \geq 2$ for all $n \in \mathbb{N}$. 
+            
+            \vspace*{10pt}
+            \hrule 
+            \vspace*{10pt}
+
+            Now consider 
+            \begin{align*}
+                x_n - x_{n+1} &= x_n - \frac{1}{2}\left(x_n + \frac{2}{x_n}\right)\\
+                    &= x_n - \frac{1}{2}x_n - \frac{1}{x_n}\\
+                    &= \frac{x_n}{2} - \frac{1}{x_n} = \frac{x_n^2 - 2}{2x_n} \geq \frac{2 - 2}{2x_n} = 0
+            \end{align*}
+
+            Thus, $x_n - x_{n+1} \geq 0$ for all $n \in \mathbb{N}$.
+
+            \vspace*{10pt}
+            \hrule 
+            \vspace*{10pt}
+
+            Since $x_n - x_{n+1} \geq 0$, the sequence $(x_n)$ is decreasing. Since $x_1 = 2$, the sequence is bounded above by $2$.
+
+            Since the sequence is bounded and monotone, it is convergent. Let $\lim x_n = L$. Then
+            \begin{align*}
+                L &= \lim \frac{1}{2}\left(x_n + \frac{2}{x_n}\right)\\ 
+                &= \frac{1}{2}\lim x_n + \lim \frac{1}{x_n}
+            \end{align*}
+            
+            Define the sequence $y_n = 1$. Trivially, $(y_n) \to 1$. Then by the Algebraic Limit Theorem,
+            \[\lim \frac{1}{x_n} = \lim \frac{y_n}{x_n} = \frac{1}{L}\]
+
+            Then, substituting above 
+            \[L = \frac{L}{2} + \frac{1}{L} = \frac{L^2 + 2}{2L} \implies 2L^2 = L^2 + 2 \implies L^2 = 2\]
+
+            Finally note that while $(x_n)$ is decreasing, its terms are strictly positive and $x_1 = 2 > 0$ so $L = \lim x_n = \sqrt{2}$. $\qed$
+        \color{black}
+
+	\item Modify the sequence $(x_n)$ so that it converges to $\sqrt{c}$.
+	
+        \color{blue}
+            Let $(x_n) \to L$ given by sequence given by
+            \[x_{n+1} = \frac{1}{2}\left(x_n + \frac{c}{x_n}\right)\]
+
+            Then, as above, 
+            \begin{align*}
+                \lim x_{n+1} &= \lim \frac{L}{2} + \lim \frac{c}{2x_n}\\ 
+                L &= \frac{L}{2} + \frac{c}{2L} = \frac{L^2 + c}{2L}\\ 
+                2L^2 &= L^2 + c\\
+                L^2 &= c \implies \lim x_n = \sqrt{c} \qed
+            \end{align*}
+        \color{black}
+\end{enumerate}
+
+\pagebreak
+\section{Problem 2 (Limit Superior)}
+Let $(a_n)$ be a bounded sequence.
+\begin{enumerate}
+	\item Prove that the sequence defined by $y_n=\sup\{a_k:k\geq n \}$ converges. (You are allowed to use the fact that for two nonempty sets $A,B$ bounded above with $A\subset B$, we have $\sup A\leq \sup B$.)
+    
+        \color{blue}
+            Let $\abs{a_n} \leq M$. Then $A = \{a_k: k \geq n\}$ is a nonempty set bounded above by $M$. Therefore, $\sup A$ exists. Now denote $B = \{a_k: k \geq 1\}$. Clearly, $\sup B \leq M$. But since $A \subset B$, we have $\sup A \leq \sup B \leq M$. Thus, $y_n = \sup A$ is a bounded sequence.
+
+            Now notice 
+            \[\{a_k : k \geq n+1\} \subset \{a_k: k \geq n\}\]
+            so 
+            \[y_n = \sup\{a_k: k \geq n\} \geq \sup\{a_k: k \geq n+1\} = y_{n+1}\]
+            Therefore, $(y_n)$ is decreasing sequence.
+
+            Since it is monotonic and bounded, it is convergent. $\qed$ 
+        \color{black}
+
+	\item The \textit{limit superior} of $(a_n)$, or $\limsup a_n$. is defined by
+	\begin{equation*}
+		\limsup a_n=\lim y_n,
+	\end{equation*}
+	where $y_n$ is the sequence from part 1). Provide a reasonable definition for $\liminf a_n$ and briefly explain why it always exists for any bounded sequence.
+
+        \color{blue}
+            Denote
+            \[y_n = \inf a_n = \inf\{a_k: k \geq n\}\]
+            and consider $\lim y_n = \liminf \{a_k: k \geq n\}$.
+
+            As $\abs{a_n} \leq M$, $\{a_k: k \geq n\}$ is a nonempty set bounded below by $-M$. Therefore, $\inf\{a_k: k \geq n\}$ exists. Further, 
+            \[\{a_k: k \geq n\} \subset \{a_k: k \geq 1\} \implies \inf \{a_k: k \geq n\} \geq \inf\{a_k: k \geq 1\}\]
+            so $\inf\{a_k : k \geq n\} \geq \inf a_n \geq -M \implies y_n \geq -M$.
+
+            Then, since $y_n$ is non-empty, $\inf\{a_k: k\geq n\} \leq \sup \{a_k: k \geq n\} \leq M$, so $\abs{y_n} \leq M$ and $y_n$ is bounded.
+
+            Finally, 
+            \[\{a_k: k \geq n+1\} \subset \{a_k: k \geq n\} \implies \inf\{a_k: k \geq n + 1\} \geq \inf\{a_k: k \geq n\} \implies y_n \leq y_{n+1} \implies y_n \text{ increasing}\]
+
+            Since the sequence is bounded and monotonic, it is convergent and so $\lim y_n = \liminf a_n$ exists. $\qed$
+        \color{black}
+
+	\item Prove that $\liminf a_n\leq \limsup a_n$ for every bounded sequence, and give an example of a sequence for which the inequality is strict.
+	
+        \color{blue}
+            Let $A_n = \{a_k: k \geq n\}$. By definition of bounds, 
+            \[\inf A_n \leq A_n \leq \sup A_n \implies \inf a_n \leq \sup a_n\]
+
+            From parts 1) and 2), we have that $\liminf a_n$ and $\limsup a_n$ exist since $(a_n)$ is bounded. Thus, we can take limits of the inequality to get
+            \[\liminf a_n \leq \limsup a_n \qed\]
+        \color{black}
+
+
+	\item Show that $\liminf a_n=\limsup a_n$ if and only if $\lim a_n$ exists. In this case, all three share the same value. 
+	
+        \color{blue}
+            Suppose $\lim a_n = a$ so $\exists N \in \N$ such that $\abs{a_n - a} < \ep$ for all $n \geq N$. Then, for all $n \geq N$, 
+            \[\abs{a_n - a} = \abs{a_n - \limsup a_n + \limsup a_n - a} \leq \abs{a_n - \limsup a_n} + \abs{\limsup a_n - a} < \ep\]
+            Since $\abs{a_n - \limsup a_n} > 0$, we have that $\abs{\limsup a_n - a} < \ep$ so $\limsup a_n = a$.
+            
+            Similarly, 
+            \[\abs{a_n - a} = \abs{a_n - \liminf a_n + \liminf a_n - a} \leq \abs{a_n - \liminf a_n} + \abs{\liminf a_n - a} < \ep\]
+            and $\abs{a_n - \liminf a_n} > 0 \implies \abs{\liminf a_n - a} < \ep$ so $\liminf a_n = a$.
+
+            Therefore, $\liminf a_n = \limsup a_n = a$.
+
+            \vspace*{10pt}
+            \hrule 
+            \vspace*{10pt}
+            Now, suppose $\liminf a_n = \limsup a_n = a$. Then, for $\ep >0$, $\exists N \in \N$ such that for all $n > N$, 
+            \[\abs{\,\inf\{a_k: k \geq n\} - a} < \ep, \qquad \abs{\,\sup\{a_k: k \geq n\} - a} < \ep\]
+
+            We want to show that $\abs{a_n - a} < \ep$ for all $n > N$. Let $M > N$, then for all $m > M$, 
+            \[\{a_k: k \geq n\} = a_m \implies \inf\{a_k: k\geq n\} = a_m = \sup \inf\{a_k: k\geq n\}\]
+            so $\lim a_m = a$. $\qed$
+        \color{black}
+\end{enumerate}
+
+
+\pagebreak
+
+\section{Problem 3 }
+Assume $(a_n)$ is a bounded sequence with the property that every convergent subsequence of $(a_n)$ converges to the same limit $a\in\mathbb{R}$. Show that $(a_n)$ must converge to $a$.
+
+    \color{blue}
+        Let $(a_{n_k}) \to a$ and $(a_{n_j}) \to a$ be two subsequences of $(a_n)$. Let $\ep > 0$. We want to show that $\exists N \in \N$ such that $\abs{a_n - a} < \ep$ for all $n \geq N$.
+
+        Since $(a_{n_k})$ converges, we can say that $\exists K \in \N$ such that $\abs{a_{n_k} - a} < \frac{\ep}{2}$ for all $k \geq K$. Similarly, $\exists J \in \N$ such that $\abs{a_{n_j} - a} < \frac{\ep}{2}$ for all $j \geq J$. Let $N = \max{K, J}$. Pick $m \in \{n_k\}$ and $n \in \{n_j\}$ such that $m > n \geq N$.
+        \[\abs{a_m - a_n} = \abs{a_m - a - a_n + a} \leq \abs{a_m - a} + \abs{a_n - a} \leq \frac{\ep}{2} + \frac{\ep}{2} < \ep\]
+        Therefore, $(a_n)$ is Cauchy and so converges. 
+        
+        Since it is convergent and all subsequences converge to $a$, $(a_n) \to a$. $\qed$
+    \color{black}
+
+\pagebreak
+
+\section{Problem 4}
+Let $(a_n)$ be a bounded sequence, and define the set
+\begin{equation*}
+	S=\{x\in\mathbb{R}: x<a_n \text{ for infinitely many terms }a_n \}.
+\end{equation*}
+Show there exists a subsequence $(a_{n_k})$ converging to $s=\sup S$. This is a direct proof of the Bolzano-Weierstrass Theorem using the Axiom of Completeness.
+
+    \color{blue}
+        By the axiom of completeness, $s= \sup S$ exists and is the least upper bound for $S$. That is, for all $x < a_n$, $x \leq s < a_n$. 
+        
+        Let $\ep > 0$. Then $s + \ep \notin S$ so $s + \ep \geq a_n$ for infinitely many terms $a_n$. Therefore, we can create a subsequence $(a_{n_k})$ from the set $\{a_n \; | \; s < a_n < s + \ep\}$ with elements chosen such that $n_1 < n_2 < \cdots$.
+
+        Now we want to show that $(a_{n_k}) \to s$. By the choice of $(a_{n_k})$, we have that for all $n_k \geq 1$,
+        \[\abs{a_{n_k} - s} < \abs{(s + \ep) - s} = \abs{\ep} = \ep\]
+
+        Therefore, $(a_{n_k}) \to s$. $\qed$
+    \color{black}
+
+\end{document}
+
+\end{document}

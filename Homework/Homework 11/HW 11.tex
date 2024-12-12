@@ -1,0 +1,317 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[shortlabels]{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+\geometry{
+    left=0.25in, 
+    right=0.25in,
+    top=0.25in,
+    bottom=0.25in
+}
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\ep}{\varepsilon}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\tcbset{enhanced}
+\newenvironment*{tbox}[2][gray]{
+    \begin{tcolorbox}[
+        parbox=false,
+        colback=#1!5!white,
+        colframe=#1!75!black,
+        breakable,
+        title={#2}
+    ]}
+    {\end{tcolorbox}}
+
+
+\title{Math 1010 - Homework 11}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace*{-1in}
+
+
+\section*{Problem 1 }
+Supply the details for the proof of the Weirerstrass M-Test. (Corollary 6.4.5)
+
+    \color{blue}
+        \textbf{Theorem:} For each $n \in \N$, let $f_n$ be a function defined on $A \subseteq \R$ and $M_n > 0$ a real number satisfying $\abs{f_n(x)} \leq M_n$ for all $x \in A$. If $\sum_{n=1}^{\infty} M_n$ converges, then $\sum_{n=1}^{\infty} f_n(x)$ converges uniformly on $A$.
+
+        \textbf{Proof:} Suppose $\sum_{n=1}^{\infty} M_n$ converges. 
+        
+        By the Cauchy Criterion for Uniform Convergence of Series, $\sum_n^{\infty} f_n(x)$ converges uniformly if and only if for each $\ep > 0$, there exists $N \in \N$ such that for $n > m \geq N$ and $x \in A$, we have
+        \[\abs{f_{m+1}(x) + f_{m+2}(x) + \cdots + f_n(x)} < \ep\] 
+
+        However, by boundedness of $f_n(x)$, 
+        \[\abs{f_{m+1}(x) + f_{m+2}(x) + \cdots + f_n(x)} \leq M_{m+1} + M_{m+2} + \cdots + M_n\]
+
+        Since $\sum_{n=1}^{\infty} M_n$ converges, by the Cauchy Criterion for Series, 
+        \[\abs{M_{m+1} + M_{a+2} + \dots + M_n} < \ep\]
+
+        Since $M_{m+1} + M_{m+2} + \cdots + M_n \leq \abs{M_{m+1} + M_{m+2} + \cdots + M_n}$, we have
+        \[\abs{f_{m+1}(x) + f_{m+2}(x) + \cdots + f_n(x)} < \ep\]
+        so $\sum_{n=1}^{\infty} f_n(x)$ converges uniformly on $A$. $\qed$
+    \color{black}
+
+\pagebreak
+
+\section*{Problem 2 }
+Let
+\begin{equation*}
+	f(x)=\sum_{k=1}^{\infty}\frac{\sin(kx)}{k^3}.
+\end{equation*}
+\begin{enumerate}
+	\item Show that $f(x)$ is differentiable and that the derivative $f'(x)$ is continuous.
+	
+        \color{blue}
+            Let $g_k(x) = \frac{\sin(kx)}{k^3}$. We know that $\sin(kx)$ and $\frac{1}{k^3}$ are differentiable for all $k \in \N$ and $x \in \R$. Since $g_k$ is a composition of differentiable functions, $g_k$ is differentiable for all $k \in \N$ and $x \in \R$.
+
+            Consider 
+            \[\sum_{k=1}^{\infty} g_k'(x) = \sum_{k=1}^{\infty} \frac{k\cos(kx)}{k^3} = \frac{\cos(kx)}{k^2}\]
+            We know $\abs{\cos(kx)} \leq 1$ so $\abs{g_k'(x)} \leq \frac{1}{k^2}$ for all $k \in \N$ and $x \in \R$. Since $\sum_{k=1}^{\infty} \frac{1}{k^2}$ converges, by the Weierstrass M-Test, $\sum_{k=1}^{\infty} g_k'(x)$ converges uniformly on $\R$.
+            
+            Clearly, for $x= 0$, 
+            \[f(0) = \sum_{k=1}^{\infty} \frac{\sin(0)}{k^3} = 0\]
+            so there exists $x_0 \in \R$ for which $\sum_{k=1}^{\infty} g(x_0)$ converges. 
+
+            All together, by the Term-by-Term differentiability theorem, $f(x)$ converges uniformly and 
+            \[f'(x) = \sum_{k=1}^{\infty} g_k'(x) = \sum_{k=1}^{\infty} \frac{\cos(kx)}{k^2}\] 
+            so $f$ is differentiable. 
+
+            Clearly, $\left(\frac{\cos(kx)}{k^2}\right)$ is a sequence of functions which are continuous for all $x \in \R$ and $k \neq 0$. 
+
+            Above, we showed that $\sum_{k=1}^{\infty} \frac{\cos(kx)}{k^2}$ converges uniformly on $\R$. By the term-by-term continuity theorem, $f'(x)$ is continuous on $\R$. $\qed$
+        
+        \color{black}
+
+	\item Can we determine if $f$ is twice-differentiable?
+	
+        \color{blue}
+            We can repeat the same argument: 
+            \[g_k(x) = \frac{\sin(kx)}{k^3} \implies g_k'(x) = \frac{\cos(kx)}{k^2} \implies g_k''(x) = \frac{-\sin(kx)}{k}\]
+
+            However, $\abs{\sin(kx)} \leq 1$ so $\abs{g_k''(x)} \leq \frac{1}{k}$ for all $k \in \N$ and $x \in \R$. Since $\sum_{k=1}^{\infty} \frac{1}{k}$ diverges, we are not able to use the Weierstrass M-test to show that $\sum_{k=1}^{\infty} g_k''(x)$ converges uniformly on $\R$.
+
+            Therefore, we cannot determine that $f$ is twice-differentiable. $\qed$
+        \color{black}
+
+\end{enumerate}
+
+\pagebreak
+
+
+\section*{Problem 3 }
+\begin{enumerate}
+	\item Recall the Ratio Test from PSET 5. Use this to show that if $s$ satisfies $0<s<1$, show $ns^{n-1}$ is bounded for all $n\geq1$.
+    
+        \color{blue}
+            The Ratio Test states that, given a series $\sum_{n=1}^{\infty} a_n$ with $a_n \neq 0$, if $(a_n)$ satisfies 
+            \[\lim \abs{\frac{a_{n+1}}{a_n}} = r < 1\]
+            then the series converges absolutely. 
+
+            Suppose $0 < s < 1$. Consider the sequence $a_n = ns^{n-1}$. 
+
+            Immediately, we note $a_n> 0$ for all $n \in \N$. Further, 
+            \[\lim \abs{\frac{a_{n+1}}{a_n}} = \lim \abs{\frac{(n+1)s^n}{ns^{n-1}}} = \lim \abs{\frac{n+1}{n} \cdot s} = \lim \abs{s + \frac{s}{n}} = \abs{s} < 1\] 
+            so $\sum_{n=1}^{\infty} ns^{n-1}$ converges absolutely. This tells us $(a_n) \to 0$. Since $(a_n)$ is convergent, it is Cauchy and hence bounded. $\qed$
+
+        \color{black}
+
+	\item Given an arbitrary $x\in(-R,R)$, pick $t$ to satisfy $|x|<t<R$. Use the observation 
+	\begin{equation*}
+		|na_nx^{n-1}|=\frac{1}{t}\bigg(n\bigg|\frac{x^{n-1}}{t^{n-1}} \bigg|\bigg)|a_nt^n|
+	\end{equation*}
+	 to construct a proof for Theorem 6.5.6 from the book.
+
+        \color{blue}
+            \textbf{Theorem 6.5.6:} If $\sum_{n=0}^{\infty} a_nx^n$ converges for $x \in (-R, R)$, then the series differentiated series $\sum_{n=1}^{\infty} na_nx^{n-1}$ converges at each $x \in (-R, R)$ as well. Consequently, the convergence is uniform on compact sets contained in $(-R, R)$.
+            
+            Let $x \in (-R, R)$ and pick $t$ such that $|x| < t < R$. Suppose $\sum_{n=0}^{\infty} a_nx^n$ converges.
+
+            Notice 
+            \begin{align*}
+                \abs{na_n x^{n-1}} &= \frac{n}{t} \abs{\frac{x^{n-1}}{t^{n-1}}} \, \abs{a_n t^n}\\ 
+                    &= \frac{1}{t} \left(n\abs{\frac{x}{t}}^{n-1}\right) \, \abs{a_n t^n}
+            \end{align*}
+
+            But $|x| < t$ so $\abs{\frac{x}{t}} < 1$. By Part 1, $n\abs{\frac{x}{t}}^{n-1}$ is bounded for all $n \in \N$ so we can write 
+            \[\frac{1}{t} \left(n\abs{\frac{x}{t}}^{n-1}\right) \, \abs{a_n t^n} \leq M \frac{\abs{a_n t^n}}{t}\]
+
+            Therefore, 
+            \[\sum_{n=1}^{\infty} \abs{na_n x^{n-1}} = \sum_{n=1}^{\infty} \frac{M}{t} \abs{a_n t^n} = \frac{M}{t}\sum_{n=1}^{\infty} \abs{a_nt^n}\]
+            but $t \in (-R, R)$ so $\sum_{n=1}^{\infty} \abs{a_n t^n}$ converges (converges absolutely because it is a power series which converges on $(-R, R)$). Therefore, $\sum_{n=1}^{\infty} \abs{na_n x^{n-1}}$ converges so $\sum_{n=1}^{\infty} na_n x^{n-1}$ converges absolutely for all $x \in (-R, R)$. 
+
+            Since the series converges absolutely for all $x_0 \in (-R, R)$, it converges uniformly on all compact sets $[x_0, x_0] \subset (-R, R)$. $\qed$        
+        \color{black}
+
+
+\end{enumerate}
+
+\pagebreak
+\section*{Problem 4}
+\begin{enumerate}
+	\item Show that the power series representations are unique. If we have 
+	\begin{equation*}
+		\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}b_nx^n
+	\end{equation*}
+	for all $x$ in the interval $(-R,R)$, prove that $a_n=b_n$ for all $n=0,1,2,\cdots$
+
+        \color{blue}
+            \[\sum_{n=0}^{\infty} a_n x^n = \sum_{n = 0}^{\infty} b_n x^n\]
+            Expanding terms, 
+            \[a_0 + a_1 x^1 + a_2 x^2 + \dots = b_0 + b_1 x^1 + b_2 x^2 + \dots\]
+
+            Clearly, at $x = 0 \in (-R, R)$, $a_0 = b_0$.           
+
+            Since the power series converge, we have uniform convergence on $(-R, R)$ so we may take term-by-term derivatives: 
+            \[\sum_{n=1}^{\infty} na_n x^{n-1} = \sum_{n=1}^{\infty} na_nx^{n-1}\]
+            by identical argument as above, with $x = 0$, we have 
+            \[a_1 x^0 + 2a_2 x^1 + 3a_3 x^2 + \dots = b_1 x^0 + 2b_2 x^1 + 3b_3 x^2 + \dots \implies a_1 = b_1\]
+
+            Now suppose $a_n = b_n$ for all $n < k$. Then
+            \[\sum_{n=0}^{\infty} a_n x^n = \sum_{n = 0}^{\infty} b_n x^n \implies \sum_{n=k}^{\infty} a_n x^n = \sum_{n=k}^{\infty} b_n x^n\]
+    
+            Taking the $k$-th termwise derivative, 
+            \[\sum_{n=k}^{\infty} n(n-1)\cdots (n-k) a_{n}x^{n-k} = \sum_{n=k}^{\infty} n(n-1)\cdots (n-k) b_{n}x^{n-k}\]
+            so at $x =0$, 
+            \[n(n-1)\cdots(n-k)a_k = n(n-1)\cdots(n-k)b_k \implies a_k = b_k\]
+
+            Therefore, by induction, $a_n = b_n$ for all $n \in \N$. $\qed$
+        \color{black}
+
+	\item Let $f(x)=\sum_{n=0}^\infty a_nx^n$ converge on $(-R,R)$, and assume $f'(x)=f(x)$ for all $x\in(-R,R)$ and $f(0)=1$. Deduce the values of $a_n$.
+	
+        \color{blue}
+            Since $f'(x) = f(x)$ for all $x \in (-R, R)$, we have 
+            \[\sum_{n=1}^{\infty} na_n x^{n-1}= \sum_{n=0}^{\infty} a_n x^n\]
+
+            From $f(0) = 1$, 
+            \[f(0) = \sum_{n=0}^{\infty} a_n 0^n = a_0 = 1 \]
+            
+            But this also means $f'(0) = 1$ so 
+            \[(1)a_1 = 1 \implies a_1 = 1\]
+
+            We may take further derivatives:
+            \[f'(x) = f(x) \implies f''(x) = f'(x) \implies f''(x) = f(x) \implies f''(0) = 1\]
+            so 
+            \[f''(x) = \sum_{n=2}^{\infty} (n)(n-1) a_n x^{n-2}, \quad f''(0) = 2(1)a_2 = 1 \implies a_2 = \frac{1}{2}\]
+
+            Now we will induct on the derivatives of $f(x)$. Suppose $f^{(n)} = f$ for all $n < k$. Then
+            \[\frac{d}{dx} f^{(k)} = \frac{d}{dx} f = f \implies f^{(k + 1)}(x) = f(x) \implies f^{(k+1)}(0) = f(0) = 1\]
+
+            Therefore, 
+            \[f^{(k+1)}(x) = \sum_{n = k +1}^{\infty} (n)(n - 1) \cdots (n - k) a_n x^{n- k - 1}\]
+            and 
+            \[f^{(k+1)}(0) = (k + 1)(k)(k -1)\cdots(2)(1) a_{k+1} + 0 + 0 + \dots = 1 \implies (k+1)! a_{k+1} = 1 \implies a_{k+1} = \frac{1}{(k+1)!}\]
+            
+            Therefore, $a_n = \frac{1}{n!}$ for all $n \in \N$. $\qed$
+        \color{black}
+
+\end{enumerate}
+\pagebreak
+
+\section*{Problem 5 }
+\begin{enumerate}
+	\item Generate the Taylor coefficients for the exponential function $f(x)=e^x$, and then prove that the corresponding Taylor series converges uniformly to $e^x$ on any interval of the form $[-R,R]$.
+	
+        \color{blue}
+            \[a_1 = \frac{\frac{d}{dx} e^x \bigg\vert_{x = 0}}{1!} =1, a_2 = \frac{1}{2}, a_3 = \frac{1}{6}, a_4 = \frac{1}{24}, \cdots, a_n = \frac{1}{n!}\]
+    
+            Define $f(x) = e^x$ and $S_n(x) = \sum_{k=0}^{n} \frac{x^k}{k!}$.
+
+            Let $\ep > 0$. To show that the Taylor series converges uniformly on $[-R,R]$, we want to show that for all $x \in [-R, R]$, 
+            \[\abs{E_n(x)} = \abs{f(x) - S_n(x)} < \ep \]
+
+            By Lagrange's Remainder Theorem, if $x \neq 0$ in $(-R, R)$, exists $c$ such that $\abs{c} < \abs{x}$ such that 
+            \[\abs{E_N(x)} = \frac{f^{(N+1)}(c)}{(N+1)!} x^{n+1}\]
+
+            Since $f(x) = e^x$, $f^{(N+1)}(c) = e^c$ for all $N \in \N$. Further, since $c \in [-R, R]$ and $e^x$ is monotone increasing, 
+            \[\abs{f^{(N+1)}(c)} = \abs{e^c} \leq \abs{e^R}\]
+            Similarly, $\abs{x^{n+1}} \leq \abs{R^{n+1}}$ for all $x \in [-R, R]$.
+            
+            Therefore,
+            \[\abs{E_N(x)} \leq \abs{\frac{e^R}{(N+1)!}R^{N+1}} \to 0\]
+            so the Taylor series converges uniformly on $[-R, R]$. $\qed$
+        \color{black}
+
+	\item Verify the formula $f'(x)=e^x$.
+	
+        \color{blue}
+            Assume $f(x) = e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}$. By a theorem in class, 
+            \[f'(x) = \sum_{n=1}^{\infty} na_nx^{n-1}\]
+
+            But $a_n = \frac{1}{n!}$ so
+            \[f'(x) = \sum_{n=1}^{\infty} \frac{n}{n!}x^{n-1} = \sum_{n=1}^{\infty} \frac{1}{(n-1)!}x^{n-1} = \sum_{n=0}^{\infty} \frac{1}{n!}x^n = e^x \qed \]
+        \color{black}
+
+	\item Use a substitution to generate the series for $e^{-x}$, and then informally calculate $e^x\cdot e^{-x}$ by multiplying together the two series and collecting common powers of $x$.
+	
+        \color{blue}
+            Let $u = -x$. Then from above,
+            \[e^{-x} = e^u = \sum_{n=0}^{\infty} \frac{u^n}{n!} = \sum_{n=0}^{\infty} \frac{(-x)^n}{n!} = \sum_{n=0}^{\infty} \frac{(-1)^nx^n}{n!} = \sum_{n=0}^{\infty} \frac{(-1)^n}{n!}x^n\]
+            So 
+            \begin{align*}
+                e^x \cdot e^{-x} &= \left(\sum_{n=0}^{\infty} \frac{x^n}{n!}\right)\left(\sum_{n=0}^{\infty} \frac{(-1)^n}{n!}x^n\right)\\
+                    &= \left(1 + x + \frac{x^2}{2} + \frac{x^3}{3!} + \dots\right)\left(1 - x + \frac{x^2}{2} - \frac{x^3}{3!} + \dots\right)\\ 
+                    &= \left(1 - x + \frac{x^2}{2} - \frac{x^3}{3!} + \dots\right) + \left(x - x^2 + \frac{x^3}{2} - \frac{x^4}{3!} + \dots\right) + \left(\frac{x^2}{2} - \frac{x^3}{2} + \frac{x^4}{4} - \frac{x^5}{2\cdot 3!}\right) + \dots\\ 
+                    &= 1 + \left(-x + x\right) + \left(\frac{x^2}{2} - x^2 + \frac{x^2}{2}\right) + \left(-\frac{x^3}{3!} + \frac{x^3}{2} - \frac{x^3}{2} + \frac{x^3}{3!}\right) + \dots\\ 
+                    &= 1 + 0 + 0 + 0 + \dots = 1
+            \end{align*}
+            which matches what we would expect!
+        \color{black}
+
+\end{enumerate}
+
+\end{document}
